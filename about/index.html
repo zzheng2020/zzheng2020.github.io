@@ -17,10 +17,23 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Archives - Heng2020</title>
+  <title>About - Heng2020</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -161,27 +174,65 @@
         <div class="py-5" id="board"
           >
           
+            <div class="about-avatar">
+              <img src="/img/avatar.png" srcset="/img/loading.gif"
+                   class="img-fluid" alt="avatar">
+            </div>
+          
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">1 posts in total.</p>
-  <hr>
-  
-    
+<div class="text-center">
+  <div class="about-info">
+    <div class="about-name">myname</div>
+    <div class="about-intro">一句简短的介绍</div>
+    <div class="about-icons">
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/09/07/hello-world/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Hello World</span>
-      <time style="float: right;">09-07</time>
-    </a>
-  
+        
+        
+        
+        <a target="_blank" rel="noopener" href="https://github.com" class="
+           hint--bottom hint--rounded"
+           aria-label=GitHub
+        >
+          <i class="iconfont icon-github-fill" aria-hidden="true"></i>
+          
+        </a>
+      
+        
+        
+        
+        <a target="_blank" rel="noopener" href="https://douban.com" class="
+           hint--bottom hint--rounded"
+           aria-label=豆瓣
+        >
+          <i class="iconfont icon-douban-fill" aria-hidden="true"></i>
+          
+        </a>
+      
+        
+        
+        
+        <a href="javascript:;" class="qr-trigger
+           "
+           
+        >
+          <i class="iconfont icon-wechat-fill" aria-hidden="true"></i>
+          
+            <img class="qr-img" src="/img/favicon.png" srcset="/img/loading.gif" alt="qrcode" />
+          
+        </a>
+      
+    </div>
+  </div>
 </div>
+<div class="mt-5 markdown-body">
+  <pre><code class="hljs julia">这里写关于页的正文，支持 Markdown, <span class="hljs-built_in">HTML</span></code></pre>
 
 
+</div>
 
               </div>
             </div>
@@ -276,7 +327,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Archive&nbsp;",
+        "About&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
@@ -290,6 +341,21 @@
   </script>
 
 
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
 
 
 
