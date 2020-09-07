@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Hash - Heng2020</title>
+  <title>text - Heng2020</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-09-07 19:36" pubdate>
+      <time datetime="2020-09-07 20:29" pubdate>
         2020年9月7日 晚上
       </time>
     </span>
@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      442 字
+      13 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      1
        分钟
     </span>
   
@@ -217,87 +217,16 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">Hash</h1>
+            <h1 style="display: none">text</h1>
             
             <div class="markdown-body" id="post-body">
-              <center><font size=6>字符串哈希（前缀哈希）</font></center>
+              <p>$ \cos 2\theta = \cos^2 \theta - \sin^2 \theta = 2 \cos^2 \theta $</p>
 
-<center><font size=3>written by ZhangZiheng</font></center>
-
-<p><strong>题目描述：</strong><br>给定一个长度为n的字符串，再给定​m​个询问，每个询问包含四个整数$ l_1,r_1,l_2,r_2 $，请你判断$[l_1,r_1]$和$[l_2,r_2]$这两个区间所包含的字符串子串是否完全相同。<br>字符串中只包含大小写英文字母和数字。</p>
-<p><strong>输入格式：</strong><br>第一行包含整数n和m，表示字符串长度和询问次数。<br>第二行包含一个长度为n的字符串，字符串中只包含大小写英文字母和数字。<br>接下来m行，每行包含四个整数$l_1,r_1,l_2,r_2$，表示一次询问所涉及的两个区间。<br>注意，字符串的位置从1开始编号。</p>
-<p><strong>输入格式：</strong><br>对于每个询问输出一个结果，如果两个字符串子串完全相同则输出“Yes”，否则输出“No”。<br>每个结果占一行。</p>
-<p><strong>数据范围：</strong><br>$1\leq n \leq m \leq 10^5$</p>
-<p><strong>样例：</strong></p>
-<pre><code class="hljs c++"><span class="hljs-comment">// input</span>
-<span class="hljs-number">8</span> <span class="hljs-number">3</span>
-aabbaabb
-<span class="hljs-number">1</span> <span class="hljs-number">3</span> <span class="hljs-number">5</span> <span class="hljs-number">7</span>
-<span class="hljs-number">1</span> <span class="hljs-number">3</span> <span class="hljs-number">6</span> <span class="hljs-number">8</span>
-<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">1</span> <span class="hljs-number">2</span>
-
-<span class="hljs-comment">// output</span>
-Yes
-No
-Yes</code></pre>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-<span class="hljs-comment">/*</span>
-<span class="hljs-comment">h[]: hash结果</span>
-<span class="hljs-comment">p[]: p[i]表示p的i次幂</span>
-<span class="hljs-comment">str[]: 需要哈希的字符串</span>
-<span class="hljs-comment">*/</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">1e5</span> + <span class="hljs-number">10</span>, P = <span class="hljs-number">13331</span>;
-
-<span class="hljs-keyword">int</span> n, m;
-<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> h[N], p[N];
-<span class="hljs-keyword">char</span> str[N];
-
-<span class="hljs-comment">// 获取[l,r]的哈希值</span>
-<span class="hljs-function"><span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r)</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-keyword">return</span> h[r] - h[l - <span class="hljs-number">1</span>] * p[r - l + <span class="hljs-number">1</span>];
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-built_in">cin</span> &gt;&gt; n &gt;&gt; m &gt;&gt; (str + <span class="hljs-number">1</span>);
-    p[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)
-    &#123;
-        p[i] = p[i - <span class="hljs-number">1</span>] * P;
-        h[i] = h[i - <span class="hljs-number">1</span>] * P + str[i];
-    &#125;
-
-    <span class="hljs-keyword">while</span>(m--)
-    &#123;
-        <span class="hljs-keyword">int</span> l1, r1, l2, r2;
-        <span class="hljs-built_in">cin</span> &gt;&gt; l1 &gt;&gt; r1 &gt;&gt; l2 &gt;&gt; r2;
-        <span class="hljs-built_in">cout</span> &lt;&lt; (<span class="hljs-built_in">get</span>(l1, r1) == <span class="hljs-built_in">get</span>(l2, r2) ? <span class="hljs-string">&quot;Yes&quot;</span> : <span class="hljs-string">&quot;No&quot;</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Algorithms/">Algorithms</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/string/">string</a>
-                    
-                  </div>
                 
               </div>
               
@@ -308,18 +237,12 @@ Yes</code></pre>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/07/text/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">text</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/09/07/hello-world/">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/2020/09/07/Hash/">
+                        <span class="hidden-mobile">Hash</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -462,7 +385,7 @@ Yes</code></pre>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Hash&nbsp;",
+        "text&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
