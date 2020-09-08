@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      941 字
+      987 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16
+      17
        分钟
     </span>
   
@@ -245,13 +245,13 @@ Yes</code></pre>
 <li>将字符串看成一个p进制数，即</li>
 </ul>
 <script type="math/tex; mode=display">
-hash[string] = \sum string[i]*p^{i}(mod\ Q) \tag{1}</script><p>​    例如abcd，可以将其看成$(1234)_{p}$，这样一来，字符串abcd可以表示成：</p>
+hash[string] = \sum string[i]*p^{i}(mod\ Q) \tag{1}</script><p>例如abcd，可以将其看成$(1234)_{p}$，这样一来，字符串abcd可以表示成：</p>
 <script type="math/tex; mode=display">
 h[abcd]=1*p^{3}+2*p^{2}+3*p^{1}+4*p^{0}  \tag{2}</script><ul>
 <li>因为(1)式的值过大，所以可以将其模Q，映射为$0\sim Q-1$之间的值，即：</li>
 </ul>
 <script type="math/tex; mode=display">
-h[abcd]=(1*p^{3}+2*p^{2}+3*p^{1}+4*p^{0})\ mod\ Q  \tag{3}</script><p>​    在(3)式中，根据经验值，$p=131$或$p=13331$时，哈希冲突的可能性最低；且$Q=2^{64}$。<br>​    此时$mod\ Q$的结果与<code>unsigned long long</code>自然溢出后结果相同。</p>
+h[abcd]=(1*p^{3}+2*p^{2}+3*p^{1}+4*p^{0})\ mod\ Q  \tag{3}</script><p>在(3)式中，根据经验值，$p=131$或$p=13331$时，哈希冲突的可能性最低；且$Q=2^{64}$。<br>此时$mod\ Q$的结果与<code>unsigned long long</code>自然溢出后结果相同。</p>
 <ul>
 <li>在需要多次询问的题目中，每次对字符串进行哈希会导致效率过低，因此可以预处理出哈希结果。</li>
 </ul>
@@ -268,6 +268,9 @@ h[abcd]=(1*p^{3}+2*p^{2}+3*p^{1}+4*p^{0})\ mod\ Q  \tag{3}</script><p>​    在
     p[i] = p[i - <span class="hljs-number">1</span>] * P;
     h[i] = h[i - <span class="hljs-number">1</span>] * P + str[i];
 &#125;</code></pre>
+<div class="note note-warning">
+            <p>避免将字符映射成0，如若不然，类似于<code>a</code>，<code>aa</code>的字符串将有相同的哈希值，无法用哈希结果判断字符串是否相同。</p>
+          </div>
 <p>有了字符串哈希结果之后，我们就可以快速比较两个字符串是否相同。</p>
 <ul>
 <li>考虑如何得到字符串$[l, r]$之间的哈希值。<br>以字符串abcdef为例，要求hash(ef)的哈希值，此时$l$指向e，$r$指向f（abcd[ef]），有：</li>
@@ -278,14 +281,13 @@ h(1\sim l-1)=a*p^{l-2}+b*p^{l-3}+c*p^{l-4}+d*p^{l-5}  \tag{4}</script><script ty
 h(1\sim r)&=a*p^{r-1}+b*p^{r-2}+c*p^{r-3}\notag\\ 
 &+d*p^{r-4}+e*p^{r-5}+f*p^{r-6}  \notag
 \end{align}
-\tag{5}</script><p>​    注意到(4)式和(5)式前4项相差$p^{r-l+1}$，则：</p>
+\tag{5}</script><p>注意到(4)式和(5)式前4项相差$p^{r-l+1}$，则：</p>
 <script type="math/tex; mode=display">
-h(l\sim r)=h(0\sim r) - h(0\sim l-1)*p^{r-l+1}  \tag{6}</script><p>​    这样一来，(6)式即为所求。</p>
+h(l\sim r)=h(1\sim r) - h(1\sim l-1)*p^{r-l+1}  \tag{6}</script><p>这样一来，(6)式即为所求。</p>
 <ul>
-<li><p>当有多组询问时，只需考虑$hash(l_1, r1)$与$hash(l_2,r_2)$的值是否相等，即可判断两个子串是否相同。</p>
-<p>具体代码实现如下：时间复杂度$O(n)$</p>
-</li>
+<li>当有多组询问时，只需考虑$hash(l_1, r_1)$与$hash(l_2,r_2)$的值是否相等，即可判断两个子串是否相同。</li>
 </ul>
+<p>具体代码实现如下：时间复杂度$O(n)$</p>
 <pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
 
@@ -325,6 +327,7 @@ h(l\sim r)=h(0\sim r) - h(0\sim l-1)*p^{r-l+1}  \tag{6}</script><p>​    这样
     &#125;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre>
+
             </div>
             <hr>
             <div>
