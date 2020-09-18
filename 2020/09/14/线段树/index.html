@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2k 字
+      3.1k 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      34
+      55
        分钟
     </span>
   
@@ -434,6 +434,159 @@ A <span class="hljs-number">99</span>
             n++;
         &#125;
     &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre>
+<h4 id="题目2：最大连续子段和"><a href="#题目2：最大连续子段和" class="headerlink" title="题目2：最大连续子段和"></a>题目2：最大连续子段和</h4><p><strong>题目描述</strong>：</p>
+<p>给定长度为$N$的数列$A$，以及$M$条指令，每条指令能是以下两种之一：</p>
+<p>1、“1 x y”，查询区间$[x,y]$中的最大连续子段和，即</p>
+<script type="math/tex; mode=display">
+\max\limits_{x\leq l\leq r\leq y}\sum^{r}_{i=l}A[i]\notag</script><p>2、“2 x y”，把$A[x]$改成$y$。</p>
+<p>对于每个查询指令，输出一个整数表示答案。</p>
+<p><strong>输入格式：</strong></p>
+<p>第一行两个整数$N,M$。</p>
+<p>第二行$N$个整数$A[i]$。</p>
+<p>接下来$M$行每行3个整数$k,x,y$，$k=1$表示查询（此时如果$x&gt;y$，请交换$x,y$），$k=2$表示修改。</p>
+<p><strong>输出格式：</strong></p>
+<p>对于每个查询指令输出一个整数表示答案。</p>
+<p>每个答案占一行。</p>
+<p><strong>数据范围：</strong></p>
+<p>$N\leq 500000,M\leq 100000$</p>
+<p><strong>输入样例：</strong></p>
+<pre><code class="hljs c++"><span class="hljs-comment">// input</span>
+<span class="hljs-number">5</span> <span class="hljs-number">3</span>
+<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">-3</span> <span class="hljs-number">4</span> <span class="hljs-number">5</span>
+<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span>
+<span class="hljs-number">2</span> <span class="hljs-number">2</span> <span class="hljs-number">-1</span>
+<span class="hljs-number">1</span> <span class="hljs-number">3</span> <span class="hljs-number">2</span>
+
+<span class="hljs-comment">// output</span>
+<span class="hljs-number">2</span>
+<span class="hljs-number">-1</span></code></pre>
+<p>用线段树维护最大连续子段和的时候，需要考虑图(2)的情况：</p>
+<center> 
+    <img style="border-radius: 0.3125em; box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" src="/img/最大连续子段和.png" srcset="/img/loading.gif"> 
+    <br> 
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">图(2) 最大连续子段和</div> 
+</center>
+
+
+
+<p>父节点的最大连续子段和，与两个儿子节点的最大后缀和、最大前缀和有关，并且这两个信息还需要区间和来进行维护。</p>
+<p>因此，在储存节点信息时，需要额外维护最大前缀和、最大后缀和以及区间和。</p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span></span>
+<span class="hljs-class">&#123;</span>
+    <span class="hljs-keyword">int</span> l, r; <span class="hljs-comment">// 区间左右端点</span>
+    <span class="hljs-keyword">int</span> ans;  <span class="hljs-comment">// 最大连续子段和</span>
+    <span class="hljs-keyword">int</span> lmax; <span class="hljs-comment">// 最大前缀和</span>
+    <span class="hljs-keyword">int</span> rmax; <span class="hljs-comment">// 最大后缀和</span>
+    <span class="hljs-keyword">int</span> sum;  <span class="hljs-comment">// 区间和</span>
+&#125;;</code></pre>
+<p><code>ans</code>存在三种情况：</p>
+<ul>
+<li><code>ans = left_son.ans</code>，即最大连续子段和等于左子区间的答案</li>
+<li><code>ans = right_son.ans</code>，即最大连续子段和等于右子区间的答案</li>
+<li><code>ans = left_son.rmax + right_son.lmax</code>，即最大连续子段横跨了左右两个区间，因此其等于左子区间的最大后缀和$+$右子区间的最大前缀和</li>
+</ul>
+<p>$\therefore$ <code>ans = max(left_son.ans, right_son.ans, left_son.rmax+right_son.lmax)</code></p>
+<p>接下来考虑<code>lmax</code>，即最大前缀和的计算，其分为两种情况：</p>
+<ul>
+<li>计算父节点的<code>lmax</code>时，如果最大前缀和的右端点没有越过中点，那么<code>lmax = left_son.lmax</code></li>
+<li>计算父节点的<code>lmax</code>时，如果最大前缀和的右端点越过了中点，那么这意味着左半边的区间和已经算进去了，因此<code>lmax = left_son.sum + right_son.lmax</code></li>
+</ul>
+<p><code>rmax</code>的计算过程同理。</p>
+<p>区间和显然可以得到，即<code>sum = left_son.sum + right_son.sum</code>。</p>
+<p>这道题目值得注意的是，在查询时，需要<code>pushup</code>这一步操作。原因在于，当查询的端点跨过中点，包含两个区间的时候，需要用两个子节点的信息来得到所需查询区间的最大连续子段和的值。</p>
+<p>代码实现如下：</p>
+<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">5e5</span> + <span class="hljs-number">10</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span></span>
+<span class="hljs-class">&#123;</span>
+    <span class="hljs-keyword">int</span> l, r;
+    <span class="hljs-keyword">int</span> ans;
+    <span class="hljs-keyword">int</span> lmax, rmax, sum;
+&#125;tr[N * <span class="hljs-number">4</span>];
+
+<span class="hljs-keyword">int</span> n, m;
+<span class="hljs-keyword">int</span> a[N];
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pushup</span><span class="hljs-params">(Node &amp;u, Node &amp;l, Node &amp;r)</span></span>
+<span class="hljs-function"></span>&#123;
+    u.sum = l.sum + r.sum;
+    u.lmax = <span class="hljs-built_in">max</span>(l.lmax, l.sum + r.lmax);
+    u.rmax = <span class="hljs-built_in">max</span>(r.rmax, r.sum + l.rmax);
+    u.ans = <span class="hljs-built_in">max</span>(<span class="hljs-built_in">max</span>(l.ans, r.ans), l.rmax + r.lmax);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pushup</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u)</span></span>
+<span class="hljs-function"></span>&#123;
+    pushup(tr[u], tr[u &lt;&lt; <span class="hljs-number">1</span>], tr[u &lt;&lt; <span class="hljs-number">1</span> | <span class="hljs-number">1</span>]);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">build</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r)</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-keyword">if</span> (l == r) tr[u] = &#123;l, r, a[r], a[r], a[r], a[r]&#125;;
+    <span class="hljs-keyword">else</span>
+    &#123;
+        tr[u] = &#123;l, r&#125;;
+        <span class="hljs-keyword">int</span> mid = (l + r) &gt;&gt; <span class="hljs-number">1</span>;
+        build(u &lt;&lt; <span class="hljs-number">1</span>, l, mid), build(u &lt;&lt; <span class="hljs-number">1</span> | <span class="hljs-number">1</span>, mid + <span class="hljs-number">1</span>, r);
+        pushup(u);
+    &#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">modify</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> v)</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-keyword">if</span> (tr[u].l == x &amp;&amp; tr[u].r == x) tr[u] = &#123;x, x, v, v, v, v&#125;;
+    <span class="hljs-keyword">else</span>
+    &#123;
+        <span class="hljs-keyword">int</span> mid = (tr[u].l + tr[u].r) &gt;&gt; <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">if</span> (x &lt;= mid) modify(u &lt;&lt; <span class="hljs-number">1</span>, x, v);
+        <span class="hljs-keyword">else</span> modify(u &lt;&lt; <span class="hljs-number">1</span> | <span class="hljs-number">1</span>, x, v);
+        pushup(u);
+    &#125;
+&#125;
+
+<span class="hljs-function">Node <span class="hljs-title">query</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r)</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-keyword">if</span> (l &lt;= tr[u].l &amp;&amp; tr[u].r &lt;= r) <span class="hljs-keyword">return</span> tr[u];
+    <span class="hljs-keyword">else</span>
+    &#123;
+        <span class="hljs-keyword">int</span> mid = (tr[u].l + tr[u].r) &gt;&gt; <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">if</span> (r &lt;= mid) <span class="hljs-keyword">return</span> query(u &lt;&lt; <span class="hljs-number">1</span>, l, r);
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (l &gt; mid) <span class="hljs-keyword">return</span> query(u &lt;&lt; <span class="hljs-number">1</span> | <span class="hljs-number">1</span>, l, r);
+        <span class="hljs-keyword">else</span>
+        &#123;
+            <span class="hljs-keyword">auto</span> left  = query(u &lt;&lt; <span class="hljs-number">1</span>, l, r);
+            <span class="hljs-keyword">auto</span> right = query(u &lt;&lt; <span class="hljs-number">1</span> | <span class="hljs-number">1</span>, l, r);
+            Node res;
+            pushup(res, left, right);
+            <span class="hljs-keyword">return</span> res;
+        &#125;
+    &#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d%d&quot;</span>, &amp;n, &amp;m);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;a[i]);
+    build(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, n);
+    
+    <span class="hljs-keyword">int</span> k, x, y;
+    <span class="hljs-keyword">while</span> (m--)
+    &#123;
+        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d%d%d&quot;</span>, &amp;k, &amp;x, &amp;y);
+        <span class="hljs-keyword">if</span> (k == <span class="hljs-number">1</span>)
+        &#123;
+            <span class="hljs-keyword">if</span> (x &gt; y) swap(x, y);
+            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, query(<span class="hljs-number">1</span>, x, y).ans);
+        &#125;
+        <span class="hljs-keyword">else</span> modify(<span class="hljs-number">1</span>, x, y);
+    &#125;
+    
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre>
 
