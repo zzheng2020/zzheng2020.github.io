@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>线段树 - Heng2020</title>
+  <title>线段树(单点更新) - Heng2020</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -217,7 +217,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">线段树</h1>
+            <h1 style="display: none">线段树(单点更新)</h1>
             
             <div class="markdown-body" id="post-body">
               <center><font size=6>线段树</font></center>
@@ -256,7 +256,7 @@
 </ul>
 <h4 id="线段树开4倍空间的原因"><a href="#线段树开4倍空间的原因" class="headerlink" title="线段树开4倍空间的原因"></a>线段树开4倍空间的原因</h4><p>设线段树倒数第二层有$n$个节点，那么，从第零层到倒数第二层一共有$2n - 1$个节点，（最坏情况下）最后一层会有$2n$个节点，所以最坏情况下线段树总共会有$2n-1+2n=4n-1$个节点，因此一般情况下会开4倍空间。</p>
 <div class="note note-info">
-            <p>假设满二叉树第$k$层有$n$个节点（显然，有$n=2^k$），那么从第0层到第$k$层共有$n+\frac{n}{2}+\frac{n}{2^2}\frac{n}{3}+\cdots+\frac{n}{2^k}\ =n\cdot(1+\frac{1}{2}+\frac{1}{2^2}+\frac{1}{3}+\cdots+\frac{1}{2^k})$</p><p>$=n\cdot(1\cdot \frac{1-(\frac{1}{2})^{k+1}}{1-\frac{1}{2}})=2n\cdot(1-(\frac{1}{2})^{k+1})$</p><p>$=2n-\frac{n}{2^{k}}\ =2n-1$个节点</p>
+            <p>假设满二叉树第$k$层有$n$个节点（显然，有$n=2^k$），那么从第0层到第$k$层共有$n+\frac{n}{2}+\frac{n}{2^2}+\frac{n}{2^3}+\cdots+\frac{n}{2^k}\ =n\cdot(1+\frac{1}{2}+\frac{1}{2^2}+\frac{1}{2^3}+\cdots+\frac{1}{2^k})$</p><p>$=n\cdot(1\cdot \frac{1-(\frac{1}{2})^{k+1}}{1-\frac{1}{2}})=2n\cdot(1-(\frac{1}{2})^{k+1})$</p><p>$=2n-\frac{n}{2^{k}}\ =2n-1$个节点</p>
           </div>
 <p>下面以查询区间最大值为例，进行线段树相关操作的说明。</p>
 <h4 id="建树操作"><a href="#建树操作" class="headerlink" title="建树操作"></a>建树操作</h4><p>采用递归的形式建树。先建好父节点，然后递归地建立左右儿子节点即可。</p>
@@ -775,7 +775,7 @@ A <span class="hljs-number">99</span>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "线段树&nbsp;",
+        "线段树(单点更新)&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
