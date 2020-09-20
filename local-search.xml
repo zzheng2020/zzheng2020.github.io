@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>线段树(带懒惰标记的更新)</title>
+    <link href="/2020/09/20/%E7%BA%BF%E6%AE%B5%E6%A0%91(%E5%B8%A6%E6%87%92%E6%83%B0%E6%A0%87%E8%AE%B0%E7%9A%84%E6%9B%B4%E6%96%B0)/"/>
+    <url>/2020/09/20/%E7%BA%BF%E6%AE%B5%E6%A0%91(%E5%B8%A6%E6%87%92%E6%83%B0%E6%A0%87%E8%AE%B0%E7%9A%84%E6%9B%B4%E6%96%B0)/</url>
+    
+    <content type="html"><![CDATA[<center><font size=6>线段树(带懒惰标记的更新)</font></center><center><font size=3>by ZhangZiheng</font></center><p>在<a href="/2020/09/14/%E7%BA%BF%E6%AE%B5%E6%A0%91(%E5%8D%95%E7%82%B9%E6%9B%B4%E6%96%B0)/" title="上一篇">上一篇</a>关于线段树的文章中 ，叙述了单点更新、查找的相关内容。接下来，将叙述线段树带懒惰标记的相关操作。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Algorithms</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Data Structure</tag>
+      
+      <tag>Segment Tree</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Schumpeter-Too much information-How to cope with data overload</title>
     <link href="/2020/09/17/Schumpeter-Too-much-information-How-to-cope-with-data-overload/"/>
     <url>/2020/09/17/Schumpeter-Too-much-information-How-to-cope-with-data-overload/</url>
