@@ -196,6 +196,7 @@
 by ZhangZiheng
 
 在上一篇关于线段树的文章中 ，叙述了单点更新、查找的相关内容。接下来，将叙述线段树带懒惰标记的相关操作。
+为什么要带laze标记（为了躺平）在修改操作中，可能会对区间进行修改，如果每次都直接找到叶子节点进行修改的话，那么一次修改操作的最坏时间复杂度将达到$O(n)$，显然对于修改操作来说，这个时间复杂度是无法接受的。（愉快地TLE了）
 
         </a>
       </p>
@@ -580,7 +581,7 @@ by ZhangZiheng
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Welcome to my blog&nbsp;",
+        "Keep Calm And Carry On&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
