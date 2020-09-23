@@ -224,13 +224,11 @@
 
 <center><font size=3>by ZhangZiheng</font></center>
 
-<h4 id="并查集简要介绍"><a href="#并查集简要介绍" class="headerlink" title="并查集简要介绍"></a>并查集简要介绍</h4><p><strong>并查集的两个操作：</strong></p>
-<ul>
+<h2 id="并查集简要介绍"><a href="#并查集简要介绍" class="headerlink" title="并查集简要介绍"></a>并查集简要介绍</h2><h4 id="并查集的两个操作"><a href="#并查集的两个操作" class="headerlink" title="并查集的两个操作"></a>并查集的两个操作</h4><ul>
 <li>合并两个集合</li>
 <li>查询某个元素的祖宗节点</li>
 </ul>
-<p><strong>并查集的时间复杂度：</strong></p>
-<ul>
+<h4 id="并查集的时间复杂度"><a href="#并查集的时间复杂度" class="headerlink" title="并查集的时间复杂度"></a>并查集的时间复杂度</h4><ul>
 <li>在同时使用路径压缩和按秩合并的情况下，每次操作（合并/查询）的时间复杂度为$O(\alpha(n))$，其中$\alpha(n)$表示阿克曼函数的反函数。<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="Tarjan R E, Van Leeuwen J. Worst-case analysis of set union algorithms[J]. Journal of the ACM (JACM), 1984, 31(2): 245-281.
 ">[1]</span></a></sup></li>
 </ul>
@@ -243,7 +241,7 @@
 <li>每个点到根节点的距离（绑定到每一个元素上）</li>
 </ul>
 <p>一道基础的练习题如下：</p>
-<h4 id="题目1：格子游戏"><a href="#题目1：格子游戏" class="headerlink" title="题目1：格子游戏"></a>题目1：格子游戏</h4><p><strong>题目描述：</strong></p>
+<h2 id="题目1：格子游戏"><a href="#题目1：格子游戏" class="headerlink" title="题目1：格子游戏"></a>题目1：格子游戏</h2><p><strong>题目描述：</strong></p>
 <p>Alice和Bob玩了一个古老的游戏：首先画一个$n\times n$的点阵（下图 $n=3$）。<br><img src="https://cdn.acwing.com/media/article/image/2019/12/11/19_9edbcf521b-1.png" srcset="/img/loading.gif" alt="1.png"></p>
 <p>直到围成一个封闭的圈（面积不必为 1）为止，“封圈”的那个人就是赢家。因为棋盘实在是太大了，他们的游戏实在是太长了!他们甚至在游戏中都不知道谁赢得了游戏。于是请你写一个程序，帮助他们计算他们是否结束了游戏？</p>
 <p><strong>输入格式：</strong></p>
@@ -324,7 +322,7 @@
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre>
 <p>接下来是第二道题目，题目略难，将运用并查集来维护一些信息。</p>
-<h4 id="题目2：食物链"><a href="#题目2：食物链" class="headerlink" title="题目2：食物链"></a>题目2：食物链</h4><p><strong>题目描述：</strong></p>
+<h2 id="题目2：食物链"><a href="#题目2：食物链" class="headerlink" title="题目2：食物链"></a>题目2：食物链</h2><p><strong>题目描述：</strong></p>
 <p>动物王国中有三类动物$A,B,C$，这三类动物的食物链构成了有趣的环形。<br>$A$吃$B$， $B$吃$C$，$C$吃$A$。<br>现有$N$个动物，以$1\sim N$编号。<br><strong>每个动物都是$A,B,C$中的一种</strong>，但是我们并不知道它到底是哪一种。<br>有人用两种说法对这$N$个动物所构成的食物链关系进行描述：</p>
 <ul>
 <li>第一种说法是”$1\ X\ Y$”，表示$X$和$Y$是同类</li>

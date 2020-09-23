@@ -248,7 +248,7 @@ Yes</code></pre>
 hash[string] = \sum string[i]*p^{i}(mod\ Q) \tag{1}</script><p>例如abcd，可以将其看成$(1234)_{p}$，这样一来，字符串abcd可以表示成：</p>
 <script type="math/tex; mode=display">
 h[abcd]=1*p^{3}+2*p^{2}+3*p^{1}+4*p^{0}  \tag{2}</script><ul>
-<li>因为(1)式的值过大，所以可以将其模Q，映射为$0\sim Q-1$之间的值，即：</li>
+<li>因为(2)式的值过大，所以可以将其模Q，映射为$0\sim Q-1$之间的值，即：</li>
 </ul>
 <script type="math/tex; mode=display">
 h[abcd]=(1*p^{3}+2*p^{2}+3*p^{1}+4*p^{0})\ mod\ Q  \tag{3}</script><p>在(3)式中，根据经验值，$p=131$或$p=13331$时，哈希冲突的可能性最低；且$Q=2^{64}$。<br>此时$mod\ Q$的结果与<code>unsigned long long</code>自然溢出后结果相同。</p>

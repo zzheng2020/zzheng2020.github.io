@@ -225,11 +225,10 @@
 <center><font size=3>by ZhangZiheng</font></center>
 
 <p>有一段时间没摸键盘了(╯-_-)╯~╩╩，把之前不是特别熟练的算法与数据结构再过一遍😅 （<del>顺便水一篇博客</del>）</p>
-<p>坑还没填完（哭.jpg)</p>
 <p>正文开始</p>
 <hr>
 <p>当你手里有一个数组，并且需要进行一些修改和查询操作的时候，不妨考虑一下线段树。</p>
-<h4 id="线段树的常规操作"><a href="#线段树的常规操作" class="headerlink" title="线段树的常规操作"></a>线段树的常规操作</h4><ul>
+<h2 id="线段树的常规操作"><a href="#线段树的常规操作" class="headerlink" title="线段树的常规操作"></a>线段树的常规操作</h2><ul>
 <li><code>pushup()</code>：由子节点信息更新父节点的信息</li>
 <li><code>build()</code>：将一段区间初始化为线段树</li>
 <li><code>modify()</code>：修改操作<ul>
@@ -240,7 +239,7 @@
 <li><code>query()</code>：查询操作</li>
 <li><code>pushdown()</code>：向下传递懒惰标记，由父节点更新子节点</li>
 </ul>
-<h4 id="线段树基本图示"><a href="#线段树基本图示" class="headerlink" title="线段树基本图示"></a>线段树基本图示</h4><p>线段树划分区间如下图(1)所示：</p>
+<h2 id="线段树基本图示"><a href="#线段树基本图示" class="headerlink" title="线段树基本图示"></a>线段树基本图示</h2><p>线段树划分区间如下图(1)所示：</p>
 <center> 
     <img style="border-radius: 0.3125em; box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" src="/img/线段树图1.png" srcset="/img/loading.gif"> 
     <br> 
@@ -254,12 +253,12 @@
 <li>左儿子：$2x$，即<code>x&lt;&lt;1</code></li>
 <li>右儿子：$2x+1$，即<code>x&lt;&lt;1|1​</code></li>
 </ul>
-<h4 id="线段树开4倍空间的原因"><a href="#线段树开4倍空间的原因" class="headerlink" title="线段树开4倍空间的原因"></a>线段树开4倍空间的原因</h4><p>设线段树倒数第二层有$n$个节点，那么，从第零层到倒数第二层一共有$2n - 1$个节点，（最坏情况下）最后一层会有$2n$个节点，所以最坏情况下线段树总共会有$2n-1+2n=4n-1$个节点，因此一般情况下会开4倍空间。</p>
+<h2 id="线段树开4倍空间的原因"><a href="#线段树开4倍空间的原因" class="headerlink" title="线段树开4倍空间的原因"></a>线段树开4倍空间的原因</h2><p>设线段树倒数第二层有$n$个节点，那么，从第零层到倒数第二层一共有$2n - 1$个节点，（最坏情况下）最后一层会有$2n$个节点，所以最坏情况下线段树总共会有$2n-1+2n=4n-1$个节点，因此一般情况下会开4倍空间。</p>
 <div class="note note-info">
             <p>假设满二叉树第$k$层有$n$个节点（显然，有$n=2^k$），那么从第0层到第$k$层共有$n+\frac{n}{2}+\frac{n}{2^2}+\frac{n}{2^3}+\cdots+\frac{n}{2^k}\ =n\cdot(1+\frac{1}{2}+\frac{1}{2^2}+\frac{1}{2^3}+\cdots+\frac{1}{2^k})$</p><p>$=n\cdot(1\cdot \frac{1-(\frac{1}{2})^{k+1}}{1-\frac{1}{2}})=2n\cdot(1-(\frac{1}{2})^{k+1})$</p><p>$=2n-\frac{n}{2^{k}}\ =2n-1$个节点</p>
           </div>
 <p>下面以查询区间最大值为例，进行线段树相关操作的说明。</p>
-<h4 id="建树操作"><a href="#建树操作" class="headerlink" title="建树操作"></a>建树操作</h4><p>采用递归的形式建树。先建好父节点，然后递归地建立左右儿子节点即可。</p>
+<h2 id="建树操作"><a href="#建树操作" class="headerlink" title="建树操作"></a>建树操作</h2><p>采用递归的形式建树。先建好父节点，然后递归地建立左右儿子节点即可。</p>
 <pre><code class="hljs c++"><span class="hljs-comment">// tr[i]表示线段树中编号为i的节点,</span>
 <span class="hljs-comment">// 其中储存该节点代表的区间[l, r],</span>
 <span class="hljs-comment">// 以及需要维护的信息</span>
@@ -270,7 +269,7 @@
     <span class="hljs-keyword">int</span> mid = (l + r) &gt;&gt; <span class="hljs-number">1</span>;
     build(u &lt;&lt; <span class="hljs-number">1</span>, l, mid), build(u &lt;&lt; <span class="hljs-number">1</span> | <span class="hljs-number">1</span>, mid + <span class="hljs-number">1</span>, r);
 &#125;</code></pre>
-<h4 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h4><p>查询操作需要分情况进行讨论。</p>
+<h2 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h2><p>查询操作需要分情况进行讨论。</p>
 <p>设需要查询的区间为$[Q_l, Q_r]$，当前树中节点代表区间为$[T_l, T_r]$。</p>
 <ul>
 <li>当前树中节点被查询区间完全包含，即$Q_l \leq T_l\ and\ T_r\leq Q_r$，此时直接返回当前树中节点的信息<code>tr[u].v</code></li>
@@ -292,12 +291,12 @@
     
     <span class="hljs-keyword">return</span> vlaue;
 &#125;</code></pre>
-<h4 id="pushup操作"><a href="#pushup操作" class="headerlink" title="pushup操作"></a>pushup操作</h4><p><code>pushup</code>操作是维护父节点的信息，将父节点左右儿子的信息更新给父节点。</p>
+<h2 id="pushup操作"><a href="#pushup操作" class="headerlink" title="pushup操作"></a>pushup操作</h2><p><code>pushup</code>操作是维护父节点的信息，将父节点左右儿子的信息更新给父节点。</p>
 <pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pushup</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u)</span></span>
 <span class="hljs-function"></span>&#123;
     tr[u].v = <span class="hljs-built_in">max</span>(tr[u &lt;&lt; <span class="hljs-number">1</span>].v, tr[u &lt;&lt; <span class="hljs-number">1</span> | <span class="hljs-number">1</span>].v);
 &#125;</code></pre>
-<h4 id="更新操作"><a href="#更新操作" class="headerlink" title="更新操作"></a>更新操作</h4><p>先讲述较为简单的单点更新。</p>
+<h2 id="更新操作"><a href="#更新操作" class="headerlink" title="更新操作"></a>更新操作</h2><p>先讲述较为简单的单点更新。</p>
 <p>因为是单点更新， 所以一定会找到叶子节点之后再进行更新。</p>
 <p>设当前节点代表的区间为$[l,r]$，中点$mid=\lfloor \frac{tr[u].l+tr[u].r}{2} \rfloor$</p>
 <ul>
@@ -319,7 +318,7 @@
     &#125;	
 &#125;</code></pre>
 <p>以上就是线段树的基本操作了，接下来可以<del>愉快地</del>AC练习题了。</p>
-<h4 id="题目1：最大数"><a href="#题目1：最大数" class="headerlink" title="题目1：最大数"></a>题目1：最大数</h4><p><strong>题目描述：</strong></p>
+<h2 id="题目1：最大数"><a href="#题目1：最大数" class="headerlink" title="题目1：最大数"></a>题目1：最大数</h2><p><strong>题目描述：</strong></p>
 <p>给定一个正整数数列$a_1,a_2,\cdots,a_n$，每一个数都在$0\sim p−1$之间。</p>
 <p>可以对这列数进行两种操作：</p>
 <ul>
@@ -436,7 +435,7 @@ A <span class="hljs-number">99</span>
     &#125;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre>
-<h4 id="题目2：最大连续子段和"><a href="#题目2：最大连续子段和" class="headerlink" title="题目2：最大连续子段和"></a>题目2：最大连续子段和</h4><p><strong>题目描述</strong>：</p>
+<h2 id="题目2：最大连续子段和"><a href="#题目2：最大连续子段和" class="headerlink" title="题目2：最大连续子段和"></a>题目2：最大连续子段和</h2><p><strong>题目描述</strong>：</p>
 <p>给定长度为$N$的数列$A$，以及$M$条指令，每条指令能是以下两种之一：</p>
 <p>1、“1 x y”，查询区间$[x,y]$中的最大连续子段和，即</p>
 <script type="math/tex; mode=display">
@@ -589,7 +588,7 @@ A <span class="hljs-number">99</span>
     
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre>
-<h4 id="题目3：区间最大公约数"><a href="#题目3：区间最大公约数" class="headerlink" title="题目3：区间最大公约数"></a>题目3：区间最大公约数</h4><p><strong>题目描述：</strong></p>
+<h2 id="题目3：区间最大公约数"><a href="#题目3：区间最大公约数" class="headerlink" title="题目3：区间最大公约数"></a>题目3：区间最大公约数</h2><p><strong>题目描述：</strong></p>
 <p>给定一个长度为$N$的数列$A$，以及$M$条指令，每条指令可能是以下两种之一：</p>
 <p>1、“C l r d”，表示把$A[l],A[l+1],…,A[r]$都加上$d$。</p>
 <p>2、“Q l r”，表示询问$A[l],A[l+1],…,A[r]$的最大公约数$(GCD)$。</p>
