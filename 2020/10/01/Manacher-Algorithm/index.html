@@ -239,7 +239,7 @@ input: s = <span class="hljs-string">&quot;abqppq&quot;</span>
 output: answer = <span class="hljs-number">4</span>
 note: len(<span class="hljs-string">&quot;qppq&quot;</span>) = <span class="hljs-number">4</span></code></pre>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>Manacher’s algorithm is a linear algorithm to solve this problem.</p>
-<h3 id="Avoid-classification-discussions-due-to-different-string-length"><a href="#Avoid-classification-discussions-due-to-different-string-length" class="headerlink" title="Avoid classification discussions due to different string length"></a>Avoid classification discussions due to different string length</h3><p>The length of a string may be odd or even. </p>
+<h3 id="Avoid-classified-discussions-due-to-different-string-length"><a href="#Avoid-classified-discussions-due-to-different-string-length" class="headerlink" title="Avoid classified discussions due to different string length"></a>Avoid classified discussions due to different string length</h3><p>The length of a string may be odd or even. </p>
 <ul>
 <li>If the longest palindromic substring has an odd length (e.g. “aba”), the center of this string is a character. In this example, the answer is the character “b”. </li>
 <li>If the longest palindromic substring has an even length (e.g. “abba”), the center of this string is <strong>not</strong> a character, but the position between two characters. In this example, the center is marked with an asterisk. (e.g. “ab*ba”)</li>
