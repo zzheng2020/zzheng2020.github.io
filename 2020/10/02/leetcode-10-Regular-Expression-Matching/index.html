@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Manacher&#39;s Algorithm - Heng2020</title>
+  <title>[leetcode]10.Regular Expression Matching - Heng2020</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -165,8 +165,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-10-01 09:50" pubdate>
-        2020年10月1日 上午
+      <time datetime="2020-10-02 00:18" pubdate>
+        2020年10月2日 凌晨
       </time>
     </span>
   
@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      892 字
+      706 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      20
+      17
        分钟
     </span>
   
@@ -217,192 +217,105 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">Manacher&#39;s Algorithm</h1>
+            <h1 style="display: none">[leetcode]10.Regular Expression Matching</h1>
             
             <div class="markdown-body" id="post-body">
-              <div class="note note-success">
-            <p><strong>Happy National Day !</strong></p>
-          </div>
-<center><font size=6>Manacher's Algorithm</font></center>
+              <center><font size=6>Regular Expression Matching</font></center>
 
 <center><font size=3>by ZhangZiheng</font></center>
 
-<h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>Given a string <code>s</code>, find the longest palindromic substring in <code>s</code>.</p>
-<pre><code class="hljs c++">e.g.
-input: s = <span class="hljs-string">&quot;abcdefg&quot;</span>
-output: answer = <span class="hljs-number">1</span>
-note: len(<span class="hljs-string">&quot;a&quot;</span>) = <span class="hljs-number">1</span>
-    
-input: s = <span class="hljs-string">&quot;abcba&quot;</span>
-output: answer = <span class="hljs-number">5</span>
-note: len(<span class="hljs-string">&quot;abcba&quot;</span>) = <span class="hljs-number">5</span>
-    
-input: s = <span class="hljs-string">&quot;abqppq&quot;</span>
-output: answer = <span class="hljs-number">4</span>
-note: len(<span class="hljs-string">&quot;qppq&quot;</span>) = <span class="hljs-number">4</span></code></pre>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>Manacher’s algorithm is a linear algorithm to solve this problem.</p>
-<h3 id="Avoid-classified-discussions-due-to-different-string-length"><a href="#Avoid-classified-discussions-due-to-different-string-length" class="headerlink" title="Avoid classified discussions due to different string length"></a>Avoid classified discussions due to different string length</h3><p>The length of a string may be odd or even. </p>
+<h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>Given an input string <code>s</code> and a pattern <code>p</code>, implement regular expression matching with support for <code>.</code> and <code>*</code>.</p>
 <ul>
-<li>If the longest palindromic substring has an odd length (e.g. “aba”), the center of this string is a character. In this example, the answer is the character “b”. </li>
-<li>If the longest palindromic substring has an even length (e.g. “abba”), the center of this string is <strong>not</strong> a character, but the position between two characters. In this example, the center is marked with an asterisk. (e.g. “ab*ba”)</li>
+<li><code>.</code> Matches any single character.</li>
+<li><code>*</code> Matches zero or more of the preceding element.</li>
 </ul>
-<p>To avoid this annoying classification discussions, we can use some tricks. </p>
-<p>Specifically, </p>
-<ol>
-<li>Insert a character every other letter, such as a character “#”. </li>
-<li>Insert a character at the beginning of the string to indicate that the string begins with this character, such as character “$”. </li>
-<li>Insert a character at the end of the string to indicate that the string ends with this character, such as character “*”.</li>
-</ol>
+<p>The matching should cover the entire input string (not partial).</p>
+<p>Note:<br><code>s</code> could be empty and contains only lowercase letters a-z.<br><code>p</code> could be empty and contains only lowercase letters a-z, and characters like <code>.</code> or <code>*</code>.</p>
+<pre><code class="hljs c++"><span class="hljs-comment">// example</span>
+Input:
+s = <span class="hljs-string">&quot;aa&quot;</span>
+p = <span class="hljs-string">&quot;a&quot;</span>
+Output: <span class="hljs-literal">false</span>
+Explanation: <span class="hljs-string">&quot;a&quot;</span> does <span class="hljs-keyword">not</span> match the entire <span class="hljs-built_in">string</span> <span class="hljs-string">&quot;aa&quot;</span>.
+
+Input:
+s = <span class="hljs-string">&quot;aa&quot;</span>
+p = <span class="hljs-string">&quot;a*&quot;</span>
+Output: <span class="hljs-literal">true</span>
+Explanation: <span class="hljs-string">&#x27;*&#x27;</span> means zero <span class="hljs-keyword">or</span> more of the preceding element, <span class="hljs-string">&#x27;a&#x27;</span>. Therefore, by repeating <span class="hljs-string">&#x27;a&#x27;</span> once, it becomes <span class="hljs-string">&quot;aa&quot;</span>.
+
+Input:
+s = <span class="hljs-string">&quot;ab&quot;</span>
+p = <span class="hljs-string">&quot;.*&quot;</span>
+Output: <span class="hljs-literal">true</span>
+Explanation: <span class="hljs-string">&quot;.*&quot;</span> means <span class="hljs-string">&quot;zero or more (*) of any character (.)&quot;</span>.
+
+Input:
+s = <span class="hljs-string">&quot;aab&quot;</span>
+p = <span class="hljs-string">&quot;c*a*b&quot;</span>
+Output: <span class="hljs-literal">true</span>
+Explanation: c can be repeated <span class="hljs-number">0</span> times, a can be repeated <span class="hljs-number">1</span> time. Therefore, it matches <span class="hljs-string">&quot;aab&quot;</span>.
+
+Input:
+s = <span class="hljs-string">&quot;mississippi&quot;</span>
+p = <span class="hljs-string">&quot;mis*is*p*.&quot;</span>
+Output: <span class="hljs-literal">false</span></code></pre>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>This problem is <strong>dynamic programming, or dp</strong>. Why dp is always difficult? Because it depends on our experience. If you are not familiar with some typical dp models, you may feel challenging solve these problems.</p>
 <div class="note note-warning">
-            <p>The character inserted into the string should not have existed in the original string.</p>
+            <p>In this problem, To make it easier to understand, array index start at 1. (<code>s = &#39; &#39; + s, p = &#39; &#39; + p;</code>)</p>
           </div>
-<p>e.g.</p>
-<script type="math/tex; mode=display">
-aba\to \$\#a\#b\#a\#*\notag</script><script type="math/tex; mode=display">
-abba\to \$\#a\#b\#b\#a\#* \notag</script><p>By using this tricks, the center of the longest palindromic substring is entirely on the character, not between two characters.</p>
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-comment">// len1为原始串的长度,len2为翻倍之后的串的长度(原串为s, 翻倍之后的串为str)</span>
-    str[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;$&#x27;</span>;
-    str[<span class="hljs-number">1</span>] = <span class="hljs-string">&#x27;#&#x27;</span>;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len1; i++)
-    &#123;
-        str[i * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>] = s[i];
-        str[i * <span class="hljs-number">2</span> + <span class="hljs-number">3</span>] = <span class="hljs-string">&#x27;#&#x27;</span>;
-    &#125;
-    len2 = len1 * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>; <span class="hljs-comment">// 因为首尾加上了$和*, 所以总长度再加上2</span>
-    str[len2] = <span class="hljs-string">&#x27;*&#x27;</span>;
-&#125;</code></pre>
-<h3 id="Manacher’s-Algorithm"><a href="#Manacher’s-Algorithm" class="headerlink" title="Manacher’s Algorithm"></a>Manacher’s Algorithm</h3><p>Let $int\ p[\dots]$ be an auxiliary array where $p[i]$ represents the radius of the longest palindrome centered on $i$.</p>
-<p>e.g. <code>s = &quot;aaba&quot;</code></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">i</th>
-<th style="text-align:center">0</th>
-<th style="text-align:center">1</th>
-<th style="text-align:center">2</th>
-<th style="text-align:center">3</th>
-<th style="text-align:center">4</th>
-<th style="text-align:center">5</th>
-<th style="text-align:center">6</th>
-<th style="text-align:center">7</th>
-<th style="text-align:center">8</th>
-<th style="text-align:center">9</th>
-<th style="text-align:center">10</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">s[i]</td>
-<td style="text-align:center">$</td>
-<td style="text-align:center">#</td>
-<td style="text-align:center">a</td>
-<td style="text-align:center">#</td>
-<td style="text-align:center">a</td>
-<td style="text-align:center">#</td>
-<td style="text-align:center">b</td>
-<td style="text-align:center">#</td>
-<td style="text-align:center">a</td>
-<td style="text-align:center">#</td>
-<td style="text-align:center">*</td>
-</tr>
-<tr>
-<td style="text-align:center">p[i]</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">2</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">2</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">4</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">2</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>So, we can find that the answer is $\max_{i = 0}^{s.size()}(p[i] - 1)$.</p>
-<p>Let $mx$ and $id$ be two variables. $mx$ stands for the right edge of the longest palindromic substring based on center $id$, namely, $mx = id + p[id]$.</p>
+<p>In dp problem, we have three steps.</p>
+<ol>
+<li><p><strong>Give dp array a reasonable meaning.</strong></p>
+<p>In our problem, dp array is 2D, i.e. $bool\ dp[i][j]$. This dp array means $s[1\sim i]$ can or can’t match $p[1\sim j]$. We can find inspiration in another classic problem, the longest increasing subsequence. So, that’s why I said dp problem is a little bit difficult. If you don’t know how to solve that problem, you may give a wrong meaning to you dp array.</p>
+</li>
+<li><p><strong>Find equations to describe each states.</strong></p>
+<p>This may be the most difficult step in dp problems. </p>
+<p>In our problem, we need a classified discussion.</p>
+<ul>
+<li><p>$dp[i][j] = dp[i-1][j-1]$ if and only if $s[i]=p[j]$ or $p[j]=\cdot$</p>
+</li>
+<li><p>If $p[j]=\ast$, then</p>
+<ul>
+<li><p>If $j\geq 2$, then $dp[i][j]=dp[i][j-2]$, which means we don’t use this $\ast$ and the one character before $\ast$.</p>
+</li>
+<li><p>If $j&gt; 0$ and ($s[i]=p[j-1]$ or $p[j-1]=\cdot$), then $dp[i][j]=dp[i-1][j]$.</p>
+<p>This case is not easy to understand. We can see Fig 1. to help us understand.</p>
 <center> 
-    <img style="border-radius: 0.3125em; box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" src="/img/manacher_pic1.png" srcset="/img/loading.gif"> 
+    <img style="border-radius: 0.3125em; box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" src="/img/lc10-fig1.png" srcset="/img/loading.gif"> 
     <br> 
-    <div style="color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">Fig 1. the symmetric points</div> 
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">Fig 1. dp(i, j) = dp(i-1, j)</div> 
 </center>
 
-<p>When we’re at index $i$, there must be a symmetric point about $id$ called $j$, so we have $\frac{i+j}{2}=id$, therefore $j=2\times id-i$. And because $j$ is behind $i$, so the value of $p[j]$ has already known, we can use this value to optimize our algorithm.</p>
-<p>If $i &lt; mx$, then $p[i] = max(p[j], mx - i)$ where $j=2\times id-i$.</p>
-<p>Then, match each letter backwards to get the maximum value of $p[i]$.</p>
-<p>Finally, in each loop, check whether $id$ and $mx$ need to be updated or not.</p>
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">manacher</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-keyword">int</span> id = <span class="hljs-number">0</span>, mx = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len2; i++)
-    &#123;
-        <span class="hljs-keyword">if</span> (i &lt; mx)
-            p[i] = <span class="hljs-built_in">min</span>(p[<span class="hljs-number">2</span> * id - i], mx - i); <span class="hljs-comment">// 对称点j的回文半径 和 i到mx之间的距离</span>
-        <span class="hljs-keyword">else</span>
-            p[i] = <span class="hljs-number">1</span>;
-        <span class="hljs-keyword">while</span> (str[i + p[i]] == str[i - p[i]])
-            p[i]++; <span class="hljs-comment">// 逐位向后匹配</span>
-        <span class="hljs-keyword">if</span> (i + p[i] &lt; mx)
-        &#123; <span class="hljs-comment">// 更新id和mx</span>
-            id = i;
-            mx = i + p[i];
-        &#125;
-    &#125;
-&#125;</code></pre>
-<p>In this algorithm, we can scan the string from beginning to ending to get the answer. So the time complexity is $O(n)$.</p>
-<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">3e5</span>;
-<span class="hljs-keyword">char</span> s[N], str[N];
-<span class="hljs-keyword">int</span> len1, len2, id, mx, ans, p[N];
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123; <span class="hljs-comment">// 翻倍</span>
-    str[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;$&#x27;</span>;
-    str[<span class="hljs-number">1</span>] = <span class="hljs-string">&#x27;#&#x27;</span>;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len1; i++)
-    &#123;
-        str[i * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>] = s[i];
-        str[i * <span class="hljs-number">2</span> + <span class="hljs-number">3</span>] = <span class="hljs-string">&#x27;#&#x27;</span>;
-    &#125;
-    len2 = len1 * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>; <span class="hljs-comment">// 因为首尾加上了$和*, 所以总长度再加上2</span>
-    str[len2] = <span class="hljs-string">&#x27;*&#x27;</span>;
-&#125;
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">manacher</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    id = <span class="hljs-number">0</span>, mx = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len2; i++)
-    &#123;
-        <span class="hljs-keyword">if</span> (i &lt; mx)
-            p[i] = <span class="hljs-built_in">min</span>(p[<span class="hljs-number">2</span> * id - i], mx - i); <span class="hljs-comment">// 对称点的回文半径 和 i到mx之间的距离</span>
-        <span class="hljs-keyword">else</span>
-            p[i] = <span class="hljs-number">1</span>;
-        <span class="hljs-keyword">while</span> (str[i + p[i]] == str[i - p[i]])
-            p[i]++; <span class="hljs-comment">// 逐位向后匹配</span>
-        <span class="hljs-keyword">if</span> (i + p[i] &lt; mx)
-        &#123; <span class="hljs-comment">// 更新id和mx</span>
-            id = i;
-            mx = i + p[i];
-        &#125;
-    &#125;
-&#125;
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-built_in">cin</span> &gt;&gt; s;
-    len1 = <span class="hljs-built_in">strlen</span>(s);
-    init();
-    manacher();
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len2; i++)
-        ans = <span class="hljs-built_in">max</span>(ans, p[i]);
-    <span class="hljs-built_in">cout</span> &lt;&lt; ans - <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+<p>Let’s think about this question: which state can decide $dp[i][j]$ ? </p>
+<p>In this case, we have already known $s[i]=p[j-1]$ and pattern string $p$ ends in character $\ast$. </p>
+<p>If $p[1\sim j]$ can match $s[1\sim i-1]$, then we can get $dp[i][j]=true$ and vice versa, because character $\ast$ can repeat several times of the preceding element. So as long as $s[i]=p[j-1]$, the ending character of pattern string can repeat until $p$ matches $s$.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isMatch</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s, <span class="hljs-built_in">string</span> p)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> n = s.<span class="hljs-built_in">size</span>(), m = p.<span class="hljs-built_in">size</span>();
+        s = <span class="hljs-string">&quot; &quot;</span> + s, p = <span class="hljs-string">&quot; &quot;</span> + p;
+        <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt; <span class="hljs-title">f</span><span class="hljs-params">(n + <span class="hljs-number">1</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;(m + <span class="hljs-number">1</span>))</span></span>;
+        f[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt;= n; i ++ )
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= m; j ++ ) &#123;
+                <span class="hljs-keyword">if</span> (j + <span class="hljs-number">1</span> &lt;= m &amp;&amp; p[j + <span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;*&#x27;</span>) <span class="hljs-keyword">continue</span>;
+                <span class="hljs-keyword">if</span> (i &amp;&amp; p[j] != <span class="hljs-string">&#x27;*&#x27;</span>) &#123;
+                    f[i][j] = f[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] &amp;&amp; (s[i] == p[j] || p[j] == <span class="hljs-string">&#x27;.&#x27;</span>);
+                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (p[j] == <span class="hljs-string">&#x27;*&#x27;</span> &amp;&amp; j &gt;= <span class="hljs-number">2</span>) &#123;
+                    f[i][j] = f[i][j - <span class="hljs-number">2</span>] || i &amp;&amp; f[i - <span class="hljs-number">1</span>][j] &amp;&amp; (s[i] == p[j - <span class="hljs-number">1</span>] || p[j - <span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;.&#x27;</span>);
+                &#125;
+            &#125;
 
+        <span class="hljs-keyword">return</span> f[n][m];
+    &#125;
+&#125;;</code></pre>
             </div>
             <hr>
             <div>
@@ -411,7 +324,7 @@ abba\to \$\#a\#b\#b\#a\#* \notag</script><p>By using this tricks, the center of 
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Algorithms/">Algorithms</a>
+                      <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
                     
                   </div>
                 
@@ -419,7 +332,7 @@ abba\to \$\#a\#b\#b\#a\#* \notag</script><p>By using this tricks, the center of 
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/string/">string</a>
+                      <a class="hover-with-bg" href="/tags/DP/">DP</a>
                     
                   </div>
                 
@@ -432,18 +345,12 @@ abba\to \$\#a\#b\#b\#a\#* \notag</script><p>By using this tricks, the center of 
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/02/leetcode-10-Regular-Expression-Matching/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">[leetcode]10.Regular Expression Matching</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/09/28/leetcode-3-Longest-Substring-Without-Repeating-Characters/">
-                        <span class="hidden-mobile">[leetcode]3.Longest Substring Without Repeating Characters</span>
+                      <a href="/2020/10/01/Manacher-Algorithm/">
+                        <span class="hidden-mobile">Manacher's Algorithm</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -586,7 +493,7 @@ abba\to \$\#a\#b\#b\#a\#* \notag</script><p>By using this tricks, the center of 
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Manacher's Algorithm&nbsp;",
+        "[leetcode]10.Regular Expression Matching&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

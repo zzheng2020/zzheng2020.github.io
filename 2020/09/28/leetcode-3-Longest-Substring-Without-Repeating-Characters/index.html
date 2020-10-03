@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      449 字
+      452 字
     </span>
   
 
@@ -225,6 +225,8 @@
 <p>正文开始</p>
 <center><font size=6>Longest Substring Without Repeating Characters</font></center>
 
+<center><font size=3>by ZhangZiheng</font></center>
+
 <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>Given a string <code>s</code>, find the length of <strong>the longest substring</strong> without repeating characters.</p>
 <h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><pre><code class="hljs c++"><span class="hljs-comment">// example1:</span>
 Input: s = <span class="hljs-string">&quot;abcabcbb&quot;</span>
@@ -249,7 +251,7 @@ Output: <span class="hljs-number">0</span></code></pre>
 <li>$0\leq s.length \leq 5*10^4$</li>
 <li><code>s</code> consists of English letters, digits, symbols and spaces.</li>
 </ul>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>It’s easy to think about a brute-force algorithm, namely, enumerating the starting and ending points and scanning this substring. But, this method is too straightforward to have a high time complexity. So we need to optimize it.</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>It’s easy to think about a brute-force algorithm, i.e., enumerating the starting and ending points and scanning this substring. But, this method is too straightforward to have a high time complexity. So we need to optimize it.</p>
 <p>The reason why our algorithm is slow is because we scan the substring for every round. So time complexity is $O(n^3)$. But we can find the fact that if an interval $[i,j]$ doesn’t have repeating characters, when $j$ becomes $j+1$, we don’t need to repeat scanning this interval. What we need to do is just check whether the character <code>s[j]</code> is duplicated or not.  And this information can be stored in a hash map (e.g. <code>unordered_map&lt;char, int&gt; hash</code>).</p>
 <ul>
 <li>If <code>s[j]</code> is duplicated, it means <code>s[j]</code> shows up twice. So we move $i$ forward until the character <code>s[j]</code> happens once.</li>
