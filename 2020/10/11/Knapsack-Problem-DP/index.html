@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>[leetcode]10.Regular Expression Matching - Heng2020</title>
+  <title>Knapsack Problem (DP) - Heng2020</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -165,8 +165,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-10-02 00:18" pubdate>
-        2020年10月2日 凌晨
+      <time datetime="2020-10-11 13:17" pubdate>
+        2020年10月11日 下午
       </time>
     </span>
   
@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      706 字
+      646 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17
+      16
        分钟
     </span>
   
@@ -217,105 +217,87 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">[leetcode]10.Regular Expression Matching</h1>
+            <h1 style="display: none">Knapsack Problem (DP)</h1>
             
             <div class="markdown-body" id="post-body">
-              <center><font size=6>Regular Expression Matching</font></center>
+              <center><font size=6>Knapsack Problem (DP)</font></center>
 
 <center><font size=3>by ZhangZiheng</font></center>
 
-<h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>Given an input string <code>s</code> and a pattern <code>p</code>, implement regular expression matching with support for <code>.</code> and <code>*</code>.</p>
-<ul>
-<li><code>.</code> Matches any single character.</li>
-<li><code>*</code> Matches zero or more of the preceding element.</li>
+<p>In this blog, I’ll review the classic problems of dynamic programming: <strong>Knapsack Problem.</strong></p>
+<h2 id="0-1-knapsack-problem"><a href="#0-1-knapsack-problem" class="headerlink" title="0-1 knapsack problem"></a>0-1 knapsack problem</h2><h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>There are $N$ items(only one number of each) and a knapsack of capacity $V$. Each item $i$ has weight $C_{i}$. How to get the maximum total value in this knapsack? Note: You can’t break an item.</p>
+<p>$0&lt;N,V≤1000$.</p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>This is a basic Knapsack Problem. In this problem, for each item, you can choose pick the complete item(1) or don’t pick it(0), so we call it the 0-1 knapsack problem.</p>
+<p>Let $f(i,j)$ be a function which represents the maximum value that first $i$ items can be put into a knapsack with a capacity of $j$. So we can get the following equation.</p>
+<script type="math/tex; mode=display">
+f(i,j)=\max\{f(i-1,j),f(i-1,j-C_{i})+W_{i}\} \tag{1} \label{equ:1}</script><p>In equation ($\ref{equ:1}$), $f(i-1,j)$ means we don’t pick the $i^{th}$ item, and in this situation, it’s equivalent to putting the first $i-1$ items into a knapsack with capacity $j$. </p>
+<p>The other expression $f(i-1,j-C_i)+W_i$ means we pick the $i^{th}$ item. So the remaining capacity of knapsack is $j-C_i$, and the total value is $f(i-1,j-C_i)+W_i$.</p>
+<h3 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h3><ul>
+<li>Time complexity $O(NV)$, space complexity $O(NV)$.</li>
 </ul>
-<p>The matching should cover the entire input string (not partial).</p>
-<p>Note:<br><code>s</code> could be empty and contains only lowercase letters a-z.<br><code>p</code> could be empty and contains only lowercase letters a-z, and characters like <code>.</code> or <code>*</code>.</p>
-<pre><code class="hljs c++"><span class="hljs-comment">// example</span>
-Input:
-s = <span class="hljs-string">&quot;aa&quot;</span>
-p = <span class="hljs-string">&quot;a&quot;</span>
-Output: <span class="hljs-literal">false</span>
-Explanation: <span class="hljs-string">&quot;a&quot;</span> does <span class="hljs-keyword">not</span> match the entire <span class="hljs-built_in">string</span> <span class="hljs-string">&quot;aa&quot;</span>.
+<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
 
-Input:
-s = <span class="hljs-string">&quot;aa&quot;</span>
-p = <span class="hljs-string">&quot;a*&quot;</span>
-Output: <span class="hljs-literal">true</span>
-Explanation: <span class="hljs-string">&#x27;*&#x27;</span> means zero <span class="hljs-keyword">or</span> more of the preceding element, <span class="hljs-string">&#x27;a&#x27;</span>. Therefore, by repeating <span class="hljs-string">&#x27;a&#x27;</span> once, it becomes <span class="hljs-string">&quot;aa&quot;</span>.
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 
-Input:
-s = <span class="hljs-string">&quot;ab&quot;</span>
-p = <span class="hljs-string">&quot;.*&quot;</span>
-Output: <span class="hljs-literal">true</span>
-Explanation: <span class="hljs-string">&quot;.*&quot;</span> means <span class="hljs-string">&quot;zero or more (*) of any character (.)&quot;</span>.
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">1e3</span> + <span class="hljs-number">10</span>;
 
-Input:
-s = <span class="hljs-string">&quot;aab&quot;</span>
-p = <span class="hljs-string">&quot;c*a*b&quot;</span>
-Output: <span class="hljs-literal">true</span>
-Explanation: c can be repeated <span class="hljs-number">0</span> times, a can be repeated <span class="hljs-number">1</span> time. Therefore, it matches <span class="hljs-string">&quot;aab&quot;</span>.
+<span class="hljs-keyword">int</span> f[N][N];
+<span class="hljs-keyword">int</span> v[N], w[N];
+<span class="hljs-keyword">int</span> n, m;
 
-Input:
-s = <span class="hljs-string">&quot;mississippi&quot;</span>
-p = <span class="hljs-string">&quot;mis*is*p*.&quot;</span>
-Output: <span class="hljs-literal">false</span></code></pre>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>This problem is <strong>dynamic programming, or dp</strong>. Why dp is always difficult? Because it depends on our experience. If you are not familiar with some typical dp models, you may feel challenging solve these problems.</p>
-<div class="note note-warning">
-            <p>In this problem, To make it easier to understand, array index start at 1. (<code>s = &#39; &#39; + s, p = &#39; &#39; + p;</code>)</p>
-          </div>
-<p>In dp problem, we have three steps.</p>
-<ol>
-<li><p><strong>Give dp array a reasonable meaning.</strong></p>
-<p>In our problem, dp array is 2D, i.e. $bool\ dp[i][j]$. This dp array means $s[1\sim i]$ can or can’t match $p[1\sim j]$. We can find inspiration in another classic problem, the longest increasing subsequence. So, that’s why I said dp problem is a little bit difficult. If you don’t know how to solve that problem, you may give a wrong meaning to you dp array.</p>
-</li>
-<li><p><strong>Find equations to describe each states.</strong></p>
-<p>This may be the most difficult step in dp problems. </p>
-<p>In our problem, we need a classified discussion.</p>
-<ul>
-<li><p>$dp[i][j] = dp[i-1][j-1]$ if and only if $s[i]=p[j]$ or $p[j]=\cdot$</p>
-</li>
-<li><p>If $p[j]=\ast$, then</p>
-<ul>
-<li><p>If $j\geq 2$, then $dp[i][j]=dp[i][j-2]$, which means we don’t use this $\ast$ and the one character before $\ast$.</p>
-</li>
-<li><p>If $j&gt; 0$ and ($s[i]=p[j-1]$ or $p[j-1]=\cdot$), then $dp[i][j]=dp[i-1][j]$.</p>
-<p>This case is not easy to understand. We can see Fig 1. to help us understand.</p>
-<center> 
-    <img style="border-radius: 0.3125em; box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" src="/img/lc10-fig1.png" srcset="/img/loading.gif"> 
-    <br> 
-    <div style="color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">Fig 1. dp(i, j) = dp(i-1, j)</div> 
-</center>
-
-<p>Let’s think about this question: which state can decide $dp[i][j]$ ? </p>
-<p>In this case, we have already known $s[i]=p[j-1]$ and pattern string $p$ ends in character $\ast$. </p>
-<p>If $p[1\sim j]$ can match $s[1\sim i-1]$, then we can get $dp[i][j]=true$ and vice versa, because character $\ast$ can repeat several times of the preceding element. So as long as $s[i]=p[j-1]$, the ending character of pattern string can repeat until $p$ matches $s$.</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
-<span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isMatch</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s, <span class="hljs-built_in">string</span> p)</span> </span>&#123;
-        <span class="hljs-keyword">int</span> n = s.<span class="hljs-built_in">size</span>(), m = p.<span class="hljs-built_in">size</span>();
-        s = <span class="hljs-string">&quot; &quot;</span> + s, p = <span class="hljs-string">&quot; &quot;</span> + p;
-        <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt; <span class="hljs-title">f</span><span class="hljs-params">(n + <span class="hljs-number">1</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;(m + <span class="hljs-number">1</span>))</span></span>;
-        f[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-literal">true</span>;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt;= n; i ++ )
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= m; j ++ ) &#123;
-                <span class="hljs-keyword">if</span> (j + <span class="hljs-number">1</span> &lt;= m &amp;&amp; p[j + <span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;*&#x27;</span>) <span class="hljs-keyword">continue</span>;
-                <span class="hljs-keyword">if</span> (i &amp;&amp; p[j] != <span class="hljs-string">&#x27;*&#x27;</span>) &#123;
-                    f[i][j] = f[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] &amp;&amp; (s[i] == p[j] || p[j] == <span class="hljs-string">&#x27;.&#x27;</span>);
-                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (p[j] == <span class="hljs-string">&#x27;*&#x27;</span> &amp;&amp; j &gt;= <span class="hljs-number">2</span>) &#123;
-                    f[i][j] = f[i][j - <span class="hljs-number">2</span>] || i &amp;&amp; f[i - <span class="hljs-number">1</span>][j] &amp;&amp; (s[i] == p[j - <span class="hljs-number">1</span>] || p[j - <span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;.&#x27;</span>);
-                &#125;
-            &#125;
-
-        <span class="hljs-keyword">return</span> f[n][m];
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-built_in">cin</span> &gt;&gt; n &gt;&gt; m;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) <span class="hljs-built_in">cin</span> &gt;&gt; v[i] &gt;&gt; w[i];
+    
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)
+    &#123;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= m; j++)
+        &#123;
+            f[i][j] = f[i - <span class="hljs-number">1</span>][j];
+            <span class="hljs-keyword">if</span> (j &gt;= v[i]) f[i][j] = <span class="hljs-built_in">max</span>(f[i][j], f[i - <span class="hljs-number">1</span>][j - v[i]] + w[i]);
+        &#125;
     &#125;
-&#125;;</code></pre>
+    <span class="hljs-built_in">cout</span> &lt;&lt; f[n][m] &lt;&lt; <span class="hljs-built_in">endl</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre>
+<ul>
+<li><p>Obviously, $f(i,\dots)$ is only related to $f(i-1,\dots)$, so we can optimize space complexity to reduce it from $O(NV)$ to $O(V)$.</p>
+<p>Maybe it’s confused about why we need to enumerate knapsack weights in reverse order.</p>
+<p>We can look at the following optimized equation ($\ref{equ:2}$).</p>
+<script type="math/tex; mode=display">
+f(j)=\max\{f(j), f(j - C_i)+W_i\} \tag{2} \label{equ:2}</script><p>In the 2D equation ($\ref{equ:1}$), $f(i,j)$ depends on the previous result, i.e. $f(i-1, \dots)$.  </p>
+<p>In equation ($\ref{equ:2}$), we can find out that $f(j)$ is related to $f(j-C_i)$. If we enumerate weights from small to large, when we need to get $f(j)$, because of $j-C_i &lt; j$,  $f(j-C_i)$ has already been overwritten, so $f(j-C_i)$ is not equivalent to $f(i-1, j-C_i)$ in 2D equation.</p>
+<p>When we enumerate weights in reverse order, we can find when we need to  calculate $f(j)$, $f(j-C_i)$ is still the result of $(i-1)^{th}$ loop, so in this case, $f(j-C_i)$ is equivalent to $f(i-1, j-C_i)$ in 2D equation.</p>
+</li>
+</ul>
+<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">1e3</span> + <span class="hljs-number">10</span>;
+
+<span class="hljs-keyword">int</span> f[N];
+<span class="hljs-keyword">int</span> v[N], w[N];
+<span class="hljs-keyword">int</span> n, m;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-built_in">cin</span> &gt;&gt; n &gt;&gt; m;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) <span class="hljs-built_in">cin</span> &gt;&gt; v[i] &gt;&gt; w[i];
+    
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)
+    &#123;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = m; j &gt;= v[i]; j--)
+        &#123;
+            f[j] = <span class="hljs-built_in">max</span>(f[j], f[j - v[i]] + w[i]);
+        &#125;
+    &#125;
+    <span class="hljs-built_in">cout</span> &lt;&lt; f[m] &lt;&lt; <span class="hljs-built_in">endl</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre>
+<p>To be continued…</p>
+
             </div>
             <hr>
             <div>
@@ -324,7 +306,7 @@ Output: <span class="hljs-literal">false</span></code></pre>
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
+                      <a class="hover-with-bg" href="/categories/Algorithms/">Algorithms</a>
                     
                   </div>
                 
@@ -345,18 +327,12 @@ Output: <span class="hljs-literal">false</span></code></pre>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/11/Knapsack-Problem-DP/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Knapsack Problem (DP)</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/10/01/Manacher-Algorithm/">
-                        <span class="hidden-mobile">Manacher's Algorithm</span>
+                      <a href="/2020/10/02/leetcode-10-Regular-Expression-Matching/">
+                        <span class="hidden-mobile">[leetcode]10.Regular Expression Matching</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -499,7 +475,7 @@ Output: <span class="hljs-literal">false</span></code></pre>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "[leetcode]10.Regular Expression Matching&nbsp;",
+        "Knapsack Problem (DP)&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
@@ -608,13 +584,6 @@ Output: <span class="hljs-literal">false</span></code></pre>
 
 
 
-
-  <script  src="https://cdn.staticfile.org/mermaid/8.5.0/mermaid.min.js" ></script>
-  <script>
-    if (window.mermaid) {
-      mermaid.initialize({"theme":"default"});
-    }
-  </script>
 
 
 
