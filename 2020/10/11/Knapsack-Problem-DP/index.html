@@ -369,7 +369,7 @@ f(i,j)=\max\{ f(i-1,j),f(i,j-C_i)+W_i \} \label{equ:6} \tag{6}</script><p>Time c
 <li><p>There are another tricks to reduce space complexity from $O(NV)$ to $O(V)$.</p>
 <p>It’s the same optimization as in the Zero-One Knapsack Problem. When we choose the $i^{th}$ item, $f(i,j)$ is only related the $f(i,\dots)$. So in this case, we don’t need to enumerate weights in reverse order. The optimized equation is shown below:</p>
 <script type="math/tex; mode=display">
-f(j) = \max\{ f(j-C_i)+W_i \}</script></li>
+f(j) = \max\{ f(j-C_i)+W_i \} \label{equ:7} \tag{7}</script></li>
 </ul>
 <pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
 
