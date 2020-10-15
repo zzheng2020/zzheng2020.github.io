@@ -800,19 +800,15 @@ LL w[N];
                 
   <div class="disqus" style="width:100%">
     <div id="disqus_thread"></div>
-    <script type="text/javascript">
-      var disqus_config = function () {
-        this.page.url = 'http://example.com/2020/09/14/%E7%BA%BF%E6%AE%B5%E6%A0%91(%E5%8D%95%E7%82%B9%E6%9B%B4%E6%96%B0)/';
-        this.page.identifier = '/2020/09/14/%E7%BA%BF%E6%AE%B5%E6%A0%91(%E5%8D%95%E7%82%B9%E6%9B%B4%E6%96%B0)/';
-      };
+    <script>
       function loadDisqus() {
-        (function () {
-          var d = document,
-            s = d.createElement('script');
-          s.src = '//' + '' + '.disqus.com/embed.js';
-          s.setAttribute('data-timestamp', new Date());
-          (d.head || d.body).appendChild(s);
-        })();
+        addCssLink('https://cdn.jsdelivr.net/npm/disqusjs@1.0/dist/disqusjs.css');
+        addScript('https://cdn.jsdelivr.net/npm/disqusjs@1.0/dist/disqus.js', function () {
+          new DisqusJS({
+            shortname: 'fluid',
+            apikey: ''
+          });
+        });
       }
       waitElementVisible('disqus_thread', loadDisqus);
     </script>

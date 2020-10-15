@@ -409,19 +409,15 @@ root.lazy_add = <span class="hljs-number">0</span>;</code></pre>
                 
   <div class="disqus" style="width:100%">
     <div id="disqus_thread"></div>
-    <script type="text/javascript">
-      var disqus_config = function () {
-        this.page.url = 'http://example.com/2020/09/20/%E7%BA%BF%E6%AE%B5%E6%A0%91(%E5%B8%A6%E6%87%92%E6%83%B0%E6%A0%87%E8%AE%B0%E7%9A%84%E6%9B%B4%E6%96%B0)/';
-        this.page.identifier = '/2020/09/20/%E7%BA%BF%E6%AE%B5%E6%A0%91(%E5%B8%A6%E6%87%92%E6%83%B0%E6%A0%87%E8%AE%B0%E7%9A%84%E6%9B%B4%E6%96%B0)/';
-      };
+    <script>
       function loadDisqus() {
-        (function () {
-          var d = document,
-            s = d.createElement('script');
-          s.src = '//' + '' + '.disqus.com/embed.js';
-          s.setAttribute('data-timestamp', new Date());
-          (d.head || d.body).appendChild(s);
-        })();
+        addCssLink('https://cdn.jsdelivr.net/npm/disqusjs@1.0/dist/disqusjs.css');
+        addScript('https://cdn.jsdelivr.net/npm/disqusjs@1.0/dist/disqus.js', function () {
+          new DisqusJS({
+            shortname: 'fluid',
+            apikey: ''
+          });
+        });
       }
       waitElementVisible('disqus_thread', loadDisqus);
     </script>
