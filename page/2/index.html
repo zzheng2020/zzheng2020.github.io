@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>标签 - String - Heng2020</title>
+  <title>Heng2020</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -43,7 +43,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -150,6 +150,10 @@
           </div>
 
           
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
         </div>
       </div>
     </div>
@@ -159,27 +163,85 @@
     
       <div class="container nopadding-md">
         <div class="py-5" id="board"
-          >
+          style=margin-top:0>
           
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">共计 1 篇文章</p>
-  <hr>
-  
+
+  <div class="row mx-auto index-card">
     
-      
-      <p class="h5">2020</p>
     
-    <a href="/2020/09/28/leetcode-3-Longest-Substring-Without-Repeating-Characters/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">[leetcode]3.Longest Substring Without Repeating Characters</span>
-      <time style="float: right;">09-28</time>
-    </a>
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2020/09/07/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/" target="_self">
+          <img src="/img/hash_functions.jpg" srcset="/img/loading.gif" alt="字符串哈希">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        <a href="/2020/09/07/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/">字符串哈希</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/09/07/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/">
+          
+          
+            
+          
+          字符串哈希（前缀哈希）
+
+by ZhangZiheng
+
+题目描述：给定一个长度为n的字符串，再给定​m​个询问，每个询问包含四个整数$ l_1,r_1,l_2,r_2 $，请你判断$[l_1,r_1]$和$[l_2,r_2]$这两个区间所包含的字符串子串是否完全相同。字符串中只包含大小写英文字母和数字。
+输入格式：第一行包含整数n和m，表示字符串长度和询问次数。第二行包含一个长度为n的字符串，字
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-09-07 19:36" pubdate>
+              2020-09-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Algorithms/">Algorithms</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/string/">string</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </span>
+  </nav>
   
-</div>
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 
@@ -276,7 +338,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "标签 - String&nbsp;",
+        "Keep Calm And Carry On&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
