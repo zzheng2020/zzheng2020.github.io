@@ -1,0 +1,895 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>Aho–Corasick Automata - Heng2020</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>zzheng</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-16 12:23" pubdate>
+        2020年10月16日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      39
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Aho–Corasick Automata</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <center><font size=6>Aho–Corasick Automata</font></center>
+
+<center><font size=3>by ZhangZiheng</font></center>
+
+<p>Aho-Corasick Automata, or AC Automaton, is an efficient string matching algorithm based on Trie and KMP.</p>
+<p>Well, let’s start with Trie.</p>
+<h1 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h1><p>Trie can efficiently stores and finds string set. </p>
+<p>Let $s$ be a string set containing the following strings.</p>
+<pre><code class="hljs c++">abcdef
+abdef
+aced
+bcdf
+bcff
+cdaa
+bcdc</code></pre>
+<p>So, Trie is as follow.</p>
+<pre><code class="hljs mermaid">graph TB
+    root((root)) --&gt; a1((a))
+    a1 --&gt; b1((b))
+    b1 --&gt; c1((c))
+    c1 --&gt; d1((d))
+    d1 --&gt; e1((e))
+    e1 --&gt; f1((f*)):::someclass
+    b1 --&gt; d2((d))
+    d2 --&gt; e2((e))
+    e2 --&gt; f2((f*)):::someclass
+    a1 --&gt; c3((c))
+    c3 --&gt; e3((e))
+    e3 --&gt; d3((d*)):::someclass
+    root --&gt; b4((b))
+    b4 --&gt; c4((c))
+    c4 --&gt; d4((d))
+    d4 --&gt; f3((f*)):::someclass
+    c4 --&gt; f5((f))
+    f5 --&gt; f6((f*)):::someclass
+    root --&gt; c5((c))
+    c5 --&gt; d5((d))
+    d5 --&gt; a2((a))
+    a2 --&gt; a3((a*)):::someclass
+    d4 --&gt; c6((c*)):::someclass
+    
+    classDef someclass fill:#f96;</code></pre>
+<p>$\star$ means this node is the end of a word.</p>
+<p>When we want to search whether a string exist, we just need to find it in Trie. </p>
+<p>For example, we need to know whether string $amabc$ exists. Let’s start from the node $root$. $root$ has a son node $a$, and no son node of $a$ contains the letter $m$, so string $amabc$ doesn’t exist in the set $s$.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>Let $s$ be a string set. Initially, $s$ is empty.</p>
+<p>There are two options:</p>
+<ul>
+<li>$I\ s$ means insert string $s$ into string set.</li>
+<li>$Q\ s$ means query how many times string $s$ appears.</li>
+</ul>
+<p>There are $N$ options, and the total length of the input string does not exceed $10^5$. String contains only lowercase English letters.</p>
+<p>$1\leq N\leq 2\times 10^4$</p>
+<h3 id="Input-amp-Output"><a href="#Input-amp-Output" class="headerlink" title="Input &amp; Output"></a>Input &amp; Output</h3><pre><code class="hljs c++"><span class="hljs-comment">// Input</span>
+<span class="hljs-number">5</span>
+I abc
+Q abc
+Q ab
+I ab
+Q ab
+<span class="hljs-comment">// Output</span>
+<span class="hljs-number">1</span>
+<span class="hljs-number">0</span>
+<span class="hljs-number">1</span></code></pre>
+<h3 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h3><p>Time complexity is $O(NL)$, where $N$ is the number of words, and $L$ is an average length of the word.</p>
+<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">1e5</span> + <span class="hljs-number">10</span>;
+
+<span class="hljs-keyword">int</span> n;
+<span class="hljs-keyword">int</span> son[N][<span class="hljs-number">26</span>], cnt[N], idx;
+<span class="hljs-keyword">char</span> str[N];
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-keyword">char</span> str[])</span> </span>&#123;
+    <span class="hljs-keyword">int</span> p = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; str[i]; i++) &#123;
+        <span class="hljs-keyword">int</span> u = str[i] - <span class="hljs-string">&#x27;a&#x27;</span>;
+        <span class="hljs-keyword">if</span> (!son[p][u]) son[p][u] = ++idx;
+        p = son[p][u];
+    &#125;
+    cnt[p] ++;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">query</span><span class="hljs-params">(<span class="hljs-keyword">char</span> str[])</span> </span>&#123;
+    <span class="hljs-keyword">int</span> p = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; str[i]; i++) &#123;
+        <span class="hljs-keyword">int</span> u = str[i] - <span class="hljs-string">&#x27;a&#x27;</span>;
+        <span class="hljs-keyword">if</span> (!son[p][u]) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        p = son[p][u];
+    &#125;
+    <span class="hljs-keyword">return</span> cnt[p];
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-built_in">cin</span> &gt;&gt; n;
+    <span class="hljs-keyword">while</span> (n--) &#123;
+        <span class="hljs-keyword">char</span> op[<span class="hljs-number">2</span>];
+        <span class="hljs-built_in">cin</span> &gt;&gt; op &gt;&gt; str;
+        <span class="hljs-keyword">if</span> (*op == <span class="hljs-string">&#x27;I&#x27;</span>) insert(str);
+        <span class="hljs-keyword">else</span> <span class="hljs-built_in">cout</span> &lt;&lt; query(str) &lt;&lt; <span class="hljs-built_in">endl</span>;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre>
+<p>The next one is KMP Algorithm.</p>
+<h1 id="KMP-Algorithm"><a href="#KMP-Algorithm" class="headerlink" title="KMP Algorithm"></a>KMP Algorithm</h1><p>The detailed process can be learned <a target="_blank" rel="noopener" href="http://web.stanford.edu/class/cs97si/10-string-algorithms.pdf">here (Stanford CS97SI <strong>String Algorithms</strong>)</a>. The following is its main content.</p>
+<p>Knuth-Morris-Pratt Algorithm, or KMP Algorithm, is a linear time algorithm that solves the string matching problem by preprocessing $P$ in $O(m)$ time.</p>
+<p>The main idea is to skip come comparisons by using the previous comparison result.</p>
+<h2 id="Using-the-next-Table"><a href="#Using-the-next-Table" class="headerlink" title="Using the $next$ Table"></a>Using the $next$ Table</h2><p>Here is an example:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">$i$</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th style="text-align:center">10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$P_i$</td>
+<td style="text-align:center">a</td>
+<td style="text-align:center">b</td>
+<td style="text-align:center">a</td>
+<td style="text-align:center">b</td>
+<td style="text-align:center">a</td>
+<td style="text-align:center">b</td>
+<td style="text-align:center">a</td>
+<td style="text-align:center">b</td>
+<td style="text-align:center">c</td>
+<td style="text-align:center">a</td>
+</tr>
+<tr>
+<td style="text-align:center">$next[i]$</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>$next[i]$ means the length of the longest element in the intersection of the prefix set and the suffix set of a string.</p>
+<p>e.g., $next[6]=4$.</p>
+<p>$i = 6$, so the string is $ababab$. </p>
+<ul>
+<li>The prefix set is ${ a,ab,aba,abab,ababa }$.</li>
+<li>The suffix set is ${ b,ab,bab,abab,babab }$.</li>
+</ul>
+<p>The longest element is $abab$, so $next[6] = length(abab)=4$.</p>
+<p>Let $S$ be s string $ababac$.</p>
+<p>Let $P$ be a string $abac$. </p>
+<p>The $next$ table of $P$ is ${0,0,1,0}$.</p>
+<center> 
+    <img style="border-radius: 0.3125em; box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08); zoom:30%;" src="/img/kmp-eg1.png " srcset="/img/loading.gif"> 
+    <br> 
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">Fig 1. mismatch</div> 
+</center>
+
+<p>Mismatched at $i=4$. The next step is extremely important. We can use previous result, and let $j=next[j]$, i.e. $j=1$.</p>
+<center> 
+    <img style="border-radius: 0.3125em; box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08); zoom:30%;" src="/img/kmp-eg2.png " srcset="/img/loading.gif"> 
+    <br> 
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">Fig 2. using the next table</div> 
+</center>
+
+<p>Therefore, we do not need a brute force algorithm to match every character, but can use the previous information to speed up the process.</p>
+<h2 id="How-to-Get-next-Table"><a href="#How-to-Get-next-Table" class="headerlink" title="How to Get $next$ Table"></a>How to Get $next$ Table</h2><p>let’s write $next^{(k)}[i]$ as $next[\cdot]$ applied $k$ times to $i$.  </p>
+<p>e.g., $next^{(2)}[i]=next[next[i]]$.</p>
+<p>$next[i]$ is equal to $next^{(k)}[i-1]+1$, where $k$ is the smallest integer that satisfies $P_{next^{(k)}[i-1]+1}=P_i$. If there is no such $k$, $next[i]=0$.</p>
+<h2 id="Implementation-1"><a href="#Implementation-1" class="headerlink" title="Implementation"></a>Implementation</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">1e6</span> + <span class="hljs-number">10</span>;
+
+<span class="hljs-keyword">int</span> n, m;
+<span class="hljs-keyword">char</span> p[N], s[N];
+<span class="hljs-keyword">int</span> nxt[N];
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-built_in">cin</span> &gt;&gt; n &gt;&gt; p + <span class="hljs-number">1</span> &gt;&gt; m &gt;&gt; s + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>, j = <span class="hljs-number">0</span>; i &lt;= n; i++) &#123;
+        <span class="hljs-keyword">while</span> (j &amp;&amp; p[i] != p[j + <span class="hljs-number">1</span>]) j = nxt[j];
+        <span class="hljs-keyword">if</span> (p[i] == p[j + <span class="hljs-number">1</span>]) j++;
+        nxt[i] = j;
+    &#125;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>, j = <span class="hljs-number">0</span>; i &lt;= m; i++) &#123;
+        <span class="hljs-keyword">while</span> (j &amp;&amp; s[i] != p[j + <span class="hljs-number">1</span>]) j = nxt[j];
+        <span class="hljs-keyword">if</span> (s[i] == p[j + <span class="hljs-number">1</span>]) j++;
+        <span class="hljs-keyword">if</span> (j == n) &#123;
+            <span class="hljs-built_in">cout</span> &lt;&lt; i - j &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+            j = nxt[j];
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre>
+<p>So that’s the basis for learning about AC automata.</p>
+<h1 id="AC-Automata"><a href="#AC-Automata" class="headerlink" title="AC Automata"></a>AC Automata</h1><p>AC Automata has main three functions called <code>insert</code>, <code>build</code>, and <code>search</code>.</p>
+<h2 id="Insert-Function"><a href="#Insert-Function" class="headerlink" title="Insert() Function"></a>Insert() Function</h2><p><code>insert</code> function is used to build Trie. See <a href="#Trie">Trie</a>.</p>
+<h3 id="Implementation-2"><a href="#Implementation-2" class="headerlink" title="Implementation"></a>Implementation</h3><pre><code class="hljs c++"><span class="hljs-comment">// tr: trie; str: string; idx: node number</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">insert</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">int</span> p = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; str[i]; i ++ ) &#123;
+        <span class="hljs-keyword">int</span> t = str[i] - <span class="hljs-string">&#x27;a&#x27;</span>;
+        <span class="hljs-keyword">if</span> (!tr[p][t]) tr[p][t] = ++ idx;
+        p = tr[p][t];
+    &#125;
+    cnt[p] ++ ;
+&#125;</code></pre>
+<h2 id="Build-Function"><a href="#Build-Function" class="headerlink" title="Build() Function"></a>Build() Function</h2><p><code>build</code> function is used to build $fail$ table of AC Automata.</p>
+<p>The <code>fail</code> table in AC Automata is the same as the <code>next</code> table in KMP.</p>
+<p>For several pattern strings $s_1, s_2,\dots,s_n$, let $Q$ be a set of all states after they have been constructed into a Trie. The $fail$ pointer of state $u$ points to another state $v$, where $v\in Q$, and $v$ is the longest suffix to $u$.</p>
+<p>Here is an example.<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="OI-wiki
+">[1]</span></a></sup></p>
+<center> 
+    <img style="border-radius: 0.3125em; box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08); zoom:30%;" src="/img/ac-automaton1.png " srcset="/img/loading.gif"> 
+    <br> 
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">Fig 3. example of building fail pointer (source: OI-wiki)</div> 
+</center>
+
+
+
+<p>Node $5$ is the parent of node $6$. $fail[5]$ is already known, $fail[5]=10$. But it doesn’t have an edge $s$ pointing to the child node. So, we use $fail[fail[5]]$, i.e. $fail[10]=0$. Node $0$ has an edge $s$ pointing to node $7$. Finally, we get $fail[6]=7$.</p>
+<h3 id="Implementation-3"><a href="#Implementation-3" class="headerlink" title="Implementation"></a>Implementation</h3><pre><code class="hljs c++"><span class="hljs-comment">// q: queue</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">build</span><span class="hljs-params">()</span> </span>&#123;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">26</span>; i++)
+    <span class="hljs-keyword">if</span> (tr[<span class="hljs-number">0</span>][i]) q.push(tr[<span class="hljs-number">0</span>][i]);
+  <span class="hljs-keyword">while</span> (q.<span class="hljs-built_in">size</span>()) &#123;
+    <span class="hljs-keyword">int</span> u = q.front();
+    q.pop();
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">26</span>; i++) &#123;
+      <span class="hljs-keyword">if</span> (tr[u][i])
+        fail[tr[u][i]] = tr[fail[u]][i], q.push(tr[u][i]);
+      <span class="hljs-keyword">else</span>
+        tr[u][i] = tr[fail[u]][i];
+    &#125;
+  &#125;
+&#125;</code></pre>
+<h2 id="Search-Function"><a href="#Search-Function" class="headerlink" title="Search() Function"></a>Search() Function</h2><p>Well, with previous operation, the <code>search</code> function simply traverses the string and makes some corresponding jump on the Trie.</p>
+<h3 id="Implementation-4"><a href="#Implementation-4" class="headerlink" title="Implementation"></a>Implementation</h3><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">search</span><span class="hljs-params">(<span class="hljs-keyword">char</span> str[])</span> </span>&#123;
+    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>; str[i]; i ++ ) &#123;
+        <span class="hljs-keyword">int</span> t = str[i] - <span class="hljs-string">&#x27;a&#x27;</span>;
+        j = tr[j][t];
+
+        <span class="hljs-keyword">int</span> p = j;
+        <span class="hljs-keyword">while</span> (p) &#123;
+            res += cnt[p];
+            cnt[p] = <span class="hljs-number">0</span>;
+            p = ne[p];
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> res;
+&#125;</code></pre>
+<h2 id="Time-Complexity"><a href="#Time-Complexity" class="headerlink" title="Time Complexity"></a>Time Complexity</h2><p>Let $|s_i|$ be the length of pattern string, $|S|$ the length of text string, and $|\Sigma|$ the size of character set.</p>
+<p>In practice, the time complexity is $O(\Sigma|s_i|+n|\Sigma|+|S|)$.</p>
+<h2 id="Implementation-5"><a href="#Implementation-5" class="headerlink" title="Implementation"></a>Implementation</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">10010</span>, S = <span class="hljs-number">55</span>, M = <span class="hljs-number">1000010</span>;
+
+<span class="hljs-keyword">int</span> n, t;
+<span class="hljs-keyword">int</span> tr[N * S][<span class="hljs-number">26</span>], cnt[N * S], idx, fail[N * S];
+<span class="hljs-keyword">char</span> str[M];
+<span class="hljs-built_in">queue</span>&lt;<span class="hljs-keyword">int</span>&gt; que;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-keyword">char</span> str[])</span> </span>&#123;
+    <span class="hljs-keyword">int</span> p = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; str[i]; i++) &#123;
+        <span class="hljs-keyword">int</span> letter = str[i] - <span class="hljs-string">&#x27;a&#x27;</span>;
+        <span class="hljs-keyword">if</span> (!tr[p][letter]) tr[p][letter] = ++idx;
+        p = tr[p][letter];
+    &#125;
+    cnt[p]++;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">build</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">while</span> (!que.empty()) que.pop();
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">26</span>; i++) &#123;
+        <span class="hljs-keyword">if</span> (tr[<span class="hljs-number">0</span>][i]) que.push(tr[<span class="hljs-number">0</span>][i]);
+    &#125;
+    <span class="hljs-keyword">while</span> (!que.empty()) &#123;
+        <span class="hljs-keyword">int</span> t = que.front();
+        que.pop();
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">26</span>; i++) &#123;
+            <span class="hljs-keyword">int</span> p = tr[t][i];
+            <span class="hljs-keyword">if</span> (!p) tr[t][i] = tr[fail[t]][i];
+            <span class="hljs-keyword">else</span> &#123;
+                fail[p] = tr[fail[t]][i];
+                que.push(p);
+            &#125;
+        &#125;
+    &#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-built_in">cin</span> &gt;&gt; t;
+    <span class="hljs-keyword">while</span> (t--) &#123;
+        <span class="hljs-built_in">memset</span>(tr, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span> tr);
+        <span class="hljs-built_in">memset</span>(cnt, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span> cnt);
+        <span class="hljs-built_in">memset</span>(fail, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span> fail);
+        idx = <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">cin</span> &gt;&gt; n;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;
+            <span class="hljs-built_in">cin</span> &gt;&gt; str;
+            insert(str);
+        &#125;
+        build();
+        <span class="hljs-built_in">cin</span> &gt;&gt; str;
+        <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>; str[i]; i++) &#123;
+            <span class="hljs-keyword">int</span> letter = str[i] - <span class="hljs-string">&#x27;a&#x27;</span>;
+            j = tr[j][letter];
+            <span class="hljs-keyword">int</span> p = j;
+            <span class="hljs-keyword">while</span> (p) &#123;
+                res += cnt[p];
+                cnt[p] = <span class="hljs-number">0</span>;
+                p = fail[p];
+            &#125;
+        &#125;
+        <span class="hljs-built_in">cout</span> &lt;&lt; res &lt;&lt; <span class="hljs-built_in">endl</span>;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre>
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://oi-wiki.org/string/ac-automaton/">OI-wiki</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Algorithms/">Algorithms</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/string/">string</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Data-Structure/">Data Structure</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/15/Writing-Word-for-word/">
+                        <span class="hidden-mobile">Writing (Word for word)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script>
+      function loadDisqus() {
+        addCssLink('https://cdn.jsdelivr.net/npm/disqusjs@1.0/dist/disqusjs.css');
+        addScript('https://cdn.jsdelivr.net/npm/disqusjs@1.0/dist/disqus.js', function () {
+          new DisqusJS({
+            shortname: 'fluid',
+            apikey: ''
+          });
+        });
+      }
+      waitElementVisible('disqus_thread', loadDisqus);
+    </script>
+    <noscript>Please enable JavaScript to view the
+      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
+    </noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Aho–Corasick Automata&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/mermaid/8.5.0/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>
