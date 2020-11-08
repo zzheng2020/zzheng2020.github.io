@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      657 字
+      654 字
     </span>
   
 
@@ -261,13 +261,13 @@ Output: <span class="hljs-literal">false</span></code></pre>
 </li>
 <li><p>When $p[i]=\star$, it’s a little bit complicated.</p>
 <p>$\star$ in this problem can match any sequence, so if $f(i,j)$ depends on $f(i,j-1)$ which means we don’t use $\star$, namely $\star$ matches empty sequence. And if $f(i,j)$ depends on $f(i-1,j-1)$ which means we use $\star$ to match one character $s[i]$. The rest cases are similar.</p>
-<p>So, we have the following equation:</p>
+<p>We have the following equation:</p>
 <script type="math/tex; mode=display">
 f(i,j)=f(i,j-1)||f(i-1,j-1)||f(i-2,j-1)||\cdots \label{equ1} \tag{1}</script><p>This is the naive equation. </p>
-<p>If we implement our code according to equation ($\ref{equ1}$), the time complexity is $O(n^3)$ which is unacceptable. So we need to optimize it.</p>
+<p>If we implement our code according to equation ($\ref{equ1}$), the time complexity is $O(n^3)$ which is unacceptable. We need to optimize it.</p>
 <p>According to equation ($\ref{equ1}$), let’s consider the following equation:</p>
 <script type="math/tex; mode=display">
-f(i-1,j)=f(i-1,j-1)||f(i-2,j-1)||f(i-3,j-1)||\cdots \label{equ2} \tag{2}</script><p>We can find that equation ($\ref{equ1}$) beginning from second term is equal to equation ($\ref{equ2}$). So we can get equation ($\ref{equ3}$).</p>
+f(i-1,j)=f(i-1,j-1)||f(i-2,j-1)||f(i-3,j-1)||\cdots \label{equ2} \tag{2}</script><p>We can find that equation ($\ref{equ1}$) beginning from second term is equal to equation ($\ref{equ2}$). We can get equation ($\ref{equ3}$).</p>
 <script type="math/tex; mode=display">
 f(i,j)=f(i,j-1)||f(i-1,j) \label{equ3} \tag{3}</script><p>So, according to equation ($\ref{equ3}$), we optimize the time complexity from $O(n^3)$ to $O(n^2)$.</p>
 </li>
