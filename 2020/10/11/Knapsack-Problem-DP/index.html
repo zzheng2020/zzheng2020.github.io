@@ -235,7 +235,7 @@ f(i,j)=\max\{f(i-1,j),f(i-1,j-C_{i})+W_{i}\} \tag{1} \label{equ:1}</script><p>In
 <h3 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h3><ul>
 <li>Time complexity $O(NV)$, space complexity $O(NV)$.</li>
 </ul>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
 
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 
@@ -260,7 +260,7 @@ f(i,j)=\max\{f(i-1,j),f(i-1,j-C_{i})+W_{i}\} \tag{1} \label{equ:1}</script><p>In
     &#125;
     <span class="hljs-built_in">cout</span> &lt;&lt; f[n][m] &lt;&lt; <span class="hljs-built_in">endl</span>;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+&#125;</code></pre></div>
 <ul>
 <li><p>Obviously, $f(i,\dots)$ is only related to $f(i-1,\dots)$, so we can optimize space complexity to reduce it from $O(NV)$ to $O(V)$.</p>
 <p>Maybe it’s confused about why we need to enumerate knapsack weights in reverse order.</p>
@@ -271,7 +271,7 @@ f(j)=\max\{f(j), f(j - C_i)+W_i\} \tag{2} \label{equ:2}</script><p>In the 2D equ
 <p>When we enumerate weights in reverse order, we can find when we need to  calculate $f(j)$, $f(j-C_i)$ is still the result of $(i-1)^{th}$ loop, so in this case, $f(j-C_i)$ is equivalent to $f(i-1, j-C_i)$ in 2D equation.</p>
 </li>
 </ul>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
 
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 
@@ -295,13 +295,13 @@ f(j)=\max\{f(j), f(j - C_i)+W_i\} \tag{2} \label{equ:2}</script><p>In the 2D equ
     &#125;
     <span class="hljs-built_in">cout</span> &lt;&lt; f[m] &lt;&lt; <span class="hljs-built_in">endl</span>;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+&#125;</code></pre></div>
 <h2 id="Complete-Knapsack-Problem"><a href="#Complete-Knapsack-Problem" class="headerlink" title="Complete Knapsack Problem"></a>Complete Knapsack Problem</h2><h3 id="Description-1"><a href="#Description-1" class="headerlink" title="Description"></a>Description</h3><p>The only difference between Zero-One Knapsack Problem and Complete Knapsack Problem is the number of items. In the Complete Knapsack Problem, there are infinite number of items.</p>
 <h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h3><p>The way to think about this problem is the same as the last.</p>
 <p>Let $f(i,j)$ be a function which represents the maximum value that first $i$ items can be put into a knapsack with a capacity of $j$. </p>
 <script type="math/tex; mode=display">
 f(i,j) = \max\{ f(i-1, j-kC_i)+kW_i|0\leq kC_i \leq V \} \label{equ:3} \tag{3}</script><p>Equation ($\ref{equ:3}$) means we pick the $i^{th}$ item for $k$ times. So, for the first $(i-1)^{th}$ items, the capacity remains $j-kC_i$. And the total value is $f(i-1,j-kC_i+KW_i)$.</p>
-<h3 id="Implementation-1"><a href="#Implementation-1" class="headerlink" title="Implementation"></a>Implementation</h3><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<h3 id="Implementation-1"><a href="#Implementation-1" class="headerlink" title="Implementation"></a>Implementation</h3><div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
 
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 
@@ -327,7 +327,7 @@ f(i,j) = \max\{ f(i-1, j-kC_i)+kW_i|0\leq kC_i \leq V \} \label{equ:3} \tag{3}</
     &#125;
     <span class="hljs-built_in">cout</span> &lt;&lt; f[n][m] &lt;&lt; <span class="hljs-built_in">endl</span>;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+&#125;</code></pre></div>
 <ul>
 <li><p>Time complexity is $O(NV\sum\frac{V}{C_i})$. In the worst case, time complexity is $O(NV^2)$ which is a big number.</p>
 <p>But, we can optimize it.</p>
@@ -340,7 +340,7 @@ f(i,j-C_i)=\max\{ f(i-1,j-C_i), f(i-1,j-2C_i)+W_i,f(i-1, j-3C_i)+2W_i,\dots\} \l
 <p>So, equation ($\ref{equ:4}$) can be written in the following form:</p>
 <script type="math/tex; mode=display">
 f(i,j)=\max\{ f(i-1,j),f(i,j-C_i)+W_i \} \label{equ:6} \tag{6}</script><p>Time complexity is $O(NV)$.</p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
 
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 
@@ -364,14 +364,14 @@ f(i,j)=\max\{ f(i-1,j),f(i,j-C_i)+W_i \} \label{equ:6} \tag{6}</script><p>Time c
     &#125;
     <span class="hljs-built_in">cout</span> &lt;&lt; f[n][m] &lt;&lt; <span class="hljs-built_in">endl</span>;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+&#125;</code></pre></div>
 </li>
 <li><p>There are another tricks to reduce space complexity from $O(NV)$ to $O(V)$.</p>
 <p>It’s the same optimization as in the Zero-One Knapsack Problem. When we choose the $i^{th}$ item, $f(i,j)$ is only related the $f(i,\dots)$. So in this case, we don’t need to enumerate weights in reverse order. The optimized equation is shown below:</p>
 <script type="math/tex; mode=display">
 f(j) = \max\{ f(j-C_i)+W_i \} \label{equ:7} \tag{7}</script></li>
 </ul>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
 
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 
@@ -393,7 +393,7 @@ f(j) = \max\{ f(j-C_i)+W_i \} \label{equ:7} \tag{7}</script></li>
     &#125;
     <span class="hljs-built_in">cout</span> &lt;&lt; f[m] &lt;&lt; <span class="hljs-built_in">endl</span>;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+&#125;</code></pre></div>
 <p>To be continued…</p>
 
             </div>

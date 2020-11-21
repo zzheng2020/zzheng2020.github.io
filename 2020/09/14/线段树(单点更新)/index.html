@@ -259,7 +259,7 @@
           </div>
 <p>下面以查询区间最大值为例，进行线段树相关操作的说明。</p>
 <h2 id="建树操作"><a href="#建树操作" class="headerlink" title="建树操作"></a>建树操作</h2><p>采用递归的形式建树。先建好父节点，然后递归地建立左右儿子节点即可。</p>
-<pre><code class="hljs c++"><span class="hljs-comment">// tr[i]表示线段树中编号为i的节点,</span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-comment">// tr[i]表示线段树中编号为i的节点,</span>
 <span class="hljs-comment">// 其中储存该节点代表的区间[l, r],</span>
 <span class="hljs-comment">// 以及需要维护的信息</span>
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">build</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r)</span></span>
@@ -268,7 +268,7 @@
     <span class="hljs-keyword">if</span> (l == r) <span class="hljs-keyword">return</span>;
     <span class="hljs-keyword">int</span> mid = (l + r) &gt;&gt; <span class="hljs-number">1</span>;
     build(u &lt;&lt; <span class="hljs-number">1</span>, l, mid), build(u &lt;&lt; <span class="hljs-number">1</span> | <span class="hljs-number">1</span>, mid + <span class="hljs-number">1</span>, r);
-&#125;</code></pre>
+&#125;</code></pre></div>
 <h2 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h2><p>查询操作需要分情况进行讨论。</p>
 <p>设需要查询的区间为$[Q_l, Q_r]$，当前树中节点代表区间为$[T_l, T_r]$。</p>
 <ul>
@@ -280,7 +280,7 @@
 </li>
 </ul>
 <p>最后返回<code>value</code>即可。</p>
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">query</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r)</span></span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">query</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r)</span></span>
 <span class="hljs-function"></span>&#123;
     <span class="hljs-keyword">if</span> (l &lt;= tr[u].l &amp;&amp; tr[u].r &lt;= r) <span class="hljs-keyword">return</span> tr[u].v;
     
@@ -290,12 +290,12 @@
     <span class="hljs-keyword">if</span> (r &gt; mid) value = <span class="hljs-built_in">max</span>(value, query(u &lt;&lt; <span class="hljs-number">1</span> | <span class="hljs-number">1</span>, l, r));
     
     <span class="hljs-keyword">return</span> vlaue;
-&#125;</code></pre>
+&#125;</code></pre></div>
 <h2 id="pushup操作"><a href="#pushup操作" class="headerlink" title="pushup操作"></a>pushup操作</h2><p><code>pushup</code>操作是维护父节点的信息，将父节点左右儿子的信息更新给父节点。</p>
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pushup</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u)</span></span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pushup</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u)</span></span>
 <span class="hljs-function"></span>&#123;
     tr[u].v = <span class="hljs-built_in">max</span>(tr[u &lt;&lt; <span class="hljs-number">1</span>].v, tr[u &lt;&lt; <span class="hljs-number">1</span> | <span class="hljs-number">1</span>].v);
-&#125;</code></pre>
+&#125;</code></pre></div>
 <h2 id="更新操作"><a href="#更新操作" class="headerlink" title="更新操作"></a>更新操作</h2><p>先讲述较为简单的单点更新。</p>
 <p>因为是单点更新， 所以一定会找到叶子节点之后再进行更新。</p>
 <p>设当前节点代表的区间为$[l,r]$，中点$mid=\lfloor \frac{tr[u].l+tr[u].r}{2} \rfloor$</p>
@@ -305,7 +305,7 @@
 <li>当要更新的节点编号$x$在当前节点中点右边，即$x &gt; mid$时，找当前节点的右子树去更新<code>modify(u &lt;&lt; 1 | 1, x, v)</code></li>
 </ul>
 <p>注意在更新过后不要忘记<code>pushup(u)</code>，将父节点的信息也进行更新。</p>
-<pre><code class="hljs c++"><span class="hljs-comment">// 将节点x的值修改为v</span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-comment">// 将节点x的值修改为v</span>
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">modify</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> v)</span></span>
 <span class="hljs-function"></span>&#123;
     <span class="hljs-keyword">if</span> (tr[u].l == x &amp;&amp; tr[u].r == x) tr[u].v = v;
@@ -316,7 +316,7 @@
         <span class="hljs-keyword">else</span> modify(u &lt;&lt; <span class="hljs-number">1</span> | <span class="hljs-number">1</span>, x, v);
         pushup(u);
     &#125;	
-&#125;</code></pre>
+&#125;</code></pre></div>
 <p>以上就是线段树的基本操作了，接下来可以<del>愉快地</del>AC练习题了。</p>
 <h2 id="题目1：最大数"><a href="#题目1：最大数" class="headerlink" title="题目1：最大数"></a>题目1：最大数</h2><p><strong>题目描述：</strong></p>
 <p>给定一个正整数数列$a_1,a_2,\cdots,a_n$，每一个数都在$0\sim p−1$之间。</p>
@@ -338,7 +338,7 @@
 <p><strong>数据范围：</strong></p>
 <p>$1\leq m\leq 2×10^5,1\leq p\leq 2×10^9,0\leq t&lt; p$</p>
 <p><strong>输入样例：</strong></p>
-<pre><code class="hljs c++"><span class="hljs-comment">// input</span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-comment">// input</span>
 <span class="hljs-number">10</span> <span class="hljs-number">100</span>
 A <span class="hljs-number">97</span>
 Q <span class="hljs-number">1</span>
@@ -357,10 +357,10 @@ A <span class="hljs-number">99</span>
 <span class="hljs-number">97</span>
 <span class="hljs-number">60</span>
 <span class="hljs-number">60</span>
-<span class="hljs-number">97</span></code></pre>
+<span class="hljs-number">97</span></code></pre></div>
 <p><strong>样例解释：</strong></p>
 <p>最后的序列是 97，14，60，96。</p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
 
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 
@@ -434,7 +434,7 @@ A <span class="hljs-number">99</span>
         &#125;
     &#125;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+&#125;</code></pre></div>
 <h2 id="题目2：最大连续子段和"><a href="#题目2：最大连续子段和" class="headerlink" title="题目2：最大连续子段和"></a>题目2：最大连续子段和</h2><p><strong>题目描述</strong>：</p>
 <p>给定长度为$N$的数列$A$，以及$M$条指令，每条指令能是以下两种之一：</p>
 <p>1、“1 x y”，查询区间$[x,y]$中的最大连续子段和，即</p>
@@ -451,7 +451,7 @@ A <span class="hljs-number">99</span>
 <p><strong>数据范围：</strong></p>
 <p>$N\leq 500000,M\leq 100000$</p>
 <p><strong>输入样例：</strong></p>
-<pre><code class="hljs c++"><span class="hljs-comment">// input</span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-comment">// input</span>
 <span class="hljs-number">5</span> <span class="hljs-number">3</span>
 <span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">-3</span> <span class="hljs-number">4</span> <span class="hljs-number">5</span>
 <span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span>
@@ -460,7 +460,7 @@ A <span class="hljs-number">99</span>
 
 <span class="hljs-comment">// output</span>
 <span class="hljs-number">2</span>
-<span class="hljs-number">-1</span></code></pre>
+<span class="hljs-number">-1</span></code></pre></div>
 <p>用线段树维护最大连续子段和的时候，需要考虑图(2)的情况：</p>
 <center> 
     <img style="border-radius: 0.3125em; box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" src="/img/最大连续子段和.png" srcset="/img/loading.gif"> 
@@ -470,14 +470,14 @@ A <span class="hljs-number">99</span>
 
 <p>父节点的最大连续子段和，与两个儿子节点的最大后缀和、最大前缀和有关，并且这两个信息还需要区间和来进行维护。</p>
 <p>因此，在储存节点信息时，需要额外维护最大前缀和、最大后缀和以及区间和。</p>
-<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span></span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span></span>
 <span class="hljs-class">&#123;</span>
     <span class="hljs-keyword">int</span> l, r; <span class="hljs-comment">// 区间左右端点</span>
     <span class="hljs-keyword">int</span> ans;  <span class="hljs-comment">// 最大连续子段和</span>
     <span class="hljs-keyword">int</span> lmax; <span class="hljs-comment">// 最大前缀和</span>
     <span class="hljs-keyword">int</span> rmax; <span class="hljs-comment">// 最大后缀和</span>
     <span class="hljs-keyword">int</span> sum;  <span class="hljs-comment">// 区间和</span>
-&#125;;</code></pre>
+&#125;;</code></pre></div>
 <p><code>ans</code>存在三种情况：</p>
 <ul>
 <li><code>ans = left_son.ans</code>，即最大连续子段和等于左子区间的答案</li>
@@ -494,7 +494,7 @@ A <span class="hljs-number">99</span>
 <p>区间和显然可以得到，即<code>sum = left_son.sum + right_son.sum</code>。</p>
 <p>这道题目值得注意的是，在查询时，需要<code>pushup</code>这一步操作。原因在于，当查询的端点跨过中点，包含两个区间的时候，需要用两个子节点的信息来得到所需查询区间的最大连续子段和的值。</p>
 <p>代码实现如下：</p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
 
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 
@@ -585,7 +585,7 @@ A <span class="hljs-number">99</span>
     &#125;
     
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+&#125;</code></pre></div>
 <h2 id="题目3：区间最大公约数"><a href="#题目3：区间最大公约数" class="headerlink" title="题目3：区间最大公约数"></a>题目3：区间最大公约数</h2><p><strong>题目描述：</strong></p>
 <p>给定一个长度为$N$的数列$A$，以及$M$条指令，每条指令可能是以下两种之一：</p>
 <p>1、“C l r d”，表示把$A[l],A[l+1],…,A[r]$都加上$d$。</p>
@@ -601,7 +601,7 @@ A <span class="hljs-number">99</span>
 <p><strong>数据范围</strong>：</p>
 <p>$N\leq 500000,M\leq 100000$</p>
 <p><strong>输入样例</strong>：</p>
-<pre><code class="hljs c++"><span class="hljs-comment">// input</span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-comment">// input</span>
 <span class="hljs-number">5</span> <span class="hljs-number">5</span>
 <span class="hljs-number">1</span> <span class="hljs-number">3</span> <span class="hljs-number">5</span> <span class="hljs-number">7</span> <span class="hljs-number">9</span>
 Q <span class="hljs-number">1</span> <span class="hljs-number">5</span>
@@ -613,7 +613,7 @@ Q <span class="hljs-number">2</span> <span class="hljs-number">4</span>
 <span class="hljs-comment">// output</span>
 <span class="hljs-number">1</span>
 <span class="hljs-number">2</span>
-<span class="hljs-number">4</span></code></pre>
+<span class="hljs-number">4</span></code></pre></div>
 <p>需要考虑较多的一道题目。</p>
 <ul>
 <li><p>对于最大公约数，有如下性质，$gcd(a, b) = gcd(a, b - a)$，即“更相减损术”。（其实质是欧几里得算法的一个特例）</p>
@@ -625,7 +625,7 @@ gcd(a_{1},a_{2},\cdots,a_{n})=gcd(a_{1},a_{2}-a_{1},a_{3}-a_{2},\cdots,a_{n}-a_{
 <p>以上说明，通过原序列的差分序列，来求得区间的$gcd$。因为对于区间修改，只涉及到差分序列中的两项。</p>
 <p>例如：将区间$[l,r]$中的每一个数加上$d$，则相当于将原序列$a[i]$的差分序列$b[i]$中，<code>b[l] += d &amp;&amp; b[r+1] -= d</code>。</p>
 <p>因此，对于求区间$[l,r]$的最大公约数，可以转化为求$gcd(a[l],gcd(b[l+1]\sim b[r]))$，其中$a[l]$为原序列第$l$项，是其差分序列前$l$项的前缀和，用线段树维护原序列的差分序列即可。</p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdio&gt;</span></span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdio&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span>
@@ -739,7 +739,7 @@ LL w[N];
     &#125;
 
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+&#125;</code></pre></div>
 
             </div>
             <hr>

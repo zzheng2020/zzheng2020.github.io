@@ -228,13 +228,13 @@
 <p>Well, let’s start with Trie.</p>
 <h1 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h1><p>Trie can efficiently stores and finds string set. </p>
 <p>Let $s$ be a string set containing the following strings.</p>
-<pre><code class="hljs c++">abcdef
+<div class="hljs"><pre><code class="hljs c++">abcdef
 abdef
 aced
 bcdf
 bcff
 cdaa
-bcdc</code></pre>
+bcdc</code></pre></div>
 <p>So, Trie is as follow.</p>
 <pre><code class="hljs mermaid">graph TB
     root((root)) --&gt; a1((a))
@@ -273,7 +273,7 @@ bcdc</code></pre>
 </ul>
 <p>There are $N$ options, and the total length of the input string does not exceed $10^5$. String contains only lowercase English letters.</p>
 <p>$1\leq N\leq 2\times 10^4$</p>
-<h3 id="Input-amp-Output"><a href="#Input-amp-Output" class="headerlink" title="Input &amp; Output"></a>Input &amp; Output</h3><pre><code class="hljs c++"><span class="hljs-comment">// Input</span>
+<h3 id="Input-amp-Output"><a href="#Input-amp-Output" class="headerlink" title="Input &amp; Output"></a>Input &amp; Output</h3><div class="hljs"><pre><code class="hljs c++"><span class="hljs-comment">// Input</span>
 <span class="hljs-number">5</span>
 I abc
 Q abc
@@ -283,9 +283,9 @@ Q ab
 <span class="hljs-comment">// Output</span>
 <span class="hljs-number">1</span>
 <span class="hljs-number">0</span>
-<span class="hljs-number">1</span></code></pre>
+<span class="hljs-number">1</span></code></pre></div>
 <h3 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h3><p>Time complexity is $O(NL)$, where $N$ is the number of words, and $L$ is an average length of the word.</p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
 
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 
@@ -324,7 +324,7 @@ Q ab
         <span class="hljs-keyword">else</span> <span class="hljs-built_in">cout</span> &lt;&lt; query(str) &lt;&lt; <span class="hljs-built_in">endl</span>;
     &#125;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+&#125;</code></pre></div>
 <p>The next one is KMP Algorithm.</p>
 <h1 id="KMP-Algorithm"><a href="#KMP-Algorithm" class="headerlink" title="KMP Algorithm"></a>KMP Algorithm</h1><p>The detailed process can be learned <a target="_blank" rel="noopener" href="http://web.stanford.edu/class/cs97si/10-string-algorithms.pdf">here (Stanford CS97SI <strong>String Algorithms</strong>)</a>. The following is its main content.</p>
 <p>Knuth-Morris-Pratt Algorithm, or KMP Algorithm, is a linear time algorithm that solves the string matching problem by preprocessing $P$ in $O(m)$ time.</p>
@@ -405,7 +405,7 @@ Q ab
 <h2 id="How-to-Get-next-Table"><a href="#How-to-Get-next-Table" class="headerlink" title="How to Get $next$ Table"></a>How to Get $next$ Table</h2><p>let’s write $next^{(k)}[i]$ as $next[\cdot]$ applied $k$ times to $i$.  </p>
 <p>e.g., $next^{(2)}[i]=next[next[i]]$.</p>
 <p>$next[i]$ is equal to $next^{(k)}[i-1]+1$, where $k$ is the smallest integer that satisfies $P_{next^{(k)}[i-1]+1}=P_i$. If there is no such $k$, $next[i]=0$.</p>
-<h2 id="Implementation-1"><a href="#Implementation-1" class="headerlink" title="Implementation"></a>Implementation</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<h2 id="Implementation-1"><a href="#Implementation-1" class="headerlink" title="Implementation"></a>Implementation</h2><div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
 
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 
@@ -431,11 +431,11 @@ Q ab
         &#125;
     &#125;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+&#125;</code></pre></div>
 <p>So that’s the basis for learning about AC automata.</p>
 <h1 id="AC-Automata"><a href="#AC-Automata" class="headerlink" title="AC Automata"></a>AC Automata</h1><p>AC Automata has main three functions called <code>insert</code>, <code>build</code>, and <code>search</code>.</p>
 <h2 id="Insert-Function"><a href="#Insert-Function" class="headerlink" title="Insert() Function"></a>Insert() Function</h2><p><code>insert</code> function is used to build Trie. See <a href="#Trie">Trie</a>.</p>
-<h3 id="Implementation-2"><a href="#Implementation-2" class="headerlink" title="Implementation"></a>Implementation</h3><pre><code class="hljs c++"><span class="hljs-comment">// tr: trie; str: string; idx: node number</span>
+<h3 id="Implementation-2"><a href="#Implementation-2" class="headerlink" title="Implementation"></a>Implementation</h3><div class="hljs"><pre><code class="hljs c++"><span class="hljs-comment">// tr: trie; str: string; idx: node number</span>
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">insert</span><span class="hljs-params">()</span> </span>&#123;
     <span class="hljs-keyword">int</span> p = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; str[i]; i ++ ) &#123;
@@ -444,7 +444,7 @@ Q ab
         p = tr[p][t];
     &#125;
     cnt[p] ++ ;
-&#125;</code></pre>
+&#125;</code></pre></div>
 <h2 id="Build-Function"><a href="#Build-Function" class="headerlink" title="Build() Function"></a>Build() Function</h2><p><code>build</code> function is used to build $fail$ table of AC Automata.</p>
 <p>The <code>fail</code> table in AC Automata is the same as the <code>next</code> table in KMP.</p>
 <p>For several pattern strings $s_1, s_2,\dots,s_n$, let $Q$ be a set of all states after they have been constructed into a Trie. The $fail$ pointer of state $u$ points to another state $v$, where $v\in Q$, and $v$ is the longest suffix to $u$.</p>
@@ -459,7 +459,7 @@ Q ab
 
 
 <p>Node $5$ is the parent of node $6$. $fail[5]$ is already known, $fail[5]=10$. But it doesn’t have an edge $s$ pointing to the child node. So, we use $fail[fail[5]]$, i.e. $fail[10]=0$. Node $0$ has an edge $s$ pointing to node $7$. Finally, we get $fail[6]=7$.</p>
-<h3 id="Implementation-3"><a href="#Implementation-3" class="headerlink" title="Implementation"></a>Implementation</h3><pre><code class="hljs c++"><span class="hljs-comment">// q: queue</span>
+<h3 id="Implementation-3"><a href="#Implementation-3" class="headerlink" title="Implementation"></a>Implementation</h3><div class="hljs"><pre><code class="hljs c++"><span class="hljs-comment">// q: queue</span>
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">build</span><span class="hljs-params">()</span> </span>&#123;
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">26</span>; i++)
     <span class="hljs-keyword">if</span> (tr[<span class="hljs-number">0</span>][i]) q.push(tr[<span class="hljs-number">0</span>][i]);
@@ -473,9 +473,9 @@ Q ab
         tr[u][i] = tr[fail[u]][i];
     &#125;
   &#125;
-&#125;</code></pre>
+&#125;</code></pre></div>
 <h2 id="Search-Function"><a href="#Search-Function" class="headerlink" title="Search() Function"></a>Search() Function</h2><p>Well, with previous operation, the <code>search</code> function simply traverses the string and makes some corresponding jump on the Trie.</p>
-<h3 id="Implementation-4"><a href="#Implementation-4" class="headerlink" title="Implementation"></a>Implementation</h3><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">search</span><span class="hljs-params">(<span class="hljs-keyword">char</span> str[])</span> </span>&#123;
+<h3 id="Implementation-4"><a href="#Implementation-4" class="headerlink" title="Implementation"></a>Implementation</h3><div class="hljs"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">search</span><span class="hljs-params">(<span class="hljs-keyword">char</span> str[])</span> </span>&#123;
     <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>; str[i]; i ++ ) &#123;
         <span class="hljs-keyword">int</span> t = str[i] - <span class="hljs-string">&#x27;a&#x27;</span>;
@@ -489,10 +489,10 @@ Q ab
         &#125;
     &#125;
     <span class="hljs-keyword">return</span> res;
-&#125;</code></pre>
+&#125;</code></pre></div>
 <h2 id="Time-Complexity"><a href="#Time-Complexity" class="headerlink" title="Time Complexity"></a>Time Complexity</h2><p>Let $|s_i|$ be the length of pattern string, $|S|$ the length of text string, and $|\Sigma|$ the size of character set.</p>
 <p>In practice, the time complexity is $O(\Sigma|s_i|+n|\Sigma|+|S|)$.</p>
-<h2 id="Implementation-5"><a href="#Implementation-5" class="headerlink" title="Implementation"></a>Implementation</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<h2 id="Implementation-5"><a href="#Implementation-5" class="headerlink" title="Implementation"></a>Implementation</h2><div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
 
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 
@@ -560,7 +560,7 @@ Q ab
         <span class="hljs-built_in">cout</span> &lt;&lt; res &lt;&lt; <span class="hljs-built_in">endl</span>;
     &#125;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+&#125;</code></pre></div>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://oi-wiki.org/string/ac-automaton/">OI-wiki</a>
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
             </div>

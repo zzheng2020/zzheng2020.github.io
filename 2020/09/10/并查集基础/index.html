@@ -253,7 +253,7 @@
 <p><strong>数据范围：</strong></p>
 <p>$1\leq n\leq 200,\ 1\leq m\leq 24000$</p>
 <p><strong>输入样例：</strong></p>
-<pre><code class="hljs c++"><span class="hljs-comment">// input</span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-comment">// input</span>
 <span class="hljs-number">3</span> <span class="hljs-number">5</span>
 <span class="hljs-number">1</span> <span class="hljs-number">1</span> D
 <span class="hljs-number">1</span> <span class="hljs-number">1</span> R
@@ -262,13 +262,13 @@
 <span class="hljs-number">2</span> <span class="hljs-number">2</span> D
 
 <span class="hljs-comment">// output</span>
-<span class="hljs-number">4</span></code></pre>
+<span class="hljs-number">4</span></code></pre></div>
 <p>这道题目过于简单:-)，不用维护任何信息，一个并查集裸题。</p>
 <ul>
 <li>需要注意的是，$n\times n$的网格中，二维坐标换算成一维坐标的方式为$x\times n+y$（坐标从0开始）</li>
 </ul>
 <p>代码实现如下：</p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
 
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 
@@ -320,7 +320,7 @@
     <span class="hljs-keyword">if</span> (!res) <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;draw&quot;</span>);
     <span class="hljs-keyword">else</span> <span class="hljs-built_in">cout</span> &lt;&lt; res &lt;&lt; <span class="hljs-built_in">endl</span>;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+&#125;</code></pre></div>
 <p>接下来是第二道题目，题目略难，将运用并查集来维护一些信息。</p>
 <h2 id="题目2：食物链"><a href="#题目2：食物链" class="headerlink" title="题目2：食物链"></a>题目2：食物链</h2><p><strong>题目描述：</strong></p>
 <p>动物王国中有三类动物$A,B,C$，这三类动物的食物链构成了有趣的环形。<br>$A$吃$B$， $B$吃$C$，$C$吃$A$。<br>现有$N$个动物，以$1\sim N$编号。<br><strong>每个动物都是$A,B,C$中的一种</strong>，但是我们并不知道它到底是哪一种。<br>有人用两种说法对这$N$个动物所构成的食物链关系进行描述：</p>
@@ -347,7 +347,7 @@
 <p><strong>数据范围：</strong></p>
 <p>$1\leq N\leq 50000,\ 0\leq K\leq 100000$</p>
 <p><strong>样例：</strong></p>
-<pre><code class="hljs c++"><span class="hljs-comment">// input</span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-comment">// input</span>
 <span class="hljs-number">100</span> <span class="hljs-number">7</span>
 <span class="hljs-number">1</span> <span class="hljs-number">101</span> <span class="hljs-number">1</span> 
 <span class="hljs-number">2</span> <span class="hljs-number">1</span> <span class="hljs-number">2</span>
@@ -358,7 +358,7 @@
 <span class="hljs-number">1</span> <span class="hljs-number">5</span> <span class="hljs-number">5</span>
     
 <span class="hljs-comment">// output</span>
-<span class="hljs-number">3</span></code></pre>
+<span class="hljs-number">3</span></code></pre></div>
 <p>带权并查集。</p>
 <p>我们可以维护每个点与根节点的距离，以此来表示各类动物之间的关系。</p>
 <p>因为只有三种动物，所以可以用$mod\ 3$的余数来进行表示：</p>
@@ -406,7 +406,7 @@
 </ol>
 <p>根据以上分析便可实现真假的判断，具体细节详见代码注释。</p>
 <p>代码实现如下：</p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
 
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 
@@ -468,7 +468,7 @@
     &#125;
     <span class="hljs-built_in">cout</span> &lt;&lt; res &lt;&lt; <span class="hljs-built_in">endl</span>;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+&#125;</code></pre></div>
 <h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>Tarjan R E, Van Leeuwen J. Worst-case analysis of set union algorithms[J]. Journal of the ACM (JACM), 1984, 31(2): 245-281.
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
             </div>

@@ -228,7 +228,7 @@
 <center><font size=3>by ZhangZiheng</font></center>
 
 <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>Given a string <code>s</code>, find the length of <strong>the longest substring</strong> without repeating characters.</p>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><pre><code class="hljs c++"><span class="hljs-comment">// example1:</span>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><div class="hljs"><pre><code class="hljs c++"><span class="hljs-comment">// example1:</span>
 Input: s = <span class="hljs-string">&quot;abcabcbb&quot;</span>
 Output: <span class="hljs-number">3</span>
 Explanation: The answer is <span class="hljs-string">&quot;abc&quot;</span>, with the length of <span class="hljs-number">3.</span>
@@ -246,7 +246,7 @@ Notice that the answer must be a substring, <span class="hljs-string">&quot;pwke
     
 <span class="hljs-comment">// example4:</span>
 Input: s = <span class="hljs-string">&quot;&quot;</span>
-Output: <span class="hljs-number">0</span></code></pre>
+Output: <span class="hljs-number">0</span></code></pre></div>
 <h2 id="Constraints"><a href="#Constraints" class="headerlink" title="Constraints:"></a>Constraints:</h2><ul>
 <li>$0\leq s.length \leq 5*10^4$</li>
 <li><code>s</code> consists of English letters, digits, symbols and spaces.</li>
@@ -259,7 +259,7 @@ Output: <span class="hljs-number">0</span></code></pre>
 </ul>
 <p>In conclusion, the answer will be the maximum value that meets the above criteria is $j-i+1$ where $i$ and $j$ are from $0$ to <code>s.size()</code>.</p>
 <p>In this algorithm, $i$ and $j$ increase $n$ times at most, and the time complexity of insert and update operations for <code>unordered_map</code> is $O(1)$, so in the worse case the time complexity is $O(2n)=O(n)$.</p>
-<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><div class="hljs"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
 <span class="hljs-keyword">public</span>:
     <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">lengthOfLongestSubstring</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>&#123;
         <span class="hljs-built_in">unordered_map</span>&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keyword">int</span>&gt; mp;
@@ -271,7 +271,7 @@ Output: <span class="hljs-number">0</span></code></pre>
         &#125;
         <span class="hljs-keyword">return</span> res;
     &#125;
-&#125;;</code></pre>
+&#125;;</code></pre></div>
             </div>
             <hr>
             <div>

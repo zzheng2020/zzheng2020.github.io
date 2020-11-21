@@ -228,7 +228,7 @@
 <center><font size=3>by ZhangZiheng</font></center>
 
 <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>Given a string <code>s</code>, find the longest palindromic substring in <code>s</code>.</p>
-<pre><code class="hljs c++">e.g.
+<div class="hljs"><pre><code class="hljs c++">e.g.
 input: s = <span class="hljs-string">&quot;abcdefg&quot;</span>
 output: answer = <span class="hljs-number">1</span>
 note: len(<span class="hljs-string">&quot;a&quot;</span>) = <span class="hljs-number">1</span>
@@ -239,7 +239,7 @@ note: len(<span class="hljs-string">&quot;abcba&quot;</span>) = <span class="hlj
     
 input: s = <span class="hljs-string">&quot;abqppq&quot;</span>
 output: answer = <span class="hljs-number">4</span>
-note: len(<span class="hljs-string">&quot;qppq&quot;</span>) = <span class="hljs-number">4</span></code></pre>
+note: len(<span class="hljs-string">&quot;qppq&quot;</span>) = <span class="hljs-number">4</span></code></pre></div>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>Manacher’s algorithm is a linear algorithm to solve this problem.</p>
 <h3 id="Avoid-classified-discussions-due-to-different-string-length"><a href="#Avoid-classified-discussions-due-to-different-string-length" class="headerlink" title="Avoid classified discussions due to different string length"></a>Avoid classified discussions due to different string length</h3><p>The length of a string may be odd or even. </p>
 <ul>
@@ -260,7 +260,7 @@ note: len(<span class="hljs-string">&quot;qppq&quot;</span>) = <span class="hljs
 <script type="math/tex; mode=display">
 aba\to \$\#a\#b\#a\#*\notag</script><script type="math/tex; mode=display">
 abba\to \$\#a\#b\#b\#a\#* \notag</script><p>By using this tricks, the center of the longest palindromic substring is entirely on the character, not between two characters.</p>
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span>
 <span class="hljs-function"></span>&#123;
     <span class="hljs-comment">// len1为原始串的长度,len2为翻倍之后的串的长度(原串为s, 翻倍之后的串为str)</span>
     str[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;$&#x27;</span>;
@@ -272,7 +272,7 @@ abba\to \$\#a\#b\#b\#a\#* \notag</script><p>By using this tricks, the center of 
     &#125;
     len2 = len1 * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>; <span class="hljs-comment">// 因为首尾加上了$和*, 所以总长度再加上2</span>
     str[len2] = <span class="hljs-string">&#x27;*&#x27;</span>;
-&#125;</code></pre>
+&#125;</code></pre></div>
 <h3 id="Manacher’s-Algorithm"><a href="#Manacher’s-Algorithm" class="headerlink" title="Manacher’s Algorithm"></a>Manacher’s Algorithm</h3><p>Let $int\ p[\dots]$ be an auxiliary array where $p[i]$ represents the radius of the longest palindrome centered on $i$.</p>
 <p>e.g. <code>s = &quot;aaba&quot;</code></p>
 <div class="table-container">
@@ -337,7 +337,7 @@ abba\to \$\#a\#b\#b\#a\#* \notag</script><p>By using this tricks, the center of 
 <p>If $i &lt; mx$, then $p[i] = max(p[j], mx - i)$ where $j=2\times id-i$.</p>
 <p>Then, match each letter backwards to get the maximum value of $p[i]$.</p>
 <p>Finally, in each loop, check whether $id$ and $mx$ need to be updated or not.</p>
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">manacher</span><span class="hljs-params">()</span></span>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">manacher</span><span class="hljs-params">()</span></span>
 <span class="hljs-function"></span>&#123;
     <span class="hljs-keyword">int</span> id = <span class="hljs-number">0</span>, mx = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len2; i++)
@@ -354,9 +354,9 @@ abba\to \$\#a\#b\#b\#a\#* \notag</script><p>By using this tricks, the center of 
             mx = i + p[i];
         &#125;
     &#125;
-&#125;</code></pre>
+&#125;</code></pre></div>
 <p>In this algorithm, we can scan the string from beginning to ending to get the answer. So the time complexity is $O(n)$.</p>
-<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">3e5</span>;
 <span class="hljs-keyword">char</span> s[N], str[N];
@@ -401,7 +401,7 @@ abba\to \$\#a\#b\#b\#a\#* \notag</script><p>By using this tricks, the center of 
         ans = <span class="hljs-built_in">max</span>(ans, p[i]);
     <span class="hljs-built_in">cout</span> &lt;&lt; ans - <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+&#125;</code></pre></div>
 
             </div>
             <hr>
