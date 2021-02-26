@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      328 字
+      1.1k 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      21
        分钟
     </span>
   
@@ -296,6 +296,144 @@ wx.cloud.database().collection(<span class="hljs-string">&#x27;test-goods&#x27;<
         <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;删除失败&#x27;</span>, err);
       &#125;)
 &#125;</code></pre></div>
+</li>
+</ul>
+<p>跳转详情页面：</p>
+<ul>
+<li><p>在wxml里用<code>data-</code>来定义需要传递的参数</p>
+<div class="hljs"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 在wxml里用 data- 来定义需要传递的参数 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">wx:for</span>=<span class="hljs-string">&quot;&#123;&#123;list&#125;&#125;&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;goDetail&quot;</span> <span class="hljs-attr">data-name</span>=<span class="hljs-string">&quot;&#123;&#123;item.name&#125;&#125;&quot;</span>&gt;</span>商品名: &#123;&#123;item.name&#125;&#125;, 价格: &#123;&#123;item.price&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></code></pre></div>
+</li>
+<li><p>在 js 页面里的点击方法中获取需要的数据</p>
+<div class="hljs"><pre><code class="hljs javascript">goDetail(event) &#123;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;跳转&#x27;</span>, event);
+    <span class="hljs-comment">// 使用 wx.navigatorTo 进行跳转</span>
+    <span class="hljs-comment">// ? 表示跳转时携带的参数</span>
+    wx.navigateTo(&#123;
+        url: <span class="hljs-string">&#x27;/pages/goods-details/goods-details?name=&#x27;</span> + event.currentTarget.dataset.name
+    &#125;)
+&#125;</code></pre></div>
+<p>接收时：</p>
+<div class="hljs"><pre><code class="hljs javascript">onLoad(opt) &#123; <span class="hljs-comment">// 参数用来接收跳转时携带的参数</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;列表携带的值&#x27;</span>, opt);
+    <span class="hljs-keyword">var</span> goods_name = opt.name; <span class="hljs-comment">// 拿到参数</span>
+    wx.cloud.database().collection(<span class="hljs-string">&#x27;test-goods&#x27;</span>)
+        .where(&#123;
+        	name: goods_name <span class="hljs-comment">// 查找参数对应的物品</span>
+    	&#125;)
+        .get()
+        .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+        	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;商品详情页请求成功&#x27;</span>, res);
+            <span class="hljs-built_in">this</span>.setData(&#123;
+                good: res.data
+            &#125;)
+   	 	&#125;)
+        .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;
+            <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;商品详情页请求失败&#x27;</span>, err);
+        &#125;)
+&#125;</code></pre></div>
+</li>
+</ul>
+<p>获取用户输入数据并进行更新：</p>
+<ul>
+<li><p>输入：</p>
+<div class="hljs"><pre><code class="hljs javascript">&lt;!--pages/goods-items/goods-items.wxml--&gt;
+&lt;text&gt;pages/goods-items/goods-items.wxml&lt;/text&gt;
+
+&lt;view&gt;商品名:
+  &lt;input bindinput=<span class="hljs-string">&quot;getName&quot;</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;input&quot;</span>&gt;&lt;/input&gt;
+&lt;/view&gt;
+
+&lt;view&gt;商品价格:
+  &lt;input bindinput=<span class="hljs-string">&quot;getPrice&quot;</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;input&quot;</span>&gt;&lt;/input&gt;
+&lt;/view&gt;
+&lt;button bindtap=<span class="hljs-string">&quot;addGood&quot;</span> type=<span class="hljs-string">&quot;primary&quot;</span>&gt;添加商品&lt;/button&gt;
+
+&lt;!-- 用 data- 来传参 --&gt;
+&lt;view wx:<span class="hljs-keyword">for</span>=<span class="hljs-string">&quot;&#123;&#123;list&#125;&#125;&quot;</span>&gt;
+  &lt;view bindtap=<span class="hljs-string">&quot;goDetail&quot;</span> data-name=<span class="hljs-string">&quot;&#123;&#123;item.name&#125;&#125;&quot;</span>&gt;商品名: &#123;&#123;item.name&#125;&#125;, 价格: &#123;&#123;item.price&#125;&#125;&lt;/view&gt;
+&lt;/view&gt;</code></pre></div>
+</li>
+<li><p>处理输入数据并进行更新</p>
+<div class="hljs"><pre><code class="hljs javascript"><span class="hljs-comment">// pages/goods-items/goods-items.js</span>
+<span class="hljs-keyword">let</span> good_name  = <span class="hljs-string">&#x27;&#x27;</span>;
+<span class="hljs-keyword">let</span> good_price = <span class="hljs-string">&#x27;&#x27;</span>;
+Page(&#123;
+  onLoad() &#123;
+    <span class="hljs-built_in">this</span>.getList();
+  &#125;,
+
+  getList() &#123;
+    wx.cloud.database().collection(<span class="hljs-string">&#x27;test-goods&#x27;</span>)
+      .get()
+      .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;商品列表请求成功&#x27;</span>, res);
+        <span class="hljs-built_in">this</span>.setData(&#123;
+          list: res.data
+        &#125;)
+      &#125;)
+      .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;
+        <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;商品列表请求失败&#x27;</span>, err);
+      &#125;)
+  &#125;,
+  
+  <span class="hljs-comment">// 跳转商品详情页</span>
+  goDetail(event) &#123;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;跳转&#x27;</span>, event);
+    wx.navigateTo(&#123;
+      url: <span class="hljs-string">&#x27;/pages/goods-details/goods-details?name=&#x27;</span> + event.currentTarget.dataset.name
+    &#125;)
+  &#125;,
+
+  <span class="hljs-comment">// 获取用户输入的商品名</span>
+  getName(event) &#123;
+    good_name = event.detail.value;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;商品名称&#x27;</span>, good_name);
+  &#125;,
+
+  <span class="hljs-comment">// 获取用户输入的商品价格</span>
+  getPrice(event) &#123;
+    good_price = event.detail.value;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;商品价格: &#x27;</span>, good_price);
+  &#125;,
+  
+  <span class="hljs-comment">// 将商品添加到数据库</span>
+  addGood(event) &#123;
+    <span class="hljs-keyword">if</span> (good_name == <span class="hljs-string">&#x27;&#x27;</span>) &#123;
+      wx.showToast(&#123;
+        icon: <span class="hljs-string">&#x27;none&#x27;</span>,
+        title: <span class="hljs-string">&#x27;商品名不能为空&#x27;</span>,
+      &#125;)
+    &#125;
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (good_price == <span class="hljs-string">&#x27;&#x27;</span>) &#123;
+      wx.showToast(&#123;
+        icon: <span class="hljs-string">&#x27;none&#x27;</span>,
+        title: <span class="hljs-string">&#x27;商品价格不能为空&#x27;</span>,
+      &#125;)
+    &#125;
+    <span class="hljs-keyword">else</span> &#123;
+      wx.cloud.database().collection(<span class="hljs-string">&#x27;test-goods&#x27;</span>)
+        .add(&#123;
+          data: &#123;
+            name : good_name,
+            price: good_price 
+          &#125;
+        &#125;)
+        .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;添加成功&#x27;</span>, res);
+          wx.showToast(&#123;
+            title: <span class="hljs-string">&#x27;商品添加成功&#x27;</span>
+          &#125;)
+          <span class="hljs-built_in">this</span>.getList();
+        &#125;)
+        .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;
+          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;添加失败&#x27;</span>, err);
+        &#125;)
+    &#125;
+  &#125; 
+&#125;)</code></pre></div>
 </li>
 </ul>
 
