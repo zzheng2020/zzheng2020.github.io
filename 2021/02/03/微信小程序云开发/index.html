@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>[leetcode]44.Wildcard Matching - Heng2020</title>
+  <title>微信小程序云开发 - Heng2020</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -165,8 +165,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-11-08 22:49" pubdate>
-        November 8, 2020 pm
+      <time datetime="2021-02-03 18:19" pubdate>
+        February 3, 2021 pm
       </time>
     </span>
   
@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      655 字
+      328 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16
+      6
        分钟
     </span>
   
@@ -217,81 +217,87 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">[leetcode]44.Wildcard Matching</h1>
+            <h1 style="display: none">微信小程序云开发</h1>
             
             <div class="markdown-body" id="post-body">
-              <center><font size=6>Wildcard Matching</font></center>
+              <center><font size=6>微信小程序云开发</font></center>
 
 <center><font size=3>by ZhangZiheng</font></center>
 
-<h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>Given an input string (<code>s</code>) and a pattern (<code>p</code>), implement wildcard pattern matching with support for $?$ and $\star$ where:</p>
+<h2 id="云开发环境初始化"><a href="#云开发环境初始化" class="headerlink" title="云开发环境初始化"></a>云开发环境初始化</h2><p>进行云开发之前，需要调用<code>wx.cloud.init</code>方法完成初始化。</p>
+<div class="hljs"><pre><code class="hljs javascript"><span class="hljs-comment">// app.js</span>
+wx.cloud.init(&#123;
+    env: <span class="hljs-string">&#x27;env-id&#x27;</span> <span class="hljs-comment">// 云开发环境 id</span>
+&#125;)</code></pre></div>
+<h2 id="云数据库的相关操作"><a href="#云数据库的相关操作" class="headerlink" title="云数据库的相关操作"></a>云数据库的相关操作</h2><p>增删改查基础操作：</p>
 <ul>
-<li>$?$ Matches any single character.</li>
-<li>$\star$ Matches any sequence of characters (including the empty sequence).</li>
-</ul>
-<p>The matching should cover the entire input string (not partial).</p>
-<div class="hljs"><pre><code class="hljs c++"><span class="hljs-comment">// example</span>
-Input: s = <span class="hljs-string">&quot;aa&quot;</span>, p = <span class="hljs-string">&quot;a&quot;</span>
-Output: <span class="hljs-literal">false</span>
-Explanation: <span class="hljs-string">&quot;a&quot;</span> does <span class="hljs-keyword">not</span> match the entire <span class="hljs-built_in">string</span> <span class="hljs-string">&quot;aa&quot;</span>.
-
-Input: s = <span class="hljs-string">&quot;aa&quot;</span>, p = <span class="hljs-string">&quot;*&quot;</span>
-Output: <span class="hljs-literal">true</span>
-Explanation: <span class="hljs-string">&#x27;*&#x27;</span> matches any sequence.
-
-Input: s = <span class="hljs-string">&quot;cb&quot;</span>, p = <span class="hljs-string">&quot;?a&quot;</span>
-Output: <span class="hljs-literal">false</span>
-Explanation: <span class="hljs-string">&#x27;?&#x27;</span> matches <span class="hljs-string">&#x27;c&#x27;</span>, but the second letter is <span class="hljs-string">&#x27;a&#x27;</span>, which does <span class="hljs-keyword">not</span> match <span class="hljs-string">&#x27;b&#x27;</span>.
-
-Input: s = <span class="hljs-string">&quot;adceb&quot;</span>, p = <span class="hljs-string">&quot;*a*b&quot;</span>
-Output: <span class="hljs-literal">true</span>
-Explanation: The first <span class="hljs-string">&#x27;*&#x27;</span> matches the empty sequence, <span class="hljs-keyword">while</span> the second <span class="hljs-string">&#x27;*&#x27;</span> matches the substring <span class="hljs-string">&quot;dce&quot;</span>.
-Example <span class="hljs-number">5</span>:
-
-Input: s = <span class="hljs-string">&quot;acdcb&quot;</span>, p = <span class="hljs-string">&quot;a*c?b&quot;</span>
-Output: <span class="hljs-literal">false</span></code></pre></div>
-<p><strong>Constraints:</strong></p>
-<p>$0\leq s.length, p.length \leq 2000$<br><code>s</code> contains only lowercase English letters.<br><code>p</code> contains only lowercase English letters, $?$ or $\star$.</p>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>This problem is similar to <a href="/2020/10/02/leetcode-10-Regular-Expression-Matching/" title="leetcode10">leetcode10</a>, but there are still some differences. In this problem, $\star$ can match any sequence including the empty one.</p>
-<p>Just like we did in the previous problem <a href="/2020/10/02/leetcode-10-Regular-Expression-Matching/" title="leetcode10">leetcode10</a>, let $f(i,j)$ be the following meaning: $s[1\sim i]$ can or can’t match $p[1\sim j]$.</p>
-<p>This problem can be divided into two cases.</p>
-<ol>
-<li><p>When $p[i]\neq\star$, the necessary condition for $f(i,j)=true$ is that $s[i]=s[j]$ or $p[j]=?$. And $f(i,j)$ also depends on $f(i-1,j-1)$. </p>
-<p>So when $p[j]\neq\star$, $f(i,j)=true$ if and only if ($s[i]=s[j]$ or $p[j]=?$) and ($f(i-1,j-1)=true$).</p>
+<li><p>查询</p>
+<div class="hljs"><pre><code class="hljs javascript"><span class="hljs-comment">// 某个页面.js</span>
+onLoad() &#123; <span class="hljs-comment">// 小程序一进来时就会默认执行 onLoad 方法</span>
+    wx.cloud.database().collection(<span class="hljs-string">&#x27;test-goods&#x27;</span>)
+        .where(&#123;
+        	name: <span class="hljs-string">&#x27;apple&#x27;</span> <span class="hljs-comment">// 查询条件</span>
+ 	    &#125;)
+        .get()
+        .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123; <span class="hljs-comment">// 查询成功</span>
+        	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;success&#x27;</span>, res);
+    	&#125;)
+        .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123; <span class="hljs-comment">// 查询失败</span>
+        	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;fail&#x27;</span>, err);
+    	&#125;)
+&#125;</code></pre></div>
 </li>
-<li><p>When $p[i]=\star$, it’s a little bit complicated.</p>
-<p>$\star$ in this problem can match any sequence, so if $f(i,j)$ depends on $f(i,j-1)$, it means we don’t use $\star$, namely $\star$ matches empty sequence. And if $f(i,j)$ depends on $f(i-1,j-1)$, it means we use $\star$ to match one character $s[i]$. The rest cases are similar.</p>
-<p>We have the following equation:</p>
-<script type="math/tex; mode=display">
-f(i,j)=f(i,j-1)||f(i-1,j-1)||f(i-2,j-1)||\cdots \label{equ1} \tag{1}</script><p>This is the naive equation. </p>
-<p>If we implement our code according to equation $\ref{equ1}$, the time complexity is $O(n^3)$ which is unacceptable. Now, let’s optimize it.</p>
-<p>According to equation $\ref{equ1}$, let’s consider the following equation:</p>
-<script type="math/tex; mode=display">
-f(i-1,j)=f(i-1,j-1)||f(i-2,j-1)||f(i-3,j-1)||\cdots \label{equ2} \tag{2}</script><p>We can find that equation $\ref{equ1}$ beginning from second term is equal to equation $\ref{equ2}$. Thus, equation $\ref{equ3}$ is as follows.</p>
-<script type="math/tex; mode=display">
-f(i,j)=f(i,j-1)||f(i-1,j) \label{equ3} \tag{3}</script><p>So according to equation $\ref{equ3}$, we optimize the time complexity from $O(n^3)$ to $O(n^2)$.</p>
-</li>
-</ol>
-<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><div class="hljs"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
-<span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isMatch</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s, <span class="hljs-built_in">string</span> p)</span> </span>&#123;
-        s = <span class="hljs-string">&#x27; &#x27;</span> + s, p = <span class="hljs-string">&#x27; &#x27;</span> + p;
-        <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt; &gt; <span class="hljs-title">f</span><span class="hljs-params">(s.<span class="hljs-built_in">size</span>() + <span class="hljs-number">1</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;(p.<span class="hljs-built_in">size</span>() + <span class="hljs-number">1</span>))</span></span>;
-        f[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-literal">true</span>;
-        <span class="hljs-keyword">int</span> n = s.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>, m = p.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt;= n; i++) &#123;
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= m; j++) &#123;
-                <span class="hljs-keyword">if</span> (p[j] == <span class="hljs-string">&#x27;*&#x27;</span>) &#123;
-                    f[i][j] = f[i][j - <span class="hljs-number">1</span>] || (i &amp;&amp; f[i - <span class="hljs-number">1</span>][j]);
-                &#125;
-                <span class="hljs-keyword">else</span> &#123;
-                    f[i][j] = (s[i] == p[j] || p[j] == <span class="hljs-string">&#x27;?&#x27;</span>) &amp;&amp; (i &amp;&amp; f[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>]);
-                &#125;
-            &#125;
+<li><p>添加</p>
+<div class="hljs"><pre><code class="hljs javascript"><span class="hljs-comment">// 某个.js文件</span>
+wx.cloud.database().collection(<span class="hljs-string">&#x27;test-goods&#x27;</span>)
+    .add(&#123; <span class="hljs-comment">// 添加数据</span>
+        data: &#123;
+            name: <span class="hljs-string">&#x27;车厘子&#x27;</span>,
+            price: <span class="hljs-number">200</span>
         &#125;
-        <span class="hljs-keyword">return</span> f[n][m];
-    &#125;
-&#125;;</code></pre></div>
+	&#125;)
+    .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;添加成功&#x27;</span>, res);
+    &#125;)
+    .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;添加失败&#x27;</span>, err);
+    &#125;)</code></pre></div>
+</li>
+<li><p>更新</p>
+<div class="hljs"><pre><code class="hljs javascript">update() &#123;
+    wx.cloud.database().collection(<span class="hljs-string">&#x27;test-goods&#x27;</span>)
+      .where(&#123;
+        name: <span class="hljs-string">&#x27;车厘子&#x27;</span>
+      &#125;)
+      .update(&#123; <span class="hljs-comment">// 修改数据</span>
+        data: &#123;
+          price: <span class="hljs-number">100</span>
+        &#125;
+      &#125;)
+      .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;修改成功&#x27;</span>, res);
+      &#125;)
+      .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;
+        <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;修改失败&#x27;</span>, err);
+      &#125;)
+ &#125;</code></pre></div>
+</li>
+<li><p>删除</p>
+<div class="hljs"><pre><code class="hljs javascript">remove() &#123;
+    wx.cloud.database().collection(<span class="hljs-string">&#x27;test-goods&#x27;</span>)
+      .where(&#123;
+        name: <span class="hljs-string">&#x27;车厘子&#x27;</span>
+      &#125;)
+      .remove() <span class="hljs-comment">// 删除数据</span>
+      .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;删除成功&#x27;</span>, res);
+      &#125;)
+      .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;
+        <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&#x27;删除失败&#x27;</span>, err);
+      &#125;)
+&#125;</code></pre></div>
+</li>
+</ul>
 
             </div>
             <hr>
@@ -301,17 +307,10 @@ f(i,j)=f(i,j-1)||f(i-1,j) \label{equ3} \tag{3}</script><p>So according to equati
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
+                      <a class="hover-with-bg" href="/categories/Dev/">Dev</a>
                     
                   </div>
                 
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/DP/">DP</a>
-                    
-                  </div>
                 
               </div>
               
@@ -322,18 +321,12 @@ f(i,j)=f(i,j-1)||f(i-1,j) \label{equ3} \tag{3}</script><p>So according to equati
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/01/22/leetcode-45-Jump-GameII/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">[leetcode]45.Jump GameII</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/10/16/Aho%E2%80%93Corasick-Algorithm/">
-                        <span class="hidden-mobile">Aho–Corasick Automata</span>
+                      <a href="/2021/01/22/leetcode-45-Jump-GameII/">
+                        <span class="hidden-mobile">[leetcode]45.Jump GameII</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -502,7 +495,7 @@ f(i,j)=f(i,j-1)||f(i-1,j) \label{equ3} \tag{3}</script><p>So according to equati
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "[leetcode]44.Wildcard Matching&nbsp;",
+        "微信小程序云开发&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
@@ -613,13 +606,6 @@ f(i,j)=f(i,j-1)||f(i-1,j) \label{equ3} \tag{3}</script><p>So according to equati
 
 
 
-
-  <script  src="https://cdn.staticfile.org/mermaid/8.5.0/mermaid.min.js" ></script>
-  <script>
-    if (window.mermaid) {
-      mermaid.initialize({"theme":"default"});
-    }
-  </script>
 
 
 
