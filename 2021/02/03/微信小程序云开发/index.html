@@ -60,7 +60,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Zhang Ziheng</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>Ziheng ZHANG</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.1k 字
+      1.2k 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      21
+      23
        分钟
     </span>
   
@@ -433,6 +433,38 @@ Page(&#123;
         &#125;)
     &#125;
   &#125; 
+&#125;)</code></pre></div>
+</li>
+</ul>
+<h2 id="云函数"><a href="#云函数" class="headerlink" title="云函数"></a>云函数</h2><ul>
+<li>初始化&amp;新建云函数环境<ol>
+<li>创建一个名为<code>cloud</code>的文件夹，使其和<code>pages</code>文件夹处于同一级目录</li>
+<li>在<code>project.config.json</code>中添加<code>&quot;cloudfunctionRoot&quot;: &quot;/cloud&quot;</code></li>
+<li>选择新建<code>Node.js云函数</code></li>
+</ol>
+</li>
+</ul>
+<div class="note note-warning">
+            <p>云函数发生改动后，需要重新上传部署，否则无法生效。</p>
+          </div>
+<ul>
+<li><p>云函数调用</p>
+<div class="hljs"><pre><code class="hljs javascript">Page(&#123;
+  onLoad() &#123;
+    <span class="hljs-comment">// 云函数调用</span>
+    wx.cloud.callFunction(&#123;
+      name: <span class="hljs-string">&#x27;getData&#x27;</span>
+    &#125;)
+    .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;成功&#x27;</span>, res);
+      <span class="hljs-built_in">this</span>.setData(&#123; <span class="hljs-comment">// 展示数据</span>
+        goods: res.result.data
+      &#125;)
+    &#125;)
+    .catch(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;失败&#x27;</span>, res);
+    &#125;)
+  &#125;
 &#125;)</code></pre></div>
 </li>
 </ul>
