@@ -16,15 +16,20 @@
   <meta name="author" content="zzheng2020">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
+    <meta name="description" content="ETT means one in Swedish. This is also the first web framework I learned to implement.">
+<meta property="og:type" content="article">
 <meta property="og:title" content="ETT - A Golang Web Framework">
 <meta property="og:url" content="https://zzheng2020.github.io/2022/12/15/ETT-A-Golang-Web-Framework/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ETT means one in Swedish. This is also the first web framework I learned to implement.">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://zzheng2020.github.io/img/golang.png">
 <meta property="article:published_time" content="2022-12-15T20:05:41.000Z">
-<meta property="article:modified_time" content="2022-12-15T20:05:41.716Z">
+<meta property="article:modified_time" content="2022-12-17T02:36:17.446Z">
 <meta property="article:author" content="zzheng2020">
+<meta property="article:tag" content="Golang">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zzheng2020.github.io/img/golang.png">
   
   
   
@@ -217,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 words
+          7.4k words
         
       </span>
     
@@ -228,7 +233,7 @@
         
         
         
-          1 mins
+          62 mins
         
       </span>
     
@@ -271,7 +276,94 @@
             
               <div class="markdown-body">
                 
-                
+                <p>ETT means <em>one</em> in Swedish. This is also the <em>first</em> web framework I learned to implement.</p>
+<span id="more"></span>
+
+<p>Implementation of ETT can be found <a target="_blank" rel="noopener" href="https://github.com/zzheng2020/Go-Web-Framework">here</a>.</p>
+<p>ETT is an implementation based on the well-known framework <a target="_blank" rel="noopener" href="https://gin-gonic.com/docs/quickstart/">Gin</a>.</p>
+<p>ETT contains the following components.</p>
+<ol>
+<li><code>Context</code>: encapsulate Request and Respons.</li>
+<li><code>Trie Tree</code>: achieve dynamic routing.</li>
+<li><code>Route Group Control</code>: achieve group control.</li>
+<li><code>Middleware</code>: support middleware.</li>
+</ol>
+<h1 id="How-To-Use-ETT"><a href="#How-To-Use-ETT" class="headerlink" title="How To Use ETT"></a>How To Use ETT</h1><p><code>Example.go</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	r := ett.New()<br>  <br>	r.GET(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c *ett.Context)</span></span> &#123;<br>		c.HTML(http.StatusOK, <span class="hljs-string">&quot;&lt;h1&gt;Hello ett&lt;/h1&gt;&quot;</span>)<br>	&#125;)<br>  <br>  r.GET(<span class="hljs-string">&quot;/hello&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(ctx *ett.Context)</span></span> &#123;<br>		ctx.String(http.StatusOK, <span class="hljs-string">&quot;hello %s, you&#x27;re at %s\n&quot;</span>, ctx.Query(<span class="hljs-string">&quot;name&quot;</span>), ctx.Path)<br>	&#125;)<br><br>	r.Run(<span class="hljs-string">&quot;:9999&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>How to use group</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	r := ett.New()<br><br>	v1 := r.Group(<span class="hljs-string">&quot;/v1&quot;</span>)<br>	&#123;<br>		v1.GET(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c *ett.Context)</span></span> &#123;<br>			c.HTML(http.StatusOK, <span class="hljs-string">&quot;&lt;h1&gt;Hello ett&lt;/h1&gt;&quot;</span>)<br>		&#125;)<br><br>		v1.GET(<span class="hljs-string">&quot;/hello&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c *ett.Context)</span></span> &#123;<br>			c.String(http.StatusOK, <span class="hljs-string">&quot;hello %s, you&#x27;re at %s\n&quot;</span>, c.Query(<span class="hljs-string">&quot;name&quot;</span>), c.Path)<br>		&#125;)<br>	&#125;<br>  <br>	v2 := r.Group(<span class="hljs-string">&quot;/v2&quot;</span>)<br>	&#123;<br>		v2.GET(<span class="hljs-string">&quot;/hello/:name&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c *ett.Context)</span></span> &#123;<br>			c.String(http.StatusOK, <span class="hljs-string">&quot;hello %s, you&#x27;re at %s\n&quot;</span>, c.Param(<span class="hljs-string">&quot;name&quot;</span>), c.Path)<br>		&#125;)<br>    <br>		v2.POST(<span class="hljs-string">&quot;/login&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c *ett.Context)</span></span> &#123;<br>			c.JSON(http.StatusOK, ett.H&#123;<br>				<span class="hljs-string">&quot;username&quot;</span>: c.PostForm(<span class="hljs-string">&quot;username&quot;</span>),<br>				<span class="hljs-string">&quot;password&quot;</span>: c.PostForm(<span class="hljs-string">&quot;password&quot;</span>),<br>			&#125;)<br>		&#125;)<br><br>	&#125;<br><br>	r.Run(<span class="hljs-string">&quot;:9999&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>How to use middleware</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">onlyForV2</span><span class="hljs-params">()</span></span> ett.HandlerFunc &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c *ett.Context)</span></span> &#123;<br>		<span class="hljs-comment">// Start timer</span><br>		t := time.Now()<br>		<span class="hljs-comment">// if a server error occurred</span><br>		c.Fail(<span class="hljs-number">500</span>, <span class="hljs-string">&quot;Internal Server Error&quot;</span>)<br>		<span class="hljs-comment">// Calculate resolution time</span><br>		log.Printf(<span class="hljs-string">&quot;[%d] %s in %v for group v2&quot;</span>, c.StatusCode, c.Req.RequestURI, time.Since(t))<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	r := ett.New()<br>	r.Use(ett.Logger()) <span class="hljs-comment">// global midlleware</span><br>	r.GET(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c *ett.Context)</span></span> &#123;<br>		c.HTML(http.StatusOK, <span class="hljs-string">&quot;&lt;h1&gt;Hello ett&lt;/h1&gt;&quot;</span>)<br>	&#125;)<br><br>	v2 := r.Group(<span class="hljs-string">&quot;/v2&quot;</span>)<br>	v2.Use(onlyForV2()) <span class="hljs-comment">// v2 group middleware</span><br>	&#123;<br>		v2.GET(<span class="hljs-string">&quot;/hello/:name&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c *ett.Context)</span></span> &#123;<br>			c.String(http.StatusOK, <span class="hljs-string">&quot;hello %s, you&#x27;re at %s\n&quot;</span>, c.Param(<span class="hljs-string">&quot;name&quot;</span>), c.Path)<br>		&#125;)<br>	&#125;<br><br>	r.Run(<span class="hljs-string">&quot;:9999&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Panic recovery</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	r := ett.New()<br>  <br>	r.GET(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c *ett.Context)</span></span> &#123;<br>		c.String(http.StatusOK, <span class="hljs-string">&quot;Hello ett\n&quot;</span>)<br>	&#125;)<br><br>	r.GET(<span class="hljs-string">&quot;/panic&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c *ett.Context)</span></span> &#123;<br>		names := []<span class="hljs-type">string</span>&#123;<span class="hljs-string">&quot;ett&quot;</span>&#125;<br>		c.String(http.StatusOK, names[<span class="hljs-number">100</span>]) <span class="hljs-comment">// raise panic</span><br>	&#125;)<br><br>	r.Run(<span class="hljs-string">&quot;:9999&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">curl <span class="hljs-string">&quot;http://localhost:9999/panic&quot;</span></span><br>&#123;&quot;message&quot;:&quot;Internal Server Error&quot;&#125;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash">curl <span class="hljs-string">&quot;http://localhost:9999&quot;</span></span><br>Hello ett<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="Details-of-ETT"><a href="#Details-of-ETT" class="headerlink" title="Details of ETT"></a>Details of ETT</h1><h2 id="ServeHTTP-Interface"><a href="#ServeHTTP-Interface" class="headerlink" title="ServeHTTP Interface"></a><code>ServeHTTP</code> Interface</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Handler <span class="hljs-keyword">interface</span> &#123;<br>	ServeHTTP(ResponseWriter, *Request)<br>&#125;<br><br>http.ListenAndServe(addr, handler)<br></code></pre></td></tr></table></figure>
+
+<p><code>ServeHTTP</code> is an interface. When using <code>http</code> package, it requires an <code>address</code> to listen on and a <code>handler</code> to handle requests.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ListenAndServe</span><span class="hljs-params">(addr <span class="hljs-type">string</span>, handler Handler)</span></span> <span class="hljs-type">error</span> &#123;<br>	server := &amp;Server&#123;Addr: addr, Handler: handler&#125;<br>	<span class="hljs-keyword">return</span> server.ListenAndServe()<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>All HTTP requests will be handled if we implements the <code>ServeHTTP</code> interface and pass corresponding instance of handler to <code>ListenAndServe</code> function.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> serverHandler <span class="hljs-keyword">struct</span> &#123;<br>	srv *Server<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(sh serverHandler)</span></span> ServeHTTP(rw ResponseWriter, req *Request) &#123;<br>	handler := sh.srv.Handler<br>	<span class="hljs-keyword">if</span> handler == <span class="hljs-literal">nil</span> &#123;<br>		handler = DefaultServeMux<br>	&#125;<br>	<span class="hljs-keyword">if</span> req.RequestURI == <span class="hljs-string">&quot;*&quot;</span> &amp;&amp; req.Method == <span class="hljs-string">&quot;OPTIONS&quot;</span> &#123;<br>		handler = globalOptionsHandler&#123;&#125;<br>	&#125;<br>  ...<br>	handler.ServeHTTP(rw, req)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>If no handler found, it will use <code>DefaultServeMux</code>, otherwise, our implementation of handler will be called.</p>
+<h2 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h2><p><code>Context</code> encapsulates <code>Request</code> and <code>Response</code> as well as supports <code>JSON</code> and <code>HTML</code> type. The reason behind <code>Context</code> is that in some scenarios it will become repetitive and cumbersome to create <code>Header</code> and <code>Body</code> of HTTP responses.</p>
+<p><code>Context</code> is created with each request and destroyed at the end of the request. All information strongly related to the current requests is carried by <code>Context</code>. This design keeps the scalability and complexity internal and simplifies the interface externally. </p>
+<p><code>Context</code> is like Doraemon’s pocket, you can find anything you want in it.</p>
+<p><img src="/img/doreamon.png" srcset="/img/loading.gif" lazyload alt="Doreamon’s pocket"></p>
+<h2 id="Dynamic-Route"><a href="#Dynamic-Route" class="headerlink" title="Dynamic Route"></a>Dynamic Route</h2><p>In addition to fixed routes, dynamic routes are widely used, for example, <code>/hello/:name</code> can match <code>/hello/world</code>, <code>/hello/Tim</code>, etc.</p>
+<p>Trie is an advanced data structure that can be used to achieve dynamic route.</p>
+<p>For example, we define the following rules.</p>
+<ul>
+<li><p><code>/:lang/doc</code>, <code>/:lang/tutorial</code>, <code>/:lang/intro</code></p>
+</li>
+<li><p><code>/about</code></p>
+</li>
+<li><p><code>/tag/data</code>, <code>/tag/string</code></p>
+</li>
+</ul>
+<p>We can use Trie to represent them as shown in the following figure.</p>
+<p><img src="/img/trie.png" srcset="/img/loading.gif" lazyload alt="Trie"></p>
+<p>When we need to <em>find</em> an endpoint, start from the root node, and if none of the nodes at an intermediate level satisfy the condition, then it means there is no matched route.</p>
+<h3 id="Implementation-of-Trie"><a href="#Implementation-of-Trie" class="headerlink" title="Implementation of Trie"></a>Implementation of Trie</h3><p>Nodes are designed as shown below.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> node <span class="hljs-keyword">struct</span> &#123;<br>	pattern  <span class="hljs-type">string</span><br>	part     <span class="hljs-type">string</span><br>	children []*node<br>	isWild   <span class="hljs-type">bool</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>pattern</code> is the route to be matched, e.g. <code>/index/:lang</code>.</p>
+<p><code>part</code> means the part of <code>pattern</code>, e.g. <code>/:lang</code>.</p>
+<p><code>children</code> stores the child nodes.</p>
+<p><code>isWild</code> denotes if it needs wildcard match.</p>
+<ul>
+<li><p>Registration of route</p>
+<p>When developing, routes need to be registered and later will be matched and find corresponding handlers. Therefore, Trie supports <code>insert</code> and <code>search</code> functions.</p>
+<ul>
+<li><p><code>Insert</code></p>
+<p>Recursively find nodes at each level of the tree, and if there is no match for the current part, create a new node.</p>
+</li>
+<li><p><code>Search</code></p>
+<p>Recursively queries the nodes at each level, with exit rules as, match to <code>*</code>, match to <code>nil</code>, or match to the <code>len(parts)</code> level node.</p>
+</li>
+</ul>
+</li>
+<li><p><code>Router</code></p>
+<p><code>Router</code> is used to <code>add</code> and <code>get</code> routes.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> router <span class="hljs-keyword">struct</span> &#123;<br>	roots    <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]*node<br>	handlers <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]HandlerFunc<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>roots</code> stores the root node of Trie, and use <code>handler</code> to store the <code>HandlerFunc</code> of each request method.</p>
+<p>The return value of <code>getRoute</code> is a <code>map</code>. For example, <code>/p/go/doc</code> matches <code>/p/:lang/doc</code>, so the return value is <code>&#123;lang: &quot;go&quot;&#125;</code>.</p>
+</li>
+</ul>
+<h2 id="Route-Group-Control"><a href="#Route-Group-Control" class="headerlink" title="Route Group Control"></a>Route Group Control</h2><p>In real developing scenarios, a set of routes usually need similar processing. For example, routes starting with <code>/admin</code> need authentication, etc. In our implementation, we support group control distinguished by prefixes and also nesting of groups.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go">RouterGroup <span class="hljs-keyword">struct</span> &#123;<br>	prefix      <span class="hljs-type">string</span><br>	middlewares []HandlerFunc <span class="hljs-comment">// support middleware</span><br>	parent      *RouterGroup  <span class="hljs-comment">// support nesting</span><br>	engine      *Engine       <span class="hljs-comment">// all groups share a Engine instance</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="Middleware"><a href="#Middleware" class="headerlink" title="Middleware"></a>Middleware</h2><p>ETT framework needs to have a function that allows users to define their own functionality to be embedded in the framework as if the functionality is natively supported by the framework.</p>
+<p>The definition of ETT’s middleware is consistent with the Handler for route mapping, where the input for processing is <code>Context</code>. The insertion point is that after the framework receives the request to initialise the <code>Context</code>, it allows the user to use their own defined middleware to do some additional processing, such as logging, and secondary processing of the Context. In addition by calling the <code>(*Context).Next() </code>function, the middleware can wait for the end of the user-defined Handler processing, and then do some additional operations, such as calculating the time used for this processing and so on. That is, ETT’s middleware supports the user to do some additional operations before and after the request is processed. Meanwhile, it supports setting up multiple middleware and calling them in sequence.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	r := ett.New()<br>	r.Use(ett.Logger()) <span class="hljs-comment">// global midlleware</span><br>	r.GET(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c *ett.Context)</span></span> &#123;<br>		c.HTML(http.StatusOK, <span class="hljs-string">&quot;&lt;h1&gt;Hello ett&lt;/h1&gt;&quot;</span>)<br>	&#125;)<br><br>	v2 := r.Group(<span class="hljs-string">&quot;/v2&quot;</span>)<br>	v2.Use(onlyForV2()) <span class="hljs-comment">// v2 group middleware</span><br>	&#123;<br>		v2.GET(<span class="hljs-string">&quot;/hello/:name&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c *ett.Context)</span></span> &#123;<br>			c.String(http.StatusOK, <span class="hljs-string">&quot;hello %s, you&#x27;re at %s\n&quot;</span>, c.Param(<span class="hljs-string">&quot;name&quot;</span>), c.Path)<br>		&#125;)<br>	&#125;<br><br>	r.Run(<span class="hljs-string">&quot;:9999&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
                 
               </div>
             
@@ -279,6 +371,13 @@
             <div>
               <div class="post-metas my-3">
   
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Golang/">#Golang</a>
+      
+    </div>
   
 </div>
 
