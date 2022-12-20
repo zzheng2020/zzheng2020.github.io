@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>TinyKV - A KV Storage System With The Raft</title>
+    <link href="/2022/12/20/TinyKV-A-KV-Storage-System-With-The-Raft/"/>
+    <url>/2022/12/20/TinyKV-A-KV-Storage-System-With-The-Raft/</url>
+    
+    <content type="html"><![CDATA[<p>The TinyKV course builds a key-value storage system with the Raft consensus algorithm. It is inspired by <a href="https://pdos.csail.mit.edu/6.824/">MIT 6.824</a> and <a href="https://github.com/tikv/tikv">TiKV Project</a>.</p><span id="more"></span><p>The original<code> talent-plan/tinykv</code> repo is <a href="https://github.com/talent-plan/tinykv">here</a>.</p><p>My implementation can be found <a href="https://github.com/zzheng2020/tinykv">here</a>.</p><h1 id="Project-1-Standalone-KV"><a href="#Project-1-Standalone-KV" class="headerlink" title="Project 1 Standalone KV"></a>Project 1 Standalone KV</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">grep -rIi <span class="hljs-string">&quot;Your Code Here (1)&quot;</span></span><br>./kv/server/raw_api.go: // Your Code Here (1).<br>./kv/server/raw_api.go: // Your Code Here (1).<br>./kv/server/raw_api.go: // Your Code Here (1).<br>./kv/server/raw_api.go: // Your Code Here (1).<br>./kv/storage/standalone_storage/standalone_storage.go:  // Your Code Here (1).<br>./kv/storage/standalone_storage/standalone_storage.go:  // Your Code Here (1).<br>./kv/storage/standalone_storage/standalone_storage.go:  // Your Code Here (1).<br>./kv/storage/standalone_storage/standalone_storage.go:  // Your Code Here (1).<br>./kv/storage/standalone_storage/standalone_storage.go:  // Your Code Here (1).<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Golang</tag>
+      
+      <tag>Distributed Systems</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>ETT - A Golang Web Framework</title>
     <link href="/2022/12/15/ETT-A-Golang-Web-Framework/"/>
     <url>/2022/12/15/ETT-A-Golang-Web-Framework/</url>
