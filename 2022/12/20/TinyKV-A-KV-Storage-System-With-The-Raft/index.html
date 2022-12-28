@@ -23,12 +23,14 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="The TinyKV course builds a key-value storage system with the Raft consensus algorithm. It is inspired by MIT 6.824 and TiKV Project.">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://zzheng2020.github.io/img/tinykv-project1.png">
 <meta property="article:published_time" content="2022-12-20T19:10:39.000Z">
-<meta property="article:modified_time" content="2022-12-20T21:59:35.349Z">
+<meta property="article:modified_time" content="2022-12-28T17:56:50.777Z">
 <meta property="article:author" content="zzheng2020">
 <meta property="article:tag" content="Golang">
 <meta property="article:tag" content="Distributed Systems">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zzheng2020.github.io/img/tinykv-project1.png">
   
   
   
@@ -221,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          773 words
+          3.9k words
         
       </span>
     
@@ -232,7 +234,7 @@
         
         
         
-          7 mins
+          33 mins
         
       </span>
     
@@ -278,10 +280,98 @@
                 <p>The TinyKV course builds a key-value storage system with the Raft consensus algorithm. It is inspired by <a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.824/">MIT 6.824</a> and <a target="_blank" rel="noopener" href="https://github.com/tikv/tikv">TiKV Project</a>.</p>
 <span id="more"></span>
 
-<p>The original<code> talent-plan/tinykv</code> repo is <a target="_blank" rel="noopener" href="https://github.com/talent-plan/tinykv">here</a>.</p>
+<p>The original <code> talent-plan/tinykv</code> repo is <a target="_blank" rel="noopener" href="https://github.com/talent-plan/tinykv">here</a>.</p>
 <p>My implementation can be found <a target="_blank" rel="noopener" href="https://github.com/zzheng2020/tinykv">here</a>.</p>
 <h1 id="Project-1-Standalone-KV"><a href="#Project-1-Standalone-KV" class="headerlink" title="Project 1 Standalone KV"></a>Project 1 Standalone KV</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">grep -rIi <span class="hljs-string">&quot;Your Code Here (1)&quot;</span></span><br>./kv/server/raw_api.go: // Your Code Here (1).<br>./kv/server/raw_api.go: // Your Code Here (1).<br>./kv/server/raw_api.go: // Your Code Here (1).<br>./kv/server/raw_api.go: // Your Code Here (1).<br>./kv/storage/standalone_storage/standalone_storage.go:  // Your Code Here (1).<br>./kv/storage/standalone_storage/standalone_storage.go:  // Your Code Here (1).<br>./kv/storage/standalone_storage/standalone_storage.go:  // Your Code Here (1).<br>./kv/storage/standalone_storage/standalone_storage.go:  // Your Code Here (1).<br>./kv/storage/standalone_storage/standalone_storage.go:  // Your Code Here (1).<br></code></pre></td></tr></table></figure>
 
+<p>Project 1 has two steps:</p>
+<ol>
+<li>Implement a standalone storage engine.</li>
+<li>Implement raw key&#x2F;value service handlers.</li>
+</ol>
+<p>The Column Family (CF) in project 1 is quite simple. It uses <code>_</code> to combine <code>cf</code> and <code>key</code>. In the following example, this method converts kv db to multi columns.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Key</th>
+<th align="center">Age</th>
+<th align="center">Class</th>
+<th align="center">ID</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Tom</td>
+<td align="center">18</td>
+<td align="center">Test</td>
+<td align="center">112233</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">Key</th>
+<th align="center">Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Age_Tom</td>
+<td align="center">18</td>
+</tr>
+<tr>
+<td align="center">Class_Tom</td>
+<td align="center">Test</td>
+</tr>
+<tr>
+<td align="center">ID_Tom</td>
+<td align="center">112233</td>
+</tr>
+</tbody></table>
+<h2 id="Implement-a-standalone-storage-engine"><a href="#Implement-a-standalone-storage-engine" class="headerlink" title="Implement a standalone storage engine"></a>Implement a standalone storage engine</h2><p>Involved file: <code>./kv/storage/standalone_storage/standalone_storage.go</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// StandAloneStorage is an implementation of `Storage` for a single-node TinyKV instance. </span><br><span class="hljs-comment">// It does not communicate with other nodes and all data is stored locally.</span><br><span class="hljs-keyword">type</span> StandAloneStorage <span class="hljs-keyword">struct</span> &#123;<br>	badgerDB *badger.DB<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>StandAloneStorage</code> just contains one element <code>baderDB</code> with the type <code>*badger.DB</code> which provides functions to interact with Badger.</p>
+<p>Since <code>StandAloneStorage</code> is an implementation of the interface <code>Storage</code>, it needs to implement four functions of it.</p>
+<ol>
+<li><p><code>Start()</code></p>
+<p>We have already created <code>StandAloneStorage</code> instance in <code>NewStandAloneStorage()</code> function, therefore we do nothing in <code>Start()</code>.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewStandAloneStorage</span><span class="hljs-params">(conf *config.Config)</span></span> *StandAloneStorage &#123;<br>	<span class="hljs-keyword">return</span> &amp;StandAloneStorage&#123;<br>		badgerDB: engine_util.CreateDB(conf.DBPath, <span class="hljs-literal">false</span>),<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>Stop()</code></p>
+<p><code>Stop()</code> is used to close the <code>badgerDB</code>.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *StandAloneStorage)</span></span> Stop() <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-comment">// close database</span><br>	<span class="hljs-keyword">if</span> err := s.badgerDB.Close(); err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> err<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>Write()</code></p>
+<p>Before implementing <code>Write()</code>, let’s have a look at the two things.</p>
+<ol>
+<li>The second parameter <code>[]storage.Modify</code>.</li>
+<li><code>engine_util</code> package.</li>
+</ol>
+<ul>
+<li><p><code>Modify</code> is a single modification to TinyKV’s underlying storage. There are two operations <code>Put</code> and <code>Delete</code>.</p>
+<p>We can determine whether it is <code>Put</code> or <code>Delete</code> to perform the corresponding operations.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Modify <span class="hljs-keyword">struct</span> &#123;<br>	Data <span class="hljs-keyword">interface</span>&#123;&#125;<br>&#125;<br><br><span class="hljs-keyword">type</span> Put <span class="hljs-keyword">struct</span> &#123;<br>	Key   []<span class="hljs-type">byte</span><br>	Value []<span class="hljs-type">byte</span><br>	Cf    <span class="hljs-type">string</span><br>&#125;<br><br><span class="hljs-keyword">type</span> Delete <span class="hljs-keyword">struct</span> &#123;<br>	Key []<span class="hljs-type">byte</span><br>	Cf  <span class="hljs-type">string</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>engine_util</code> helps us to read, write and iterate.</p>
+<p>Here is the list of functions I used in Project 1:</p>
+<ul>
+<li><code>KeyWithCF</code></li>
+<li><code>GetCFFromTxn</code></li>
+<li><code>NewCFIterator</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *StandAloneStorage)</span></span> Write(ctx *kvrpcpb.Context, batch []storage.Modify) <span class="hljs-type">error</span> &#123;<br>	txn := s.badgerDB.NewTransaction(<span class="hljs-literal">true</span>)<br>	<span class="hljs-keyword">for</span> _, m := <span class="hljs-keyword">range</span> batch &#123;<br>		<span class="hljs-keyword">switch</span> m.Data.(<span class="hljs-keyword">type</span>) &#123;<br>		<span class="hljs-keyword">case</span> storage.Put:<br>			put := m.Data.(storage.Put)<br>			key := engine_util.KeyWithCF(put.Cf, put.Key)<br>			value := put.Value<br>			<span class="hljs-keyword">if</span> err := txn.Set(key, value); err != <span class="hljs-literal">nil</span> &#123;<br>				<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>			&#125;<br>		<span class="hljs-keyword">case</span> storage.Delete:<br>			dlt := m.Data.(storage.Delete)<br>			key := engine_util.KeyWithCF(dlt.Cf, dlt.Key)<br>			<span class="hljs-keyword">if</span> err := txn.Delete(key); err != <span class="hljs-literal">nil</span> &#123;<br>				<span class="hljs-keyword">return</span> err<br>			&#125;<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-keyword">if</span> err := txn.Commit(); err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> err<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>Reader()</code></p>
+<p><code>Reader()</code> returns <code>StorageReader</code> which is an interface with <code>GetCF()</code>, <code>IterCF()</code> and <code>Close()</code>.</p>
+<p>We create a structure <code>StandAloneReader</code> with element <code>*badger.Txn</code> as shown below.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> StandAloneReader <span class="hljs-keyword">struct</span> &#123;<br>	badgerTxn *badger.Txn<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>GetCF()</code>, <code>IterCF()</code> and <code>Close()</code> are shown below.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(r *StandAloneReader)</span></span> GetCF(cf <span class="hljs-type">string</span>, key []<span class="hljs-type">byte</span>) ([]<span class="hljs-type">byte</span>, <span class="hljs-type">error</span>) &#123;<br>	cfValue, err := engine_util.GetCFFromTxn(r.badgerTxn, cf, key)<br>	<span class="hljs-comment">// When the key doesn&#x27;t exist, return nil for the value</span><br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, <span class="hljs-literal">nil</span><br>	&#125;<br><br>	<span class="hljs-keyword">return</span> cfValue, err<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(r *StandAloneReader)</span></span> IterCF(cf <span class="hljs-type">string</span>) engine_util.DBIterator &#123;<br>	<span class="hljs-keyword">return</span> engine_util.NewCFIterator(cf, r.badgerTxn)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(r *StandAloneReader)</span></span> Close() &#123;<br>	r.badgerTxn.Discard()<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Test-Results-of-Project-1"><a href="#Test-Results-of-Project-1" class="headerlink" title="Test Results of Project 1"></a>Test Results of Project 1</h2><p><img src="/img/tinykv-project1.png" srcset="/img/loading.gif" lazyload alt="Test Results of Project1."></p>
+<p>To be continued…</p>
 
                 
               </div>
