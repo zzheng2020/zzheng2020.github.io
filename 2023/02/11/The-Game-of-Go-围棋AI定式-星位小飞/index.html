@@ -13,27 +13,27 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="zzheng2020">
+  <meta name="author" content="Ziheng Zhang">
   <meta name="keywords" content="">
   
     <meta name="description" content="Foreword             It’s been a decade since I last played Go, and my heart heavies with nostalgia for the days when I was just a young primary school student discovering the game for the first time.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="The Game of Go - 围棋AI定式 - 星位小飞">
 <meta property="og:url" content="https://zzheng2020.github.io/2023/02/11/The-Game-of-Go-%E5%9B%B4%E6%A3%8BAI%E5%AE%9A%E5%BC%8F-%E6%98%9F%E4%BD%8D%E5%B0%8F%E9%A3%9E/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Ziheng">
 <meta property="og:description" content="Foreword             It’s been a decade since I last played Go, and my heart heavies with nostalgia for the days when I was just a young primary school student discovering the game for the first time.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://zzheng2020.github.io/img/chess-go.png">
 <meta property="article:published_time" content="2023-02-11T17:09:17.000Z">
-<meta property="article:modified_time" content="2023-02-11T18:55:18.043Z">
-<meta property="article:author" content="zzheng2020">
+<meta property="article:modified_time" content="2023-02-12T23:56:50.519Z">
+<meta property="article:author" content="Ziheng Zhang">
 <meta property="article:tag" content="The game of Go">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://zzheng2020.github.io/img/chess-go.png">
   
   
   
-  <title>The Game of Go - 围棋AI定式 - 星位小飞 - Hexo</title>
+  <title>The Game of Go - 围棋AI定式 - 星位小飞 - Ziheng</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          977 words
+          1.6k words
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          9 mins
+          14 mins
         
       </span>
     
@@ -285,6 +285,132 @@
           </div>
 
 <hr>
+<h1 id="如何配置围棋-AI"><a href="#如何配置围棋-AI" class="headerlink" title="如何配置围棋 AI"></a>如何配置围棋 AI</h1><ul>
+<li><p>棋盘：开源软件 <a target="_blank" rel="noopener" href="https://github.com/SabakiHQ/Sabaki">Sabaki</a>，设计简约美观，支持 <a target="_blank" rel="noopener" href="https://www.lysator.liu.se/~gunnar/gtp/">GTP</a> 协议，可以导入 AI</p>
+</li>
+<li><p>AI：<a target="_blank" rel="noopener" href="https://github.com/SabakiHQ/Sabaki/blob/master/docs/guides/engines.md">这里</a>有可供选择的引擎列表，目前选择了主流的 <a target="_blank" rel="noopener" href="https://github.com/lightvector/KataGo">KataGo</a></p>
+</li>
+</ul>
+<p>导入 AI 后，可以载入引擎，与 AI 对弈。</p>
+<center>
+    <img style="zoom:50%; border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="/img/Go-AI/星位小飞/KataGo.png" srcset="/img/loading.gif" lazyload>
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;">载入引擎后的 Sabaki</div>
+</center>
+
+<h1 id="星位小飞"><a href="#星位小飞" class="headerlink" title="星位小飞"></a>星位小飞</h1><h2 id="被淘汰的小飞进角"><a href="#被淘汰的小飞进角" class="headerlink" title="被淘汰的小飞进角"></a>被淘汰的小飞进角</h2><center>
+    <img style="zoom:30%; border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="/img/Go-AI/星位小飞/星位小飞1.png" srcset="/img/loading.gif" lazyload>
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;">白棋小飞挂角后，小飞进角</div>
+</center>
+
+<p>从结果看，白 6 下完后，是一个两分的局面。但其中白 4 的小飞对于黑棋来说并不是先手。即使黑棋脱先后被白棋小尖进角（如下图所示），黑棋只需拆边即可，白棋对黑棋并没有什么好办法。</p>
+<center>
+    <img style="zoom:30%; border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="/img/Go-AI/星位小飞/星位小飞2.png" srcset="/img/loading.gif" lazyload>
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;">白 1 小尖进角，黑 2 拆边</div>
+</center>
+
+<p>因此白棋小飞进角过缓，也就此退出了历史舞台。</p>
+<h2 id="白棋-托"><a href="#白棋-托" class="headerlink" title="白棋 - 托"></a>白棋 - 托</h2><p>白 4 托相较于二路的飞更为高效，如果黑棋脱先被白棋长进角，黑棋再拆边时，白棋对黑棋更具压迫。</p>
+<center>
+    <img style="zoom:30%; border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="/img/Go-AI/星位小飞/星位小飞3.png" srcset="/img/loading.gif" lazyload>
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;">白 4 托</div>
+</center>
+
+<p>因此黑棋此时并不能脱先，需要板住白棋。白棋随后连板。</p>
+<ul>
+<li>黑 7 粘是可行的下法，白棋虎补住断点，双方定型。</li>
+</ul>
+<center>
+    <img style="zoom:30%; border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="/img/Go-AI/星位小飞/星位小飞4.png" srcset="/img/loading.gif" lazyload>
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;">黑 7 粘</div>
+</center>
+
+<ul>
+<li>黑 7 立，此时黑棋头较软，白棋虎，黑棋打吃，白棋粘（开局阶段并没有什么劫材，此时白棋不应该做劫）。随后黑打吃，白棋拆边。</li>
+</ul>
+<center>
+    <img style="zoom:30%; border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="/img/Go-AI/星位小飞/星位小飞5.png" srcset="/img/loading.gif" lazyload>
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;">黑 7 立</div>
+</center>
+
+<ul>
+<li>黑 7 虎，白棋同样选择虎住断点，此时黑棋长。如果黑棋不长选择脱先，被白棋虎出来，白棋棋型饱满，对黑棋很有压迫力。</li>
+</ul>
+<center>
+    <img style="zoom:30%; border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="/img/Go-AI/星位小飞/星位小飞6.png" srcset="/img/loading.gif" lazyload>
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;">黑 7 虎</div>
+</center>
+
+<ul>
+<li><p>黑 7 打吃为主流下法。白棋只能粘住，随后黑棋长。白 10 断，之后会形成一个两分的变化。黑棋拐，白棋双打吃，黑棋长，白棋需要在角上补活。黑 15 打吃。</p>
+<p>此时白棋取实地，黑棋得外势。但黑棋外势存在弱点，即白棋粘。</p>
+<center>
+    <img style="zoom:30%; border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="/img/Go-AI/星位小飞/星位小飞7.png" srcset="/img/loading.gif" lazyload>
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;">黑 7 打吃</div>
+</center>
+
+<ul>
+<li><p>当白棋粘住后，黑棋可以选择在 A 或 B 处与白棋展开作战。</p>
+<center>
+    <img style="zoom:30%; border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="/img/Go-AI/星位小飞/星位小飞8.png" srcset="/img/loading.gif" lazyload>
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;">白棋粘住，抓住黑棋外势弱点</div>
+</center></li>
+</ul>
+</li>
+</ul>
 
                 
               </div>
@@ -337,7 +463,7 @@
       
         <div class="license-meta-item">
           <div>Author</div>
-          <div>zzheng2020</div>
+          <div>Ziheng Zhang</div>
         </div>
       
       
