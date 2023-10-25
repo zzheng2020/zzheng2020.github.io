@@ -4,100 +4,13 @@
   
   
   <entry>
-    <title>The Game of Go - 如何攻击拆二</title>
-    <link href="/2023/07/13/The-Game-of-Go-%E5%A6%82%E4%BD%95%E6%94%BB%E5%87%BB%E6%8B%86%E4%BA%8C/"/>
-    <url>/2023/07/13/The-Game-of-Go-%E5%A6%82%E4%BD%95%E6%94%BB%E5%87%BB%E6%8B%86%E4%BA%8C/</url>
+    <title>5G NR The Next Generation Wireless Access Technology</title>
+    <link href="/2023/10/24/5G-NR-The-Next-Generation-Wireless-Access-Technology/"/>
+    <url>/2023/10/24/5G-NR-The-Next-Generation-Wireless-Access-Technology/</url>
     
-    <content type="html"><![CDATA[<p>当拆二被两边逼住的时候，是一个很薄的棋型.</p><p>以白棋拆二为例，黑棋飞为严厉的攻击手段.</p><center>    <img style="zoom:70%; border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="/img/Go-AI/双飞燕/tuo_tui.png">    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">托/退 为常见变化</div></center><p>Ref: 【《如何攻击拆二》702樊麾给女儿复盘网棋-哔哩哔哩】 <a href="https://b23.tv/NUCni8Z">https://b23.tv/NUCni8Z</a></p>]]></content>
-    
-    
-    <categories>
-      
-      <category>The game of Go (围棋)</category>
-      
-    </categories>
+    <content type="html"><![CDATA[<h1 id="5G-NR"><a href="#5G-NR" class="headerlink" title="5G NR"></a>5G NR</h1><ul><li><p>FDD 频分 TDD 时分</p><p>FDD: 基站给 ue 发送信息用 f1 的频率，ue 给基站发送信息使用 f2 的频率.</p><p>TDD: 基站和 ue 之间通信使用相同的频率，但在不同的时间段上进行切换（基站发送给 ue 切换到 ue 发送给基站）.</p></li><li><p>Time-Domain Structure</p><p>Transmission 被分为长度为 10 ms 的 frame，每一个 frame 被分为长度为 1 ms 的 subframe，每个 subframe 由包含 14 个 OFDM symbols 的 slot 组成.</p><p>每个 frame 有一个唯一的 System Frame Number (SFN)，SFN 的周期为 1024，SFN 会在1024 个 frame，或者说是 10.24 s 后出现.</p><p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/3bbcb6f3-221d-4532-9dc1-abe6f8c97fcd/3d22c84f-8256-4953-b7b9-03a591ec1c8f/Untitled.png" alt="Untitled"></p></li><li><p>Physical-Layer Control Signaling</p><ul><li><p>Downlink</p><p>Physical Layer - L1</p><p>Mac Layer - L2</p><ul><li>Downlink 在干什么<ol><li>Downlink scheduling assignments (UE 能够正常接受，解调和解码  DL-SCH 所需要的信息)</li><li>Uplink scheduling grants (通知 UE 关于 UL-SCH 的传输资源和传输格式)</li><li>Special purpose (symbols used for uplink and downlink in a set of slots, preemption indication, and power control)</li></ol></li></ul><p>NR 中，只有一个 signal control channel type - Physical downlink control channel (PDCCH).</p><ul><li><p><strong>Physical Downlink Control Channel (PDCCH)</strong></p><p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/3bbcb6f3-221d-4532-9dc1-abe6f8c97fcd/9ea0e264-2a50-49a5-b927-2c315a5621c6/Untitled.png" alt="Untitled"></p></li></ul><p>payload - <strong>Downlink Control Information (DCI)</strong></p><p>24-bit CRC is attached to detect transmission errors.</p><p>RNTI modifies the CRC by using a scrambling operation.</p><p>DCI 通过解码 CRC 得出，并不会 explicitly 传输，从而减少 bits 的使用.</p><p>The RNTI does <strong>NOT</strong> necessarily have to be the identity of the device, the C-RNTI, but can also be different types of group or common RNTIs, for example to indicate paging or a random-access response.</p><ul><li><strong>Control-channel Elements (CCEs)</strong> - 当系统给 UE 发送控制信息的时候，需要使用 PDCCH。而 CCEs 是 PDCCH 使用的资源的基本单位，它指定了哪些资源用于 PDCCH 传输.</li><li><strong>Resource-element groups (REGs) -</strong> 一组 Resource element. RE 可以看作是二维时间-频率网格上的一个点.</li></ul><p>PDCCH的资源是按REGs来分配的，而不是单独的RE.</p></li></ul></li></ul>]]></content>
     
     
-    <tags>
-      
-      <tag>The game of Go</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>BuildYourOwnX - Redis</title>
-    <link href="/2023/06/21/BuildYourOwnX-Redis/"/>
-    <url>/2023/06/21/BuildYourOwnX-Redis/</url>
-    
-    <content type="html"><![CDATA[<p>This project follows the tutorials on <a href="https://app.codecrafters.io/catalog">CodeCrafters</a>.</p><h2 id="Bind-to-a-port"><a href="#Bind-to-a-port" class="headerlink" title="Bind to a port"></a>Bind to a port</h2><p><code>int socket(int af, int type, int protocol)</code></p><ul><li><code>af</code> address family<ul><li><code>AF_INET</code> IPv4</li><li><code>AF_INET6</code> IPv6</li></ul></li><li><code>type</code> data transmission type</li><li></li></ul>]]></content>
-    
-    
-    <categories>
-      
-      <category>Tech</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>C</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>The Game of Go - 围棋AI定式 - 双飞燕</title>
-    <link href="/2023/05/19/The-Game-of-Go-%E5%9B%B4%E6%A3%8BAI%E5%AE%9A%E5%BC%8F-%E5%8F%8C%E9%A3%9E%E7%87%95/"/>
-    <url>/2023/05/19/The-Game-of-Go-%E5%9B%B4%E6%A3%8BAI%E5%AE%9A%E5%BC%8F-%E5%8F%8C%E9%A3%9E%E7%87%95/</url>
-    
-    <content type="html"><![CDATA[<h1 id="双飞燕"><a href="#双飞燕" class="headerlink" title="双飞燕"></a>双飞燕</h1><p>局部形成双飞燕后，常见应法如下。</p><h2 id="靠压"><a href="#靠压" class="headerlink" title="靠压"></a>靠压</h2><p>靠压为常见应手。随后黑棋扳是必然，白棋长。</p><p>此时黑棋局部有两种常见变化，托或者退。</p><center>    <img style="zoom:70%; border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="/img/Go-AI/双飞燕/tuo_tui.png">    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">托/退 为常见变化</div></center><ol><li><p>托</p><ul><li><p>白 2 断，黑 3 只能退，随后白 4 打吃。需要注意的是，当黑 5 扳后，白 6 需要选择提掉黑子，避免引征留下的问题。</p><center>    <img style="zoom:50%; border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="/img/Go-AI/双飞燕/tuo_1.png">    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">黑棋选择托的变化 - 1</div></center></li><li><p>白 2 3-3扳也是常见应手之一，黑棋粘，白 4 粘。</p><center>    <img style="zoom:50%; border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="/img/Go-AI/双飞燕/tuo_2.png">    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">黑棋选择托的变化 - 2</div></center></li></ul></li></ol><p>未完待续…</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>The game of Go (围棋)</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>The game of Go</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>The Game of Go - 围棋AI布局 - 中国流</title>
-    <link href="/2023/02/20/The-Game-of-Go-%E5%9B%B4%E6%A3%8BAI%E5%B8%83%E5%B1%80-%E4%B8%AD%E5%9B%BD%E6%B5%81/"/>
-    <url>/2023/02/20/The-Game-of-Go-%E5%9B%B4%E6%A3%8BAI%E5%B8%83%E5%B1%80-%E4%B8%AD%E5%9B%BD%E6%B5%81/</url>
-    
-    <content type="html"><![CDATA[<p><a href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E6%B5%81">中国流</a>由日本棋手<a href="https://zh.wikipedia.org/wiki/%E6%9C%AC%E5%9B%A0%E5%9D%8A%E9%81%93%E7%AD%96">本因坊道策</a>下出，中国棋手<a href="https://zh.wikipedia.org/wiki/%E9%99%88%E7%A5%96%E5%BE%B7">陈祖德</a>对其有深入研究，后被称之为“中国流”。</p><h1 id="中国流布局"><a href="#中国流布局" class="headerlink" title="中国流布局"></a>中国流布局</h1><p>中国流布局如下图所示。</p><center>    <img style="zoom:50%; border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="/img/Go-AI/中国流/zhong-guo-liu-buju.png">    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">中国流布局</div></center><h1 id="AI-眼中的中国流"><a href="#AI-眼中的中国流" class="headerlink" title="AI 眼中的中国流"></a>AI 眼中的中国流</h1><p>白棋碰为主流应法。</p><center>    <img style="zoom:50%; border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="/img/Go-AI/中国流/bai-peng.png">    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">白棋碰</div></center><p>对于白棋的碰，黑棋“正解”为在内侧扳。</p><center>    <img style="zoom:50%; border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="/img/Go-AI/中国流/hei-ban.png">    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">黑棋扳</div></center><ul><li><p>若黑棋扳在外侧，总是白棋占优。其中一种接近两分变化如下图所示。</p><center>    <img style="zoom:50%; border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="/img/Go-AI/中国流/wrong.png">    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">黑棋外扳</div></center><p>该局部定型黑白大约两分（实际上此时白棋胜率稍优），黑棋在 A 处有点的手筋，但并不严厉，白棋简单挡住即可。</p></li></ul><p>随后白棋扳，黑棋打吃，白棋长，黑棋补上断点。</p><center>    <img style="zoom:50%; border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="/img/Go-AI/中国流/5.png">    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">中国流局部变化</div></center><p>此时白棋面临选择。</p><p>较为常见的下法为白棋妥协，将左侧三路的黑子吃住。</p><center>    <img style="zoom:50%; border-radius: 0.3125em;    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"     src="/img/Go-AI/中国流/6.png">    <br>    <div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">中国流两分定型</div></center><p>需要注意的是，白 7 虎不可错过。否则黑棋小飞压迫过来对白棋的影响较大。</p><p>以上变化是黑白两分的定型。黑棋获得了丰厚的实地，白棋在黑棋的局部获得了收益，并且在左侧获得了发展。</p><p>后续黑棋需要在左下白棋挂角，尽量减少白棋厚势的影响。</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>The game of Go (围棋)</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>The game of Go</tag>
-      
-    </tags>
     
   </entry>
   
@@ -121,31 +34,6 @@
     <tags>
       
       <tag>The game of Go</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>LS1502 Swedish A1 for Engineers VT23</title>
-    <link href="/2023/01/19/LS1502-Swedish-A1-for-Engineers-VT23/"/>
-    <url>/2023/01/19/LS1502-Swedish-A1-for-Engineers-VT23/</url>
-    
-    <content type="html"><![CDATA[<p>This is the Swedish language course at KTH.</p><hr><ul><li>Vad heter du?<br>What’s your name?</li><li>Jag heter …<br>My name is …</li></ul><hr><ul><li><p>Varifrån kommer du?<br>Where are you from?</p><p>Varifrån - from where</p></li><li><p>Kommer du från …?<br>Do you come from …?</p></li><li><p>Jag kommer&#x2F;är från …<br>I come&#x2F;am from …</p></li></ul><hr><ul><li>Vad talar du för språk?<br>What language do you speak?</li><li>Kina, Kinesiska<br>China, Chinese</li></ul><hr><ul><li>Var ligger det?<br>Where is it?</li><li>Datavetenskap<br>Computer science</li><li>Tack för maten. &#x2F; e-posten &#x3D; email &#x2F; mejlen &#x3D; the mail<br>Thank you for the food.</li></ul><hr><ul><li>Förstår &#x3D; understand</li><li>Frågor &#x3D; question</li></ul><p>Vad har du för telefonnummer?</p><p>Hur gammal är du? Gammal &#x3D; old</p><p>Vad har du i väskan?<br>What do you have in your bag?</p><hr><ul><li><p>Hur gammal är du? - How old are you?</p><p>gammal [²gAm:al] - old</p><p>år [å:r] - year</p></li><li><p>Och du? - and you?</p><p>Du då - what about you?</p></li></ul><hr><h1 id="P20-Vad-gor-du-i-Sverige"><a href="#P20-Vad-gor-du-i-Sverige" class="headerlink" title="P20 Vad gör du i Sverige?"></a>P20 Vad gör du i Sverige?</h1><p>Vad gör du i Sverige? - What are you doing in Sweden?</p><p><strong>intresserad</strong> [intresE:rad] - adj. - interested</p><p><strong>jobba</strong> [²jÅb:ar] - v. - work</p><p><strong>också</strong> [²Åk:så] - adv. - too&#x2F;also</p><p><strong>som</strong> [såm:] - conj. - as</p><p><strong>journalist</strong> [$or+nalIs:t]  - journalist</p><p><strong>nät</strong> [nä:t] - net</p><p><strong>men</strong> [men:] - but</p><p><strong>efter</strong> [Ef:ter] - after</p><p><strong>familj</strong> [famIl:j] - family</p><p><strong>vän</strong> [ven:] - friend</p><p><strong>ofta</strong> [²Åf:ta] - often</p><p><strong>telefon</strong> [telefÅ:n] - telephone</p><hr><p><strong>vakna</strong> [²vA:knar] wake</p><p><strong>lektion</strong> [lek$O:n] lesson</p><p><strong>börja</strong> [²bÖr:jar] start &#x2F; begin</p><p><strong>kyckling</strong> [²cYk:li@] chicken</p><p><strong>sakta</strong> [²sAk:ta] slowly</p><p><strong>titta</strong> [²tIt:ar] look</p><hr><h1 id="Auxiliary-verbs"><a href="#Auxiliary-verbs" class="headerlink" title="Auxiliary verbs"></a>Auxiliary verbs</h1><p><strong>ska</strong> [ska: el. sk:Al] - will</p><p>Vill - want<br>Vill du en coffee? - do you want (to have) a coffee?</p><p><strong>måste</strong> [²mÅ:ste] - must</p><hr><h1 id="Buy"><a href="#Buy" class="headerlink" title="Buy"></a>Buy</h1><p>Kan jag få … - Can I get …</p><p>Jag skulle vilja ha - I would like to have</p><p>var det bra så? - (字面意思) was it good so? - is it everything you want?</p><p><strong>skriva</strong> [skrI:ver] - write</p><p>Leg - ID (informal)</p><p>Något mer?<br>Något annat?</p><hr><h1 id="Rivstart-A1-A2-Textbok"><a href="#Rivstart-A1-A2-Textbok" class="headerlink" title="Rivstart A1+A2 Textbok"></a>Rivstart A1+A2 Textbok</h1><p><strong>potatis</strong> [potA:tis] - potato</p><p><strong>hamburgare</strong> [²hAm:bur:jare] - hamburger</p><p><strong>penna</strong> [²pEn:a] - pen</p><p><strong>ingenjör</strong> [in$enjÖ:r] - engineer &#x2F; technician</p><p><strong>advokat</strong> [advokA:t] - solicitor</p><p><strong>läkare</strong> [²lÄ:kare] - doctor</p><p><strong>tandläkare</strong> [²tAn:dlä:kare] - dentist</p><p><strong>sjuksköterska</strong> [²$U:k$ö:ter+ska] - nurse</p><p><strong>chaufför</strong> [$åfÖ:r] - driver</p><p><strong>frisör</strong> [frisÖ:r] - barber</p><p><strong>lärare</strong> [²lÄ:rare] - teacher</p><p><strong>servitör</strong> [servitÖ:r] - waiter</p><p><strong>söka</strong> [sÖ:ker] - look for &#x2F; seek</p><p><strong>mycket</strong> [²mYk:e(t)] - very much</p><p><strong>jobba</strong> [²jÅb:ar] - work</p><p><strong>dig</strong> [dej: (el. di:g)] - you</p><hr><p>hur är det med dig? - How are you?</p><p>Hur mår du? - How are you?</p><p><strong>faktiskt</strong> [fAk:tiskt] - actul</p><p><strong>dåligt</strong> [²dÅ:li(k)t] - poorly</p><p><strong>förkyld</strong> [förcY:ld] - having a cold</p><p><strong>förstå</strong> [för+stÅ:r] - understand</p><p><strong>pytteliten</strong> [²pYt:eli:ten] - tiny</p><p><strong>ihop</strong> [ihO:p] - together</p><p><strong>plugga</strong> [²plUg:ar] - study</p><p><strong>mat</strong> [ma:t] - food</p><p><strong>med</strong> [me:(d)] - with</p><p><strong>ingenjör</strong> [in$enjÖ:r] - engineer</p><p>Vi - we</p><p>De - them</p><p>ni - you</p><hr><p>en vecka - week</p><p>Trevilig helg - nice weekend</p><p>detsamma - the same</p><p>grädde - ceram</p><p>Vad tycker du om att göra? - what do you like to </p><p>Jag spelar - I play …</p><p>Basket - basketball</p><hr><h1 id="P4"><a href="#P4" class="headerlink" title="P4"></a>P4</h1><p>En tenta - an exam</p><p>Tenta - to exam</p><p>lingonsylt - lingonberry jam</p><p>Tycker om &#x2F; gillar att</p><p>Jag brukar vakna klockan sju. - I usually wake up at seven.</p><hr><h2 id="Past-Tense"><a href="#Past-Tense" class="headerlink" title="Past Tense"></a>Past Tense</h2><p>Är - var</p><p>var var du I helgen? - where were you this weekend?</p><p>det var varmt - it was warm?</p><p><strong>vad gjorde du i helgen?</strong> - <strong>what did you do during the weekend</strong></p><p>Go - gick (past tense)</p><p>vad är det för år - what year is it</p><p>Jag är född - I ‘am’ born</p><p>När är du född - When were you born</p><p>vem är det här? - who is this</p><hr><p>Varje dag vaknar Martin klockan sex. Han är jättetrött och äter bara en banan till frukost. Han åker buss till jobbet. På bussen lyssnar han på en podcast och läser nyheterna på mobilen. Han arbetar till klockan fem, och sedan går han en liten promenad. På kvällen gör han inget speciellt. Han lagar mat, spelar gitarr och ringer en vän.</p><hr><p>Ingenting - nothing</p><p>Någon &#x2F;nån&#x2F;</p><p>något &#x2F;nåt&#x2F;</p><p>några &#x2F;nåra&#x2F;</p><p>ChatGPT:</p><p>“Någon”, “något”和”några”都是瑞典语中表示”一些”、”任何”或”某些”的词语，但它们在用法上有所不同。</p><ol><li>“Någon”可以用作代词或形容词，表示”某人”或”某物”，其复数形式为”några”。例如：</li></ol><ul><li>Kan någon hjälpa mig? (Can someone help me?)</li><li>Några människor kom till festen. (Some people came to the party.)</li></ul><ol><li>“Något”通常用作不定代词或形容词，表示”一些”或”任何”。例如：</li></ol><ul><li>Kan du ge mig något vatten? (Can you give me some water?)</li><li>Hon har något att säga. (She has something to say.)</li></ul><ol><li>“Några”是复数形式，表示”一些”或”几个”。通常用于名词后面。例如：</li></ol><ul><li>Jag köpte några äpplen på marknaden. (I bought some apples at the market.)</li><li>Några av eleverna var från Sverige. (Some of the students were from Sweden.)</li></ul><p>需要注意的是，在某些情况下，这些词语可能会被用作疑问代词。例如：”Någon”可以用来询问是否有某人，”något”可以用来询问是否有某物，而”några”可以用来询问是否有一些东西。</p><p>Ingen - Ingot - Inga &#x3D; no</p><hr><p><strong>vad behöver du - what do you need?</strong></p>]]></content>
-    
-    
-    <categories>
-      
-      <category>Swedish</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>Swedish</tag>
       
     </tags>
     
