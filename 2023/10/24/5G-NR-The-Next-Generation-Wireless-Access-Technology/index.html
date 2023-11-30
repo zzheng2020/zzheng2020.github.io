@@ -28,8 +28,9 @@
 <meta property="og:image" content="https://zzheng2020.github.io/img/5g_nr/CORESET.png">
 <meta property="og:image" content="https://zzheng2020.github.io/img/5g_nr/CORESET1.png">
 <meta property="og:image" content="https://zzheng2020.github.io/img/5g_nr/RE_REG_Bundles_CCE_CORESET.png">
+<meta property="og:image" content="https://zzheng2020.github.io/img/5g_nr/rach_over_procedure.png">
 <meta property="article:published_time" content="2023-10-23T22:02:06.000Z">
-<meta property="article:modified_time" content="2023-11-28T23:00:32.375Z">
+<meta property="article:modified_time" content="2023-11-30T22:47:10.519Z">
 <meta property="article:author" content="Ziheng Zhang">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://zzheng2020.github.io/img/5g_nr/frame.png">
@@ -225,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k words
+          2.5k words
         
       </span>
     
@@ -236,7 +237,7 @@
         
         
         
-          18 mins
+          22 mins
         
       </span>
     
@@ -362,7 +363,6 @@
     padding: 2px;"></div>
 </center>
 
-
 </li>
 <li><p>RE, REG, REG Bundles, CCE, Aggregation Level, CORESET 的组成</p>
 <center>
@@ -394,9 +394,33 @@
 </li>
 </ul>
 <h2 id="Random-Access-Channel-RACH"><a href="#Random-Access-Channel-RACH" class="headerlink" title="Random Access Channel (RACH)"></a>Random Access Channel (RACH)</h2><ul>
-<li>Aim: For establishing Uplink Synchronization</li>
+<li>Aim: For establishing Uplink Synchronization between a device and a network (gNB).</li>
+<li>手机&#x2F;电脑第一次连接网络的时候（或者很长时间之后再次连接网络的时候），需要 RACH 去请求访问网络.</li>
 </ul>
+<h3 id="RACH-Overall-Procedure"><a href="#RACH-Overall-Procedure" class="headerlink" title="RACH Overall Procedure"></a>RACH Overall Procedure</h3><center>
+    <img style="zoom:50%; border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="/img/5g_nr/rach_over_procedure.png" srcset="/img/loading.gif" lazyload>
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;"></div>
+</center>
 
+<h3 id="Contention-Based-RACH-Procedure"><a href="#Contention-Based-RACH-Procedure" class="headerlink" title="Contention Based RACH Procedure"></a>Contention Based RACH Procedure</h3><p>在 UE 以一种特定的模式发送 Preamble，被称为 Signature. UE 随机选择一个 Signature，因此会出现冲突，即多个 UE 选择了完全相同的 Signature.</p>
+<p>会通过 “Contention Resolution” step 来解决冲突.</p>
+<ul>
+<li>步骤：<ul>
+<li>UE → gNB: Preamble (RA-RNTI, L2&#x2F;L3 消息大小)</li>
+<li>UE ← gNB: TC-RNTI</li>
+<li>UE → gNB: L2&#x2F;L3 msg</li>
+</ul>
+</li>
+</ul>
+<p>如果多个 UE 选择了完全相同的 Preamble，gNB 只会解析其中一个的信息，其余的 UE 就会知道发生了冲突，从而回到第一步重新进行连接的步骤.</p>
+<p>成功的 UE 会收到一个唯一的 C-RNTI.</p>
+<h3 id="Non-Contention-Based-RACH-Procedure"><a href="#Non-Contention-Based-RACH-Procedure" class="headerlink" title="Non-Contention Based RACH Procedure"></a>Non-Contention Based RACH Procedure</h3>
                 
               </div>
             
