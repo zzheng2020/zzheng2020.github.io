@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://zzheng2020.github.io/img/5g_nr/RE_REG_Bundles_CCE_CORESET.png">
 <meta property="og:image" content="https://zzheng2020.github.io/img/5g_nr/rach_over_procedure.png">
 <meta property="article:published_time" content="2023-10-23T22:02:06.000Z">
-<meta property="article:modified_time" content="2023-11-30T22:47:10.519Z">
+<meta property="article:modified_time" content="2023-12-20T13:20:51.557Z">
 <meta property="article:author" content="Ziheng Zhang">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://zzheng2020.github.io/img/5g_nr/frame.png">
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k words
+          3.7k words
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          22 mins
+          31 mins
         
       </span>
     
@@ -420,7 +420,40 @@
 </ul>
 <p>如果多个 UE 选择了完全相同的 Preamble，gNB 只会解析其中一个的信息，其余的 UE 就会知道发生了冲突，从而回到第一步重新进行连接的步骤.</p>
 <p>成功的 UE 会收到一个唯一的 C-RNTI.</p>
-<h3 id="Non-Contention-Based-RACH-Procedure"><a href="#Non-Contention-Based-RACH-Procedure" class="headerlink" title="Non-Contention Based RACH Procedure"></a>Non-Contention Based RACH Procedure</h3>
+<h3 id="Non-Contention-Based-RACH-Procedure"><a href="#Non-Contention-Based-RACH-Procedure" class="headerlink" title="Non-Contention Based RACH Procedure"></a>Non-Contention Based RACH Procedure</h3><p>步骤：</p>
+<ul>
+<li>UE ← gNB: PRACH</li>
+<li>UE → gNB: RA-RNTI, L2&#x2F;L3 消息大小</li>
+<li>UE ← gNB: C-RNTI</li>
+</ul>
+<p>gNB 向特定的 UE 提供 random access resources.</p>
+<blockquote>
+<p>This method is typically used in scenarios where the network has prior knowledge about the UE’s intention to initiate communication. For example, it can be used for handover procedures or when the network anticipates uplink data transmission from the UE based on downlink data or signaling.</p>
+</blockquote>
+<h2 id="Preamble-Structure"><a href="#Preamble-Structure" class="headerlink" title="Preamble Structure"></a>Preamble Structure</h2><h3 id="Basic-Preamble"><a href="#Basic-Preamble" class="headerlink" title="Basic Preamble"></a>Basic Preamble</h3><p>由长度为 L 的 preamble 序列  $p_0,p_1,\dots,p_{L-1}$ 生成，基于 Zadoff-Chu 序列. 也可以有由相同根序列的不同循环位移生成.</p>
+<blockquote>
+<p>Different preamble sequences can be generated from different Zadoff- Chu sequences corresponding to different root-sequence indices. However, it can also be generated from different cyclic shifts of the same root sequence.</p>
+</blockquote>
+<ul>
+<li><p>循环位移 Cyclic Shift</p>
+<p>假设有一个基于 Zadoff-Chu 序列的根序列 $R &#x3D; [r0, r1, r2, r3]$，通过循环移位，可以生成以下序列：</p>
+<ul>
+<li>循环移位0次：$[r0, r1, r2, r3]$</li>
+<li>循环移位1次：$[r3, r0, r1, r2]$</li>
+<li>循环移位2次：$[r2, r3, r0, r1]$</li>
+<li>循环移位3次：$[r1, r2, r3, r0]$</li>
+</ul>
+<p>这些生成的诗序可以保证彼此的正交，进而允许多个用户同时尝试接入网络而互不干扰.</p>
+</li>
+</ul>
+<p>The set of cyclic shifts 由 zero-correlation-zone 参数给出.</p>
+<p>zero-correlation-zone &#x3D; orthogonality.</p>
+<p>在一个 cell 中，最多由 64 种不同的 preamble，其对应的索引是 0 ~ 63.</p>
+<hr>
+<blockquote>
+<p> This blog draws its insights from the book “5G NR: The Next Generation Wireless Access Technology” by Erik Dahlman, along with information from the website <a target="_blank" rel="noopener" href="https://www.sharetechnote.com/Home.html">ShareTechnote</a>.</p>
+</blockquote>
+
                 
               </div>
             
