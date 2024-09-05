@@ -12,6 +12,12 @@ minify:
   disableXML: true
   minifyOutput: true
 
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # necessary for search
+
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   title: Ziheng Zhang's Blog
@@ -51,7 +57,7 @@ params:
 
   label:
     text: "Ziheng"
-    icon: /static/zzh.jpg
+    icon: "https://media.licdn.com/dms/image/v2/D5603AQGKk7BjLCcDwA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1696809872798?e=1730937600&v=beta&t=zJ6UWMBfU4Rz04t-1BC9TCvhcFTr5wKBI6OZQbcmK4U"
     iconHeight: 35
 
   # profile-mode
@@ -60,7 +66,6 @@ params:
     title: "Ziheng Zhang" # optional default will be site title
     subtitle: |
       Always learning :-)
-      test line
     imageUrl: "https://media.licdn.com/dms/image/v2/D5603AQGKk7BjLCcDwA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1696809872798?e=1730937600&v=beta&t=zJ6UWMBfU4Rz04t-1BC9TCvhcFTr5wKBI6OZQbcmK4U" # optional
     imageTitle: "<title of image as alt>" # optional
     imageWidth: 200 # custom size
@@ -104,7 +109,7 @@ params:
     hiddenInSingle: true # hide on single page
 
   editPost:
-    URL: "https://github.com/<path_to_repo>/content"
+    URL: "https://github.com/zzheng2020/zzheng2020.github.io/tree/main/content"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 
@@ -137,6 +142,10 @@ menu:
       name: Tags
       url: /tags/
       weight: 4
+    - identifier: Search
+      name: Search
+      url: /search/
+      weight: 5
     # - identifier: example
     #   name: example.org
     #   url: https://example.org
