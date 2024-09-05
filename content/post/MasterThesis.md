@@ -4,7 +4,6 @@ title: "Master Thesis: High Availability in Lifecycle Management of Cloud-Native
 date: "2024-09-05"
 description: "A Near-Zero Downtime Database Version Change Prototype"
 summary: "A Near-Zero Downtime Database Version Change Prototype"
-searchHidden: true
 tags: ["Kubernetes", "Docker", "Golang"]
 categories: ["Tech"]
 series: ["Master Thesis"]
