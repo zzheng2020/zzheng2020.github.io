@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Test1 on ExampleSite</title>
-    <link>http://localhost:1313/tags/test1/</link>
+    <link>http://localhost:1313/blog/tags/test1/</link>
     <description>Recent content in Test1 on ExampleSite</description>
     <image>
       <title>ExampleSite</title>
-      <url>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>http://localhost:1313/blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>http://localhost:1313/blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- 0.134.0</generator>
     <language>en</language>
     <lastBuildDate>Thu, 05 Sep 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/test1/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/test1/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>First test</title>
-      <link>http://localhost:1313/post/test/</link>
+      <link>http://localhost:1313/blog/post/test/</link>
       <pubDate>Thu, 05 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/post/test/</guid>
+      <guid>http://localhost:1313/blog/post/test/</guid>
       <description>description test.</description>
     </item>
   </channel>
