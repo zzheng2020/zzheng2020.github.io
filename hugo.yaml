@@ -1,0 +1,151 @@
+baseURL: "https://examplesite.com/"
+title: ExampleSite
+pagination.pagerSize: 5
+theme: PaperMod
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  title: ExampleSite
+  description: "ExampleSite description"
+  keywords: [Blog, Portfolio, PaperMod]
+  author: Me
+  # author: ["Me", "You"] # multiple authors
+  images: ["<link or path of image for opengraph, twitter-cards>"]
+  DateFormat: "January 2, 2006"
+  defaultTheme: light # dark, light
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: false
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: false
+  tocopen: false
+
+  assets:
+    # disableHLJS: true # to disable highlight.js
+    # disableFingerprinting: true
+    favicon: "<link / abs url>"
+    favicon16x16: "<link / abs url>"
+    favicon32x32: "<link / abs url>"
+    apple_touch_icon: "<link / abs url>"
+    safari_pinned_tab: "<link / abs url>"
+
+  label:
+    text: "Ziheng"
+    icon: /apple-touch-icon.png
+    iconHeight: 35
+
+  # profile-mode
+  profileMode:
+    enabled: true
+    title: "Ziheng Zhang" # optional default will be site title
+    subtitle: "Always learning :-)" # optional
+    imageUrl: "https://media.licdn.com/dms/image/v2/D5603AQGKk7BjLCcDwA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1696809872798?e=1730937600&v=beta&t=zJ6UWMBfU4Rz04t-1BC9TCvhcFTr5wKBI6OZQbcmK4U" # optional
+    imageTitle: "<title of image as alt>" # optional
+    imageWidth: 200 # custom size
+    imageHeight: 200 # custom size
+    buttons:
+      - name: Posts
+        url: "/post/"
+      - name: About Me
+        url: "/about/"
+      # - name: Github
+      #   url: "https://github.com/"
+
+  # home-info mode
+  homeInfoParams:
+    Title: "Hi there \U0001F44B"
+    Content: Welcome to my blog
+
+  socialIcons: # optional
+    - name: "GitHub"
+      url: "https://github.com/zzheng2020"
+    - name: "LinkedIn"
+      url: "https://www.linkedin.com/in/zhangziheng/"
+    - name: "codeforces"
+      url: "https://codeforces.com/profile/Z_Z_Heng"
+    - name: "cv"
+      url: "https://drive.google.com/file/d/1xDuy3aU9U2k5TRMTyRJiZX_mlbZIz5UM/view?usp=sharing"
+    - name: "email"
+      url: "mailto:ziheng.cheung@outlook.com"
+
+  analytics:
+    google:
+      SiteVerificationTag: "XYZabc"
+    bing:
+      SiteVerificationTag: "XYZabc"
+    yandex:
+      SiteVerificationTag: "XYZabc"
+
+  cover:
+    hidden: true # hide everywhere but not in structured data
+    hiddenInList: true # hide on list pages and home
+    hiddenInSingle: true # hide on single page
+
+  editPost:
+    URL: "https://github.com/<path_to_repo>/content"
+    Text: "Suggest Changes" # edit text
+    appendFilePath: true # to append file path to Edit link
+
+  # for search
+  # https://fusejs.io/api/options.html
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    limit: 10 # refer: https://www.fusejs.io/api/methods.html#search
+    keys: ["title", "permalink", "summary", "content"]
+menu:
+  main:
+    - identifier: Posts
+      name: Posts
+      url: /post/
+      weight: 1
+    - identifier: Archives
+      name: Archives
+      url: /archives/
+      weight: 2
+    - identifier: Categories
+      name: Categories
+      url: /categories/
+      weight: 3
+    - identifier: Tags
+      name: Tags
+      url: /tags/
+      weight: 4
+    # - identifier: example
+    #   name: example.org
+    #   url: https://example.org
+    #   weight: 30
+# Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
+pygmentsUseClasses: true
+markup:
+  highlight:
+    noClasses: false
+    # anchorLineNos: true
+    # codeFences: true
+    # guessSyntax: true
+    # lineNos: true
+    # style: monokai
