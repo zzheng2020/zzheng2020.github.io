@@ -14,24 +14,24 @@
     <lastBuildDate>Thu, 05 Sep 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://zzheng2020.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Test1</title>
-      <link>https://zzheng2020.github.io/tags/test1/</link>
+      <title>Docker</title>
+      <link>https://zzheng2020.github.io/tags/docker/</link>
       <pubDate>Thu, 05 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>https://zzheng2020.github.io/tags/test1/</guid>
+      <guid>https://zzheng2020.github.io/tags/docker/</guid>
       <description></description>
     </item>
     <item>
-      <title>Test2</title>
-      <link>https://zzheng2020.github.io/tags/test2/</link>
+      <title>Golang</title>
+      <link>https://zzheng2020.github.io/tags/golang/</link>
       <pubDate>Thu, 05 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>https://zzheng2020.github.io/tags/test2/</guid>
+      <guid>https://zzheng2020.github.io/tags/golang/</guid>
       <description></description>
     </item>
     <item>
-      <title>Test3</title>
-      <link>https://zzheng2020.github.io/tags/test3/</link>
+      <title>Kubernetes</title>
+      <link>https://zzheng2020.github.io/tags/kubernetes/</link>
       <pubDate>Thu, 05 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>https://zzheng2020.github.io/tags/test3/</guid>
+      <guid>https://zzheng2020.github.io/tags/kubernetes/</guid>
       <description></description>
     </item>
   </channel>

@@ -2,13 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://zzheng2020.github.io/about/</loc>
-    <lastmod>2024-09-05T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://zzheng2020.github.io/categories/</loc>
     <lastmod>2024-09-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://zzheng2020.github.io/post/test/</loc>
+    <loc>https://zzheng2020.github.io/tags/docker/</loc>
+    <lastmod>2024-09-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://zzheng2020.github.io/tags/golang/</loc>
+    <lastmod>2024-09-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://zzheng2020.github.io/tags/kubernetes/</loc>
+    <lastmod>2024-09-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://zzheng2020.github.io/post/masterthesis/</loc>
     <lastmod>2024-09-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://zzheng2020.github.io/post/</loc>
@@ -17,21 +23,14 @@
     <loc>https://zzheng2020.github.io/tags/</loc>
     <lastmod>2024-09-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://zzheng2020.github.io/categories/test_c/</loc>
-    <lastmod>2024-09-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://zzheng2020.github.io/tags/test1/</loc>
-    <lastmod>2024-09-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://zzheng2020.github.io/tags/test2/</loc>
-    <lastmod>2024-09-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://zzheng2020.github.io/tags/test3/</loc>
+    <loc>https://zzheng2020.github.io/categories/tech/</loc>
     <lastmod>2024-09-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://zzheng2020.github.io/</loc>
     <lastmod>2024-09-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://zzheng2020.github.io/archives/</loc>
+  </url><url>
+    <loc>https://zzheng2020.github.io/search/</loc>
   </url>
 </urlset>
