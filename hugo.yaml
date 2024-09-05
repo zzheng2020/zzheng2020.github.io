@@ -19,7 +19,7 @@ params:
   keywords: [Blog, Portfolio, PaperMod]
   author: Ziheng Zhang
   # author: ["Me", "You"] # multiple authors
-  images: ["<link or path of image for opengraph, twitter-cards>"]
+  images: ["https://www.linkedin.com/in/zhangziheng/"]
   DateFormat: "January 2, 2006"
   defaultTheme: light # dark, light
   disableThemeToggle: false
@@ -37,7 +37,7 @@ params:
   comments: true
   hidemeta: false
   hideSummary: false
-  showtoc: false
+  showtoc: true
   tocopen: false
 
   assets:
@@ -51,14 +51,16 @@ params:
 
   label:
     text: "Ziheng"
-    icon: /apple-touch-icon.png
+    icon: /static/zzh.jpg
     iconHeight: 35
 
   # profile-mode
   profileMode:
     enabled: true
     title: "Ziheng Zhang" # optional default will be site title
-    subtitle: "Always learning :-)" # optional
+    subtitle: |
+      Always learning :-)
+      test line
     imageUrl: "https://media.licdn.com/dms/image/v2/D5603AQGKk7BjLCcDwA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1696809872798?e=1730937600&v=beta&t=zJ6UWMBfU4Rz04t-1BC9TCvhcFTr5wKBI6OZQbcmK4U" # optional
     imageTitle: "<title of image as alt>" # optional
     imageWidth: 200 # custom size
@@ -66,8 +68,8 @@ params:
     buttons:
       - name: Posts
         url: "/post/"
-      - name: About Me
-        url: "/about/"
+      - name: Résumé
+        url: "https://drive.google.com/file/d/1xDuy3aU9U2k5TRMTyRJiZX_mlbZIz5UM/view?usp=sharing"
       # - name: Github
       #   url: "https://github.com/"
 
@@ -83,8 +85,8 @@ params:
       url: "https://www.linkedin.com/in/zhangziheng/"
     - name: "codeforces"
       url: "https://codeforces.com/profile/Z_Z_Heng"
-    - name: "cv"
-      url: "https://drive.google.com/file/d/1xDuy3aU9U2k5TRMTyRJiZX_mlbZIz5UM/view?usp=sharing"
+    # - name: "cv"
+    #   url: "https://drive.google.com/file/d/1xDuy3aU9U2k5TRMTyRJiZX_mlbZIz5UM/view?usp=sharing"
     - name: "email"
       url: "mailto:ziheng.cheung@outlook.com"
 
