@@ -1,4 +1,4 @@
-baseURL: "https://zzheng2020.github.io/"
+baseURL: "https://zzheng2020.github.io/blog"
 title: ExampleSite
 pagination.pagerSize: 5
 theme: PaperMod
