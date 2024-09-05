@@ -49,7 +49,7 @@ window.onload = function () {
         }
     };
     console.log("Loading search index...");
-    xhr.open("GET", "../index.json");
+    xhr.open("GET", "https://example.com/index.json");
     xhr.send();
 }
 
