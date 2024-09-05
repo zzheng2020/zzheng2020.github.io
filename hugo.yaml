@@ -1,5 +1,5 @@
 baseURL: "https://zzheng2020.github.io/"
-title: ExampleSite
+title: Ziheng Zhang's Blog
 pagination.pagerSize: 5
 theme: PaperMod
 
@@ -14,10 +14,10 @@ minify:
 
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
-  title: ExampleSite
-  description: "ExampleSite description"
+  title: Ziheng Zhang's Blog
+  description: "Documenting the slice of life's journey."
   keywords: [Blog, Portfolio, PaperMod]
-  author: Me
+  author: Ziheng Zhang
   # author: ["Me", "You"] # multiple authors
   images: ["<link or path of image for opengraph, twitter-cards>"]
   DateFormat: "January 2, 2006"
@@ -34,7 +34,7 @@ params:
   UseHugoToc: true
   disableSpecial1stPost: false
   disableScrollToTop: false
-  comments: false
+  comments: true
   hidemeta: false
   hideSummary: false
   showtoc: false
