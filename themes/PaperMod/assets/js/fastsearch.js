@@ -49,7 +49,7 @@ window.onload = function () {
         }
     };
     console.log("Loading search index...");
-    xhr.open("GET", "https://zzheng2020.github.io/index.json");
+    xhr.open("GET", "../index.json");
     xhr.send();
 }
 
