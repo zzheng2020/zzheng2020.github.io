@@ -8,7 +8,7 @@ tags: ["Kubernetes", "Docker", "Golang"]
 categories: ["Tech"]
 series: ["Master Thesis"]
 ShowToc: true
-TocOpen: true
+TocOpen: false
 cover:
   image: "https://github.com/user-attachments/assets/ee6aca7f-a52f-4602-a3e1-4d2fbcfb24bb"
   relative: false # To use relative path for cover image, used in hugo Page-bundles
