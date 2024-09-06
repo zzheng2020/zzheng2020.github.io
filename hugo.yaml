@@ -74,7 +74,7 @@ params:
       - name: Posts
         url: "/post/"
       - name: Résumé
-        url: "https://drive.google.com/file/d/1xDuy3aU9U2k5TRMTyRJiZX_mlbZIz5UM/view?usp=sharing"
+        url: "https://drive.google.com/file/d/1_E2PX-K1XQYH5uPI9LhRoUQi8atmbXJz/view?usp=sharing"
       # - name: Github
       #   url: "https://github.com/"
 
