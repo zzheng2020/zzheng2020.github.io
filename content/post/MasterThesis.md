@@ -14,7 +14,7 @@ cover:
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 ---
 
-This blog introduces my master's thesis ([[pdf]](https://www.diva-portal.org/smash/record.jsf?aq2=%5B%5B%5D%5D&c=1&af=%5B%5D&searchType=UNDERGRADUATE&sortOrder2=title_sort_asc&language=en&pid=diva2%3A1781462&aq=%5B%5B%7B%22author%22%3A%5B%22Zhang%2C+Ziheng%22%5D%7D%5D%5D&sf=all&aqe=%5B%5D&sortOrder=author_sort_asc&onlyFullText=false&noOfRows=50&dswid=733) [[presentation]](https://drive.google.com/file/d/1JTO0_wDDCrYbJaCS6PHPoJIcsNHOAGO2/view?usp=sharing) [[code]](https://github.com/zzheng2020/Master-Thesis)) and the demo video can be found below. Most of the sections correspond to paragraphs from the thesis, while some parts that are necessary in the thesis but not needed in the blog have been omitted. This allows you to focus more on the project itself.
+This blog introduces my master's thesis ([[pdf]](https://kth.diva-portal.org/smash/record.jsf?pid=diva2%3A1781462&dswid=-7118) [[presentation]](https://drive.google.com/file/d/1JTO0_wDDCrYbJaCS6PHPoJIcsNHOAGO2/view?usp=sharing) [[code]](https://github.com/zzheng2020/Master-Thesis)) and the demo video can be found below. Most of the sections correspond to paragraphs from the thesis, while some parts that are necessary in the thesis but not needed in the blog have been omitted. This allows you to focus more on the project itself.
 
 {{< youtube L9WOx1jLnF0 >}}
 
