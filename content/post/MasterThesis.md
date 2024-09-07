@@ -1,7 +1,7 @@
 ---
 author: ["Ziheng Zhang"]
 title: "Master Thesis: High Availability in Lifecycle Management of Cloud-Native Network Functions"
-date: "2024-09-05"
+date: "2023-08-01"
 description: "A Near-Zero Downtime Database Version Change Prototype"
 summary: "A Near-Zero Downtime Database Version Change Prototype"
 tags: ["Kubernetes", "Docker", "Golang"]
