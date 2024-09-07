@@ -49,15 +49,15 @@ params:
   assets:
     # disableHLJS: true # to disable highlight.js
     # disableFingerprinting: true
-    favicon: "<link / abs url>"
-    favicon16x16: "<link / abs url>"
-    favicon32x32: "<link / abs url>"
-    apple_touch_icon: "<link / abs url>"
-    safari_pinned_tab: "<link / abs url>"
+    favicon: "/favicon_package_v0.16/favicon.ico"
+    favicon16x16: "/favicon_package_v0.16/favicon-16x16.png"
+    favicon32x32: "/favicon_package_v0.16/favicon-32x32.png"
+    apple_touch_icon: "/favicon_package_v0.16/apple-touch-icon.png"
+    safari_pinned_tab: "/favicon_package_v0.16/safari-pinned-tab.svg"
 
   label:
     text: "Ziheng"
-    icon: "https://media.licdn.com/dms/image/v2/D5603AQGKk7BjLCcDwA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1696809872798?e=1730937600&v=beta&t=zJ6UWMBfU4Rz04t-1BC9TCvhcFTr5wKBI6OZQbcmK4U"
+    icon: "/favicon_package_v0.16/kirby.JPG"
     iconHeight: 35
 
   # profile-mode
