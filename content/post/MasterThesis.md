@@ -218,14 +218,14 @@ We use `PgAdmin4` to analyze the performance metrics of the database within the 
 
 Figure PA-1 shows the baseline database performance, with stable database sessions and tuples in. Transactions per second, tuples out, and block I/O follow a consistent and regular pattern.
 
-{{< custom-img src="https://github.com/user-attachments/assets/660fe93e-9780-44dc-ba41-7cea7b5c7d11" cap="PA-1" >}}
+{{< custom-img src="https://github.com/user-attachments/assets/660fe93e-9780-44dc-ba41-7cea7b5c7d11" cap="PA-1  The initial performance metrics." >}}
 
 Figure PA-2 depicts the system’s behavior after starting the client program, which runs five goroutines. Each goroutine reads from the database every three seconds and writes every ten seconds, reflecting the typical pattern of more frequent reads than writes. This activity causes a noticeable increase in all metrics, but the system remains stable.
 
-{{< custom-img src="https://github.com/user-attachments/assets/72e3ddf5-6ac5-4012-a22d-70d1d293a575" cap="PA-2" >}}
+{{< custom-img src="https://github.com/user-attachments/assets/72e3ddf5-6ac5-4012-a22d-70d1d293a575" cap="PA-2 The performance metrics after running the client." >}}
 
 Figure PA-3 illustrates the system’s response when our Kubernetes operator initiates a database version change. Aside from a minor increase in the "tuples in" metric (due to client operations), a brief fluctuation in metrics is observed, but the system quickly returns to normal. These rapid changes, highlighted by red boxes, are expected as the version change involves data synchronization between the master and follower nodes. Importantly, no idle sessions or transactions occur during this process, demonstrating that our solution achieves near-zero downtime while remaining transparent to clients.
 
-{{< custom-img src="https://github.com/user-attachments/assets/e2a794ac-4463-4e13-b1cd-bb42aec19c5f" cap="PA-3" >}}
+{{< custom-img src="https://github.com/user-attachments/assets/e2a794ac-4463-4e13-b1cd-bb42aec19c5f" cap="PA-3 The performance metrics after deploying the Kubernetes operator." >}}
 
 The results confirm that our solution effectively handles database version migrations and traffic switching. The smooth user experience during the migration highlights the approach's practicality and reliability.
