@@ -11,12 +11,19 @@
     </image>
     <generator>Hugo -- 0.134.0</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 05 Sep 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 14 Sep 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/categories/tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Lock Free Queue And Time Wheel Mechanism</title>
+      <link>http://localhost:1313/post/lockfree/</link>
+      <pubDate>Sat, 14 Sep 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/post/lockfree/</guid>
+      <description>A C&#43;&#43; Implementation</description>
+    </item>
     <item>
       <title>Master Thesis: High Availability in Lifecycle Management of Cloud-Native Network Functions</title>
       <link>http://localhost:1313/post/masterthesis/</link>
-      <pubDate>Thu, 05 Sep 2024 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 01 Aug 2023 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/post/masterthesis/</guid>
       <description>A Near-Zero Downtime Database Version Change Prototype</description>
     </item>
