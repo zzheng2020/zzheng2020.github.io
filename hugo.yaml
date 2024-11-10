@@ -66,7 +66,7 @@ params:
     title: "Ziheng Zhang" # optional default will be site title
     subtitle: |
       Always learning :-)
-    imageUrl: "https://github.com/user-attachments/assets/c262d43b-648a-4d48-8065-a62c4982daca" # optional
+    imageUrl: "/zzh-img/zzh.jpg" # optional
     imageTitle: "<title of image as alt>" # optional
     imageWidth: 200 # custom size
     imageHeight: 200 # custom size
