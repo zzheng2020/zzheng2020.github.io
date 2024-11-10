@@ -25,7 +25,7 @@ params:
   keywords: [Blog, Portfolio, PaperMod]
   author: Ziheng Zhang
   # author: ["Me", "You"] # multiple authors
-  images: ["https://www.linkedin.com/in/zhangziheng/"]
+  images: ["https://github.com/user-attachments/assets/c262d43b-648a-4d48-8065-a62c4982daca"]
   DateFormat: "January 2, 2006"
   defaultTheme: light # dark, light
   disableThemeToggle: false
@@ -66,7 +66,7 @@ params:
     title: "Ziheng Zhang" # optional default will be site title
     subtitle: |
       Always learning :-)
-    imageUrl: "https://media.licdn.com/dms/image/v2/D5603AQGKk7BjLCcDwA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1696809872798?e=1730937600&v=beta&t=zJ6UWMBfU4Rz04t-1BC9TCvhcFTr5wKBI6OZQbcmK4U" # optional
+    imageUrl: "https://github.com/user-attachments/assets/c262d43b-648a-4d48-8065-a62c4982daca" # optional
     imageTitle: "<title of image as alt>" # optional
     imageWidth: 200 # custom size
     imageHeight: 200 # custom size
