@@ -2,8 +2,8 @@
 author: ["Ziheng Zhang"]
 title: "The Tale of the Hasty Sparrow and the Angry Magpie"
 date: "2024-11-21"
-description: "When the storm passes, clarity remains. Here’s a story of haste, betrayal, and the surprising strength of truth."
-summary: "When the storm passes, clarity remains. Here’s a story of haste, betrayal, and the surprising strength of truth."
+description: "When the storm passes, clarity remains. Here’s a story of haste, chaos, and the surprising strength of truth."
+summary: "When the storm passes, clarity remains. Here’s a story of haste, chaos, and the surprising strength of truth."
 ShowToc: true
 TocOpen: false
 cover:
