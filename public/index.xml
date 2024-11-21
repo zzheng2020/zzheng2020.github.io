@@ -11,8 +11,15 @@
     </image>
     <generator>Hugo -- 0.134.0</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 14 Sep 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 21 Nov 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Tale of the Hasty Sparrow and the Angry Magpie</title>
+      <link>http://localhost:1313/post/the_tale_of_the_hasty_sparrow_and_the_angry_magpie/</link>
+      <pubDate>Thu, 21 Nov 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/post/the_tale_of_the_hasty_sparrow_and_the_angry_magpie/</guid>
+      <description>When the storm passes, clarity remains. Here’s a story of haste, betrayal, and the surprising strength of truth.</description>
+    </item>
     <item>
       <title>Lock Free Queue And Time Wheel Mechanism</title>
       <link>http://localhost:1313/post/lockfree/</link>
